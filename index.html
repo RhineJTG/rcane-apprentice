@@ -48,9 +48,9 @@ small{color:var(--muted);font-weight:400}
 /* grid */
 .grid{display:grid;grid-template-columns:minmax(0,1fr) 316px;gap:14px;align-items:start}
 @media(max-width:1020px){.grid{grid-template-columns:minmax(0,1fr) 300px}}
-@media(max-width:720px){.grid{grid-template-columns:minmax(0,1fr)}.nav .tab small{display:none}.nav .tab b{font-size:12px}.nav .tab{padding:2px}.grid .nav{grid-template-columns:repeat(5,minmax(0,1fr))}}
+@media(max-width:720px){.grid{grid-template-columns:minmax(0,1fr)}.nav .tab small{display:none}.nav .tab b{font-size:11px}.nav .tab{padding:2px}.grid .nav{grid-template-columns:repeat(6,minmax(0,1fr))}}
 
-.nav{grid-column:1/-1;display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:6px;max-width:800px}
+.nav{grid-column:1/-1;display:grid;grid-template-columns:repeat(11,minmax(0,1fr));gap:6px;max-width:880px}
 .tab{aspect-ratio:1;width:100%;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-align:center;background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:6px}
 .tab b{display:block;font-family:var(--f-disp);font-size:13px;line-height:1.2}
 .tab small{font-size:10px;line-height:1.3}
@@ -105,6 +105,20 @@ small{color:var(--muted);font-weight:400}
 .tile.taint .pic{background:repeating-linear-gradient(135deg,#4a1a5a 0 8px,#2a0f36 8px 16px);color:#e8b2ff}
 .tile.taint{border-color:var(--flux)}
 
+/* backpack */
+.bagwrap{display:grid;grid-template-columns:minmax(0,270px) minmax(0,1fr);gap:14px;align-items:start}
+@media(max-width:720px){.bagwrap{grid-template-columns:minmax(0,1fr)}}
+.bag9{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:4px}
+.bag9 .slot{min-width:0;background:#0c0914;border-color:#000;box-shadow:inset 1px 1px 0 rgba(255,255,255,.07),inset -1px -1px 0 rgba(255,255,255,.03)}
+.bag9 .slot .ico{width:min(34px,78%);height:auto;aspect-ratio:1;font-size:clamp(11px,2.6vw,16px)}
+.bag9 .slot.empty{opacity:.6}
+.eqg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.slot.eqs{background:#0c0914;border-color:#000}
+.slot.eqs .ico{width:min(34px,72%);height:auto;aspect-ratio:1;margin-bottom:8px}
+.slot .lb{position:absolute;left:0;right:0;bottom:2px;font-size:10px;line-height:1;color:var(--muted);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.slot.eqs:not(.on) .lb{position:static;font-size:11px}
+.eff{margin-top:12px;display:grid;gap:6px;font-size:13px}
+.eff small{display:block;font-size:12px}
 /* element book drawer */
 #drawer{position:fixed;top:0;bottom:0;right:0;z-index:40;width:min(340px,88vw);display:flex;flex-direction:column;background:var(--panel);border-left:1px solid var(--gold);transform:translateX(100%);transition:transform .2s ease;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);padding-right:env(safe-area-inset-right,0px)}
 #drawer.open{transform:none;box-shadow:-8px 0 24px rgba(0,0,0,.45)}
@@ -311,6 +325,22 @@ const IT={
  transvector:{n:'向量传送器',g:'矢',c:'#43c3b0',a:{motus:3,vacuos:2,metallum:2}},
  escape:{n:'逃脱符印',g:'符',c:'#e8e0a0',a:{motus:2,aer:2,praecantatio:1}},
  cake:{n:'神秘蛋糕',g:'糕',c:'#f0a0c0',a:{victus:2,sano:1}},
+ cloth:{n:'亚麻布',g:'布',c:'#cfc7a8',a:{herba:2,ordo:1}},
+ tonic:{n:'镇静药剂',g:'药',c:'#7fe0b0',a:{sano:2,aqua:1,ordo:1}},
+ goggles:{n:'奥术护目镜',g:'镜',c:'#4fc3c9',a:{sensus:2,vitreus:2,metallum:1}},
+ robe_chest:{n:'秘法长袍',g:'袍',c:'#6b4fc0',a:{praecantatio:2,herba:2,metallum:1}},
+ robe_legs:{n:'秘法护腿',g:'裤',c:'#7a5fcf',a:{praecantatio:2,herba:2,terra:1}},
+ robe_boots:{n:'秘法长靴',g:'靴',c:'#5b43a8',a:{praecantatio:1,herba:2,motus:1}},
+ void_chest:{n:'虚空长袍',g:'虚',c:'#2e2250',a:{vacuos:3,praecantatio:2,tenebrae:1}},
+ charm_lucky:{n:'好运护符',g:'运',c:'#8fd46a',a:{lux:2,victus:1,praecantatio:1}},
+ ring_vis:{n:'魔力指环',g:'环',c:'#e0b0ff',a:{potentia:3,praecantatio:2,metallum:1}},
+ ring_order:{n:'秩序指环',g:'环',c:'#d9d8f0',a:{ordo:3,sano:1,metallum:1}},
+ ring_delve:{n:'探险指环',g:'环',c:'#8a5fd6',a:{vacuos:2,iter:2,metallum:1}},
+ ichorcloth:{n:'灵宝布',g:'宝',c:'#b98cff',a:{herba:2,praecantatio:3,vacuos:1}},
+ ichor_cowl:{n:'灵宝兜帽',g:'帽',c:'#b98cff',a:{praecantatio:3,sensus:2,vacuos:1}},
+ ichor_robe:{n:'灵宝长袍',g:'袍',c:'#a070f0',a:{praecantatio:4,spiritus:2,vacuos:2}},
+ ichor_legs:{n:'灵宝护腿',g:'裤',c:'#9560e6',a:{praecantatio:3,motus:2,vacuos:1}},
+ ichor_boots:{n:'灵宝长靴',g:'靴',c:'#8a55dc',a:{praecantatio:3,iter:2,vacuos:1}},
  coal:{n:'煤炭',g:'煤',c:'#3a3a46',a:{ignis:2,potentia:1}},
  ironore:{n:'铁矿',g:'矿',c:'#b98f72',a:{metallum:2,terra:1}},
  goldore:{n:'金矿',g:'矿',c:'#d9b348',a:{metallum:2,lux:1}},
@@ -356,13 +386,33 @@ const TILES=[
  {id:'waste',n:'荒原',item:'flesh',g:'荒',c:'#7a5a5a',ch:.4,h:'游荡着僵尸，偶尔能捡到腐肉。'}
 ];
 
+/* ---------- 装备 ---------- */
+const EQ={
+ goggles:{slot:'head',scan:1,d:'替代探知仪进行扫描，每次扫描多得 1 点元素。'},
+ robe_chest:{slot:'body',vis:.05,dmg:.10,d:'魔力消耗 −5%，异域伤害 −10%。'},
+ robe_legs:{slot:'legs',vis:.04,dmg:.08,d:'魔力消耗 −4%，异域伤害 −8%。'},
+ robe_boots:{slot:'feet',vis:.03,dmg:.06,d:'魔力消耗 −3%，异域伤害 −6%。'},
+ void_chest:{slot:'body',vis:.08,dmg:.15,warp:.2,d:'魔力消耗 −8%，异域伤害 −15%，扭曲低语 −20%。'},
+ amulet:{slot:'charm',dmg:.45,warp:.75,d:'异域伤害 −45%，扭曲低语 −75%。'},
+ charm_lucky:{slot:'charm',luck:.15,loot:.2,d:'世界采集有 15% 概率多得 1 个，异域战利品有 20% 概率多 1 个。'},
+ ring_vis:{slot:'ring',regen:1.5,d:'魔杖自动充能速度 ×2.5。'},
+ ring_order:{slot:'ring',flux:1.5,d:'魔力污染自然消退速度 ×2.5。'},
+ ring_delve:{slot:'ring',loot:.3,hazard:.05,d:'异域战利品有 30% 概率多 1 个，危险概率 −5%。'},
+ ichor_cowl:{slot:'head',vis:.04,dmg:.10,d:'魔力消耗 −4%，异域伤害 −10%。'},
+ ichor_robe:{slot:'body',vis:.06,dmg:.14,warp:.15,d:'魔力消耗 −6%，异域伤害 −14%，扭曲低语 −15%。'},
+ ichor_legs:{slot:'legs',vis:.05,dmg:.11,d:'魔力消耗 −5%，异域伤害 −11%。'},
+ ichor_boots:{slot:'feet',vis:.04,dmg:.09,d:'魔力消耗 −4%，异域伤害 −9%。'}
+};
+const SLOTS=[['head','头部'],['body','身体'],['legs','腿部'],['feet','脚部'],['charm','护符'],['ring1','戒指'],['ring2','戒指']];
+const KEEP=['thaumometer','attractor','bucket','striker','transvector'];
+const DESC={thaumometer:'扫描物品，得知它包含的元素。背包里有一个就够用，不会被扭曲事件夺走，丢了也可以重做。',attractor:'被动：世界采集时有 25% 概率多得 1 个。',transvector:'被动：魔像采集速度 +50%。',bucket:'在坩埚页使用：−2 水魔力，+4 水位。',striker:'在坩埚页使用：−3 火魔力，+60 秒热量。',cake:'异域中使用：稳定度 +40。',tonic:'异域中使用：稳定度 +50。',holywater:'异域中使用：稳定度 +30。也可以净化被污染的地块。',escape:'异域稳定度归零时自动触发，带着战利品离开。',purify:'净化被污染的地块。',cloth:'织造材料。',ichorcloth:'浸透灵液的布，缝制灵宝套装用。'};
 /* ---------- 魔杖 ---------- */
-const RODS={wood:{n:'木',max:30,rank:1},great:{n:'绿木',max:90,rank:2}};
+const RODS={wood:{n:'木',max:30,rank:1},great:{n:'绿木',max:90,rank:2},ichor:{n:'灵液',max:180,rank:3}};
 const CAPS={iron:{n:'铁',disc:0,rank:1},gold:{n:'金',disc:.1,rank:2},thaum:{n:'神秘金属',disc:.2,rank:3},void:{n:'虚空金属',disc:.3,rank:4},ichor:{n:'灵液',disc:.4,rank:5}};
 const AMAX=100;
 
 /* ---------- 研究 ---------- */
-const CATS={basic:'基础',alch:'炼金术',art:'神器',tinker:'神秘工匠',forbid:'禁忌'};
+const CATS={basic:'基础',alch:'炼金术',art:'神器',gear:'装备',tinker:'神秘工匠',forbid:'禁忌'};
 const RS=[
  {id:'ARCANE',cat:'basic',n:'奥术工作台',d:'用魔杖里的原始魔力驱动合成。解锁新地点：魔法林地。',req:[],a:'ordo',b:'ignis',len:1,learn:['vacuos','motus'],u:'解锁奥术工作台，可以消耗魔力合成魔法装备。'},
  {id:'NODES',cat:'basic',n:'节点学',d:'魔力在世界中汇聚成节点，可以从中直接汲取。解锁新地点：节点晶簇。',req:['ARCANE'],a:'aer',b:'terra',len:2,learn:['iter','lux'],u:'解锁节点页，可以寻找并汲取魔力节点。'},
@@ -383,7 +433,16 @@ const RS=[
  {id:'TRANSVECTOR',cat:'tinker',n:'向量传送',d:'让物体沿看不见的轨道移动。解锁向量传送器，魔像采集速度 +50%。',req:['TINKER','GOLEMANCY'],a:'motus',b:'vacuos',len:3,learn:[],u:'工匠台新增：向量传送器。'},
  {id:'OUTER',cat:'forbid',n:'异域',d:'裂隙的另一侧。解锁异域，一个高风险的采集区。研究它会让你听见低语。',req:['FORBIDDEN'],a:'iter',b:'vitium',len:4,learn:[],warp:3,u:'扭曲 +3。新页面：异域。'},
  {id:'ESCAPE',cat:'tinker',n:'逃脱符印',d:'在最糟的时候带着战利品离开。解锁逃脱符印，需要异域出产的奥术石英。',req:['TINKER','OUTER'],a:'alkimia',b:'vacuos',len:3,learn:[],u:'工匠台新增：逃脱符印。'},
- {id:'ICHOR',cat:'forbid',n:'灵液金属',d:'把异域的灵液炼成金属。解锁灵液金属锭与灵液杖帽（魔力消耗 −40%）。',req:['OUTER','INFUSION'],a:'praecantatio',b:'mortuus',len:3,learn:[],warp:2,u:'扭曲 +2。注魔新增：灵液金属锭；奥术工作台新增：灵液杖帽。'}
+ {id:'ICHOR',cat:'forbid',n:'灵液金属',d:'把异域的灵液炼成金属。解锁灵液金属锭、灵液杖帽（魔力消耗 −40%）与灵液杖芯（容量每种 180）。',req:['OUTER','INFUSION'],a:'praecantatio',b:'mortuus',len:3,learn:[],warp:2,u:'扭曲 +2。注魔新增：灵液金属锭、灵液杖芯；奥术工作台新增：灵液杖帽。'},
+ {id:'GOGGLES',cat:'gear',n:'奥术护目镜',d:'把探知仪的镜片磨成护目镜。解锁奥术护目镜：装备后无需探知仪也能扫描。',req:['ARCANE'],a:'lux',b:'vitreus',len:3,learn:[],u:'奥术工作台新增：奥术护目镜。'},
+ {id:'TOOLSMITH',cat:'gear',n:'神秘金属工具',d:'神秘金属锻造的镐和斧。解锁神秘金属镐（矿物产量 ×3）与神秘金属斧（木材产量 ×3）。',req:['THAUMIUM'],a:'aqua',b:'metallum',len:3,learn:[],u:'合成页新增：神秘金属镐、神秘金属斧。'},
+ {id:'ROBES',cat:'gear',n:'秘法长袍',d:'用亚麻布和神秘金属缝制法袍。解锁秘法长袍、护腿、长靴，三件齐全有套装加成。',req:['THAUMIUM'],a:'herba',b:'metallum',len:3,learn:[],u:'奥术工作台新增：秘法长袍、护腿、长靴。'},
+ {id:'RINGS',cat:'gear',n:'指环工艺',d:'把魔力镶进金属环里。解锁魔力指环（魔杖充能更快）与秩序指环（污染消退更快）。',req:['INFUSION'],a:'potentia',b:'vitreus',len:3,learn:[],u:'注魔新增：魔力指环、秩序指环。'},
+ {id:'FORTUNE',cat:'gear',n:'好运',d:'概率也能被编织。解锁好运护符：采集与异域战利品有概率多得 1 个。',req:['TINKER'],a:'permutatio',b:'vacuos',len:3,learn:[],u:'工匠台新增：好运护符。'},
+ {id:'IRONGOLEM',cat:'art',n:'魔像改良',d:'用铁强化魔像的躯体。解锁铁魔像，采集速度 ×2.4。',req:['GOLEMANCY'],a:'cognitio',b:'metallum',len:3,learn:[],u:'魔像页新增：铁魔像。'},
+ {id:'VOIDROBE',cat:'gear',n:'虚空法袍',d:'把虚空织进布里。解锁虚空长袍：更强的减伤，并降低扭曲低语。',req:['ROBES','VOID'],a:'arbor',b:'vacuos',len:4,learn:[],warp:2,u:'扭曲 +2。注魔新增：虚空长袍。'},
+ {id:'DELVER',cat:'gear',n:'探险家',d:'在异域活下来的技巧。解锁探险指环：战利品更多、危险概率更低。',req:['RINGS','OUTER'],a:'terra',b:'tenebrae',len:4,learn:[],warp:1,u:'扭曲 +1。注魔新增：探险指环。'},
+ {id:'ICHORCLOTH',cat:'gear',n:'灵宝套装',d:'把灵液织进布料。解锁灵宝布与整套灵宝装备：兜帽、长袍、护腿、长靴。四件齐全有套装加成。',req:['ICHOR','ROBES'],a:'herba',b:'praecantatio',len:3,learn:[],warp:1,u:'扭曲 +1。注魔新增：灵宝布、灵宝兜帽、长袍、护腿、长靴。'}
 ];
 const RSD={};RS.forEach(r=>RSD[r.id]=r);
 
@@ -392,6 +451,7 @@ const R=[
  {id:'plank',st:'craft',g:'basic',n:'木板',d:'原木加工成木板。',inp:{log:1},out:{plank:4}},
  {id:'stick',st:'craft',g:'basic',n:'木棍',d:'木板削成木棍。',inp:{plank:2},out:{stick:4}},
  {id:'paper',st:'craft',g:'basic',n:'纸',d:'芦苇捣碎压平。',inp:{reed:3},out:{paper:3}},
+ {id:'cloth',st:'craft',g:'basic',n:'亚麻布',d:'芦苇纤维织成的布，缝制法袍用。',inp:{reed:4},out:{cloth:1}},
  {id:'book',st:'craft',g:'basic',n:'书',d:'纸张加上木封面。',inp:{paper:3,plank:1},out:{book:1}},
  {id:'smi',st:'craft',g:'smelt',n:'冶炼铁锭',d:'铁矿加煤炭。',inp:{ironore:1,coal:1},out:{iron:1}},
  {id:'smg',st:'craft',g:'smelt',n:'冶炼金锭',d:'金矿加煤炭。',inp:{goldore:1,coal:1},out:{gold:1}},
@@ -399,11 +459,13 @@ const R=[
  {id:'pick1',st:'craft',g:'tool',n:'石镐',d:'能挖铁矿。',inp:{cobble:3,stick:2},tool:['pick',1],gl:'镐',c:'#8b8d96'},
  {id:'pick2',st:'craft',g:'tool',n:'铁镐',d:'能挖金矿与红石，矿物产量翻倍。',inp:{iron:3,stick:2},tool:['pick',2],gl:'镐',c:'#d6d6e2'},
  {id:'axe1',st:'craft',g:'tool',n:'铁斧',d:'砍树时原木翻倍。',inp:{iron:3,stick:2},tool:['axe',1],gl:'斧',c:'#d6d6e2'},
+ {id:'pick3',st:'craft',g:'tool',n:'神秘金属镐',d:'矿物产量 ×3。',inp:{thaumium:3,stick:2},tool:['pick',3],gl:'镐',c:'#7a5cd6',req:'TOOLSMITH'},
+ {id:'axe2',st:'craft',g:'tool',n:'神秘金属斧',d:'木材产量 ×3。',inp:{thaumium:3,stick:2},tool:['axe',2],gl:'斧',c:'#7a5cd6',req:'TOOLSMITH'},
  {id:'rod',st:'craft',g:'magic',n:'木杖芯',d:'魔杖的核心，决定魔力容量（每种30）。',inp:{stick:4},eq:['rod','wood'],gl:'芯',c:'#a07a46'},
  {id:'cap',st:'craft',g:'magic',n:'铁杖帽',d:'魔杖两端的金属帽。有杖芯和杖帽才算一根魔杖。',inp:{iron:4},eq:['cap','iron'],gl:'帽',c:'#d6d6e2'},
  {id:'shelf',st:'craft',g:'magic',n:'书架',d:'放满书的书架。',inp:{plank:6,book:3},out:{shelf:1}},
  {id:'wake',st:'craft',g:'magic',n:'激活书架',verb:'激活',d:'用魔杖轻点书架，唤出神秘学笔记。',inp:{shelf:1},once:1,need:()=>hasWand(),needTxt:'需要一根魔杖',gl:'典',c:'#a97bff',fx:()=>{S.has.tm=1;S.pool.ordo+=2;S.pool.ignis+=2;msg('书页自己翻开了。神秘学笔记已解锁，并赠予你一些研究灵感。','gold')}},
- {id:'tmeter',st:'craft',g:'magic',n:'探知仪',d:'扫描背包物品，得知它们包含的元素。',inp:{glass:2,gold:1,iron:1},out:{thaumometer:1},once:1,need:()=>S.has.tm,needTxt:'需要先激活书架'},
+ {id:'tmeter',st:'craft',g:'magic',n:'探知仪',d:'扫描背包物品，得知它们包含的元素。丢了可以重做，背包里有一个就够。',inp:{glass:2,gold:1,iron:1},out:{thaumometer:1},need:()=>S.has.tm&&inv('thaumometer')<1,needTxt:'需要先激活书架；背包里已有探知仪时不用再做'},
 
  {id:'a_stab',st:'arcane',n:'稳定符文',d:'永久降低注魔时的不稳定度（上限4）。',inp:{redstone:2,cobble:3},vis:{ordo:6,terra:4},req:'INFUSION',need:()=>S.stab<4,needTxt:'稳定符文已达上限',gl:'符',c:'#5a8ad8',fx:()=>{S.stab++}},
  {id:'a_gold',st:'arcane',n:'金杖帽',d:'魔力消耗 -10%。',inp:{gold:4},vis:{ignis:6,ordo:4},eq:['cap','gold'],gl:'帽',c:'#f0c93f'},
@@ -431,12 +493,29 @@ const R=[
  {id:'t_cake',st:'tink',n:'神秘蛋糕',d:'异域探险时恢复 40 点稳定度。',inp:{reed:3,shroom:1},out:{cake:1},req:'TINKER'},
  {id:'t_str',st:'tink',n:'熔火打火石',d:'在坩埚页点火：−3 火魔力，+60 秒热量。',inp:{iron:2,coal:2,thaumium:1},vis:{ignis:10,ordo:4},out:{striker:1},once:1,req:'IGNIUM'},
  {id:'t_vec',st:'tink',n:'向量传送器',d:'被动：魔像采集速度 +50%。',inp:{thaumium:2,gold:1,iron:2},vis:{ordo:10,perditio:6},out:{transvector:1},once:1,req:'TRANSVECTOR'},
- {id:'t_esc',st:'tink',n:'逃脱符印',d:'异域稳定度归零时自动触发，带着战利品离开。',inp:{paper:1,quartz:1,gold:1},vis:{aer:6,ordo:4},out:{escape:1},req:'ESCAPE'}
+ {id:'t_esc',st:'tink',n:'逃脱符印',d:'异域稳定度归零时自动触发，带着战利品离开。',inp:{paper:1,quartz:1,gold:1},vis:{aer:6,ordo:4},out:{escape:1},req:'ESCAPE'},
+ {id:'g_gog',st:'arcane',n:'奥术护目镜',d:'装备后无需探知仪也能扫描，每次多得 1 点元素。',inp:{glass:2,gold:1,iron:2},vis:{ordo:8,aer:6},out:{goggles:1},need:()=>!has('goggles'),needTxt:'已经拥有',req:'GOGGLES'},
+ {id:'g_rc',st:'arcane',n:'秘法长袍',d:'魔力消耗 −5%，异域伤害 −10%。',inp:{cloth:4,thaumium:2},vis:{ordo:10,aqua:6},out:{robe_chest:1},need:()=>!has('robe_chest'),needTxt:'已经拥有',req:'ROBES'},
+ {id:'g_rl',st:'arcane',n:'秘法护腿',d:'魔力消耗 −4%，异域伤害 −8%。',inp:{cloth:3,thaumium:2},vis:{ordo:8,terra:6},out:{robe_legs:1},need:()=>!has('robe_legs'),needTxt:'已经拥有',req:'ROBES'},
+ {id:'g_rb',st:'arcane',n:'秘法长靴',d:'魔力消耗 −3%，异域伤害 −6%。三件秘法法袍齐全，魔力消耗额外 −5%。',inp:{cloth:2,thaumium:1,iron:2},vis:{ordo:6,aer:6},out:{robe_boots:1},need:()=>!has('robe_boots'),needTxt:'已经拥有',req:'ROBES'},
+ {id:'i_vrobe',st:'inf',n:'虚空长袍',d:'魔力消耗 −8%，异域伤害 −15%，扭曲低语 −20%。',inp:{thaumium:2,void:3,cloth:4},ess:{vacuos:6,tenebrae:3,praecantatio:4},inst:3,out:{void_chest:1},need:()=>!has('void_chest'),needTxt:'已经拥有',req:'VOIDROBE'},
+ {id:'i_rv',st:'inf',n:'魔力指环',d:'魔杖自动充能速度 ×2.5。',inp:{gold:2,thaumium:1,redstone:2},ess:{potentia:6,praecantatio:3,ordo:4},inst:2,out:{ring_vis:1},need:()=>!has('ring_vis'),needTxt:'已经拥有',req:'RINGS'},
+ {id:'i_ro',st:'inf',n:'秩序指环',d:'魔力污染自然消退速度 ×2.5。',inp:{gold:2,thaumium:1,paper:2},ess:{ordo:8,sano:3,praecantatio:3},inst:2,out:{ring_order:1},need:()=>!has('ring_order'),needTxt:'已经拥有',req:'RINGS'},
+ {id:'i_rd',st:'inf',n:'探险指环',d:'异域战利品有 30% 概率多 1 个，危险概率 −5%。',inp:{gold:2,thaumium:1,quartz:2},ess:{vacuos:4,praecantatio:4,mortuus:2},inst:3,out:{ring_delve:1},need:()=>!has('ring_delve'),needTxt:'已经拥有',req:'DELVER'},
+ {id:'i_ichrod',st:'inf',n:'灵液杖芯',d:'魔力容量提升到每种 180。',inp:{stick:4,ichorium:2},ess:{praecantatio:6,arbor:6,potentia:4},inst:3,eq:['rod','ichor'],gl:'芯',c:'#a35cff',req:'ICHOR'},
+ {id:'t_luck',st:'tink',n:'好运护符',d:'世界采集有 15% 概率多得 1 个，异域战利品有 20% 概率多 1 个。',inp:{gold:2,shroom:3,paper:1},vis:{aer:6,ordo:6},out:{charm_lucky:1},need:()=>!has('charm_lucky'),needTxt:'已经拥有',req:'FORTUNE'},
+ {id:'c_tonic',st:'cru',n:'镇静药剂',d:'异域中使用，稳定度 +50。',inp:{water:1},ess:{sano:2,ordo:1},out:{tonic:1},req:'PURIFY'},
+ {id:'i_icloth',st:'inf',n:'灵宝布',d:'把灵液织进亚麻布，缝制灵宝套装用。',inp:{cloth:3,ichor:1},ess:{praecantatio:3,vacuos:2},inst:2,out:{ichorcloth:3},req:'ICHORCLOTH'},
+ {id:'i_icowl',st:'inf',n:'灵宝兜帽',d:'魔力消耗 −4%，异域伤害 −10%。灵宝套装的一部分。',inp:{ichorcloth:3,thaumium:1},ess:{praecantatio:4,sensus:3,ordo:3},inst:3,out:{ichor_cowl:1},need:()=>!has('ichor_cowl'),needTxt:'已经拥有',req:'ICHORCLOTH'},
+ {id:'i_irobe',st:'inf',n:'灵宝长袍',d:'魔力消耗 −6%，异域伤害 −14%，扭曲低语 −15%。灵宝套装的一部分。',inp:{ichorcloth:5,thaumium:2},ess:{praecantatio:6,spiritus:3,ordo:4},inst:3,out:{ichor_robe:1},need:()=>!has('ichor_robe'),needTxt:'已经拥有',req:'ICHORCLOTH'},
+ {id:'i_ilegs',st:'inf',n:'灵宝护腿',d:'魔力消耗 −5%，异域伤害 −11%。灵宝套装的一部分。',inp:{ichorcloth:4,thaumium:1},ess:{praecantatio:5,motus:3,ordo:3},inst:3,out:{ichor_legs:1},need:()=>!has('ichor_legs'),needTxt:'已经拥有',req:'ICHORCLOTH'},
+ {id:'i_iboots',st:'inf',n:'灵宝长靴',d:'魔力消耗 −4%，异域伤害 −9%。四件齐全：魔力消耗额外 −8%，异域每深入一层恢复 3 点稳定度。',inp:{ichorcloth:3,thaumium:1},ess:{praecantatio:4,iter:3,ordo:3},inst:3,out:{ichor_boots:1},need:()=>!has('ichor_boots'),needTxt:'已经拥有',req:'ICHORCLOTH'}
 ];
-const GT={wood:{n:'木魔像',m:1,cost:{core:1,plank:8}},iron:{n:'铁魔像',m:2.4,cost:{core:1,iron:6}}};
+const GT={wood:{n:'木魔像',m:1,cost:{core:1,plank:8}},iron:{n:'铁魔像',m:2.4,res:'IRONGOLEM',cost:{core:1,iron:6}}};
 const GTASK={log:['伐木',.30],feather:['拾羽毛',.2],cobble:['采石',.30],sand:['采沙',.22],reed:['割芦苇',.22],water:['取水',.14],coal:['挖煤',.12],ironore:['采铁矿',.07],shroom:['采魔菇',.18,'ARCANE'],greenlog:['伐绿木',.15,'GREATWOOD'],redstone:['挖红石',.06,'DIG'],goldore:['挖金矿',.05,'DIG'],holywater:['汲圣水',.1,'PURIFY']};
 const TABS=[
  {id:'world',n:'世界',s:'采集资源',ok:()=>true},
+ {id:'bag',n:'背包',s:'物品与装备',ok:()=>true},
  {id:'craft',n:'合成',s:'工作台与熔炉',ok:()=>true},
  {id:'notes',n:'笔记',s:'研究与元素册',ok:()=>S.has.tm,lock:'用魔杖激活书架后解锁'},
  {id:'arcane',n:'奥术工作台',s:'消耗魔力合成',ok:()=>S.res.ARCANE,lock:'完成研究「奥术工作台」'},
@@ -456,7 +535,7 @@ function fresh(){
  P.forEach(p=>{aura[p]=AMAX;vis[p]=0;pool[p]=3;known[p]=1});
  return {inv:{},ever:{},pool,ess:{},known,scanned:{},res:{},has:{},built:{},tools:{pick:0,axe:0},
   wand:{rod:null,cap:null},vis,aura,flux:0,warp:0,cru:{water:0,heat:0},node:null,search:0,
-  golems:[],taint:[],focus:null,stab:0,rs:null,log:[],won:0,tk:0,outer:{on:0,depth:0,st:100,loot:{},best:0}};
+  golems:[],taint:[],focus:null,stab:0,rs:null,log:[],won:0,tk:0,outer:{on:0,depth:0,st:100,loot:{},best:0},equip:{head:null,body:null,legs:null,feet:null,charm:null,ring1:null,ring2:null}};
 }
 function load(){ try{const r=localStorage.getItem(KEY); if(r) return Object.assign(fresh(),JSON.parse(r));}catch(e){} return fresh(); }
 function save(){ try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){} }
@@ -467,7 +546,7 @@ function give(id,n){S.inv[id]=inv(id)+n;S.ever[id]=ev(id)+n}
 function take(id,n){S.inv[id]=inv(id)-n;if(S.inv[id]<=0)delete S.inv[id]}
 const hasWand=()=>!!(S.wand.rod&&S.wand.cap);
 const wandMax=()=>hasWand()?RODS[S.wand.rod].max:0;
-const disc=()=>hasWand()?CAPS[S.wand.cap].disc:0;
+const disc=()=>hasWand()?Math.min(.6,CAPS[S.wand.cap].disc+eqVal('vis')+(setBonus()?.05:0)+(ichorSet()?.08:0)):0;
 const vcost=c=>Math.max(1,Math.ceil(c*(1-disc())));
 const rnd=a=>a[Math.floor(Math.random()*a.length)];
 function msg(t,k){S.log.push({t,k:k||''});if(S.log.length>40)S.log.shift();renderLog()}
@@ -508,7 +587,7 @@ function canRecipe(r){
  if(r.ess) for(const a in r.ess) if((S.ess[a]||0)<r.ess[a]) ok=false;
  if(r.need&&!r.need()){ok=false;why.push(r.needTxt)}
  if(r.once&&S.built[r.id]){ok=false;why.push('已完成')}
- if(r.tool){const [k,v]=r.tool; if(S.tools[k]>=v){ok=false;why.push('已拥有')} else if(k==='pick'&&v===2&&S.tools.pick<1){ok=false;why.push('需要先做石镐')}}
+ if(r.tool){const [k,v]=r.tool; if(S.tools[k]>=v){ok=false;why.push('已拥有')} else if(S.tools[k]<v-1){ok=false;why.push('需要先做低一级的工具')}}
  if(r.eq){const [slot,id]=r.eq;const tbl=slot==='rod'?RODS:CAPS;const cur=S.wand[slot]; if(cur&&tbl[cur].rank>=tbl[id].rank){ok=false;why.push('已装备同级或更好的')}}
  if(r.st==='cru'){ if(S.cru.heat<=0){ok=false;why.push('坩埚需要加热')} if(S.cru.water<=0){ok=false;why.push('坩埚需要加水')} }
  return {ok,why};
@@ -521,6 +600,7 @@ function doRecipe(id,e){
  if(r.ess) for(const a in r.ess){S.ess[a]-=r.ess[a];if(S.ess[a]<=0)delete S.ess[a]}
  if(r.st==='cru') S.cru.water--;
  if(r.out) for(const k in r.out) give(k,r.out[k]);
+ if(r.out) for(const k in r.out) if(EQ[k]&&!S.equip[slotFor(k)]&&!(EQ[k].slot==='ring'&&isEq(k))) equipItem(k);
  if(r.tool) S.tools[r.tool[0]]=r.tool[1];
  if(r.eq){S.wand[r.eq[0]]=r.eq[1];}
  if(r.once) S.built[r.id]=1;
@@ -540,9 +620,10 @@ function harvest(id,e){
  if(Math.random()>t.ch){pop(e,'扑空','bad');return}
  let item=t.item,qty=1;
  if(t.drops){let w=t.drops.reduce((x,d)=>x+d[1],0)*Math.random();for(const d of t.drops){w-=d[1];if(w<=0){item=d[0];break}}}
- if(t.id==='tree'&&S.tools.axe>=1)qty=2;
- if(['cobble','coal','ironore','goldore','redstone'].includes(item)&&S.tools.pick>=2)qty=2;
+ if((t.id==='tree'||t.id==='greenwood')&&S.tools.axe>=1)qty=S.tools.axe>=2?3:2;
+ if(['cobble','coal','ironore','goldore','redstone'].includes(item)&&S.tools.pick>=2)qty=S.tools.pick>=3?3:2;
  if(inv('attractor')>0&&Math.random()<.25)qty+=1;
+ if(Math.random()<eqVal('luck'))qty+=1;
  if(S.focus==='focus_dig'&&inv('focus_dig')&&hasWand()&&S.vis.terra>=2){S.vis.terra-=2;qty*=2}
  if(S.focus==='focus_fuse'&&inv('focus_fuse')&&hasWand()&&S.vis.ignis>=2&&['ironore','goldore','sand'].includes(item)){S.vis.ignis-=2;item={ironore:'iron',goldore:'gold',sand:'glass'}[item]}
  give(item,qty);
@@ -577,14 +658,14 @@ function charge(src,e){
 }
 function outburst(){
  S.flux=45;S.warp+=2;
- for(const k of Object.keys(S.inv)){const l=Math.ceil(S.inv[k]*.2);S.inv[k]-=l;if(S.inv[k]<=0)delete S.inv[k]}
+ for(const k of Object.keys(S.inv)){if(KEEP.includes(k)||EQ[k])continue;const l=Math.ceil(S.inv[k]*.2);S.inv[k]-=l;if(S.inv[k]<=0)delete S.inv[k]}
  for(let i=0;i<2;i++){const f=TILES.map(t=>t.id).filter(x=>!S.taint.includes(x));if(f.length)S.taint.push(rnd(f))}
  msg('魔力污染爆发！背包里的东西被侵蚀，扭曲 +2。','bad');
 }
 const WARPFX=[
  ['书架后面传来低语，你分不清是不是自己的声音。',()=>{}],
  ['眼前的符文短暂地倒转了。',()=>{}],
- ['耳鸣之后，背包里少了一些东西。',()=>{for(const k of Object.keys(S.inv)){if(Math.random()<.4){S.inv[k]-=Math.ceil(S.inv[k]*.1);if(S.inv[k]<=0)delete S.inv[k]}}}],
+ ['耳鸣之后，背包里少了一些东西。',()=>{for(const k of Object.keys(S.inv)){if(KEEP.includes(k)||EQ[k])continue;if(Math.random()<.4){S.inv[k]-=Math.ceil(S.inv[k]*.1);if(S.inv[k]<=0)delete S.inv[k]}}}],
  ['脑海里的元素忽然散开，你忘掉了一部分灵感。',()=>{for(let i=0;i<3;i++){const k=rnd(Object.keys(S.pool).filter(x=>S.pool[x]>0)||[]);if(k)S.pool[k]--}}],
  ['空气变得黏稠，魔力污染悄悄上升。',()=>addFlux(4)]
 ];
@@ -629,10 +710,10 @@ function finishRes(e){
 
 /* ---------- 扫描 ---------- */
 function scan(id,e){
- if(!inv('thaumometer')){msg('需要先制作探知仪。','bad');return}
+ if(!inv('thaumometer')&&!isEq('goggles')){msg('需要探知仪，或装备奥术护目镜。','bad');return}
  if(S.scanned[id]){msg('这个物品已经扫描过了。','bad');return}
  S.scanned[id]=1;const parts=[];
- for(const a in IT[id].a){const n=IT[id].a[a];const pts=1+(n>=3?1:0);S.known[a]=1;S.pool[a]=(S.pool[a]||0)+pts;parts.push(`${A[a].f}×${pts}`)}
+ for(const a in IT[id].a){const n=IT[id].a[a];const pts=1+(n>=3?1:0)+eqVal('scan');S.known[a]=1;S.pool[a]=(S.pool[a]||0)+pts;parts.push(`${A[a].f}×${pts}`)}
  msg(`扫描「${IT[id].n}」：获得 ${parts.join('、')}。`,'good');
  if(e)pop(e,'扫描完成');render();
 }
@@ -658,6 +739,7 @@ function transcribe(id,e){
 /* ---------- 魔像 ---------- */
 function buildGolem(t){
  const g=GT[t];
+ if(g.res&&!S.res[g.res]){msg('需要先研究魔像改良。','bad');return}
  if(S.golems.length>=6){msg('最多同时拥有 6 个魔像。','bad');return}
  for(const k in g.cost) if(inv(k)<g.cost[k]){msg('材料不足。','bad');return}
  for(const k in g.cost) take(k,g.cost[k]);
@@ -665,6 +747,30 @@ function buildGolem(t){
 }
 
 /* ---------- 胜利 ---------- */
+function isEq(id){return Object.keys(S.equip).some(s=>S.equip[s]===id)}
+function has(id){return inv(id)>0||isEq(id)}
+function eqVal(p){let v=0;for(const s in S.equip){const id=S.equip[s];if(id&&EQ[id]&&EQ[id][p])v+=EQ[id][p]}return v}
+function setBonus(){return S.equip.body==='robe_chest'&&S.equip.legs==='robe_legs'&&S.equip.feet==='robe_boots'}
+function ichorSet(){return S.equip.head==='ichor_cowl'&&S.equip.body==='ichor_robe'&&S.equip.legs==='ichor_legs'&&S.equip.feet==='ichor_boots'}
+function slotFor(id){const sl=EQ[id].slot;if(sl!=='ring')return sl;if(!S.equip.ring1)return 'ring1';if(!S.equip.ring2)return 'ring2';return 'ring1'}
+function equipItem(id){
+ if(!EQ[id]||inv(id)<1)return;
+ if(EQ[id].slot==='ring'&&isEq(id)){msg('已经戴着一枚同样的戒指了。','bad');return}
+ const sl=slotFor(id),old=S.equip[sl];
+ take(id,1);if(old)S.inv[old]=inv(old)+1;
+ S.equip[sl]=id;msg(`装备了${IT[id].n}。`,'good');render();
+}
+function unequip(sl){
+ const id=S.equip[sl];if(!id)return;
+ S.equip[sl]=null;S.inv[id]=inv(id)+1;msg(`卸下了${IT[id].n}。`);render();
+}
+function useItem(id){
+ if(inv(id)<1)return;
+ if(id.startsWith('shard_')){
+  if(!hasWand()){msg('需要先有一根魔杖。','bad');return}
+  const p=id.slice(6);S.vis[p]=Math.min(wandMax(),S.vis[p]+12);take(id,1);msg(`向魔杖充入了 12 点${A[p].f}魔力。`,'good');render();
+ }
+}
 const HZ=['暗影从裂缝里伸出手。','脚下的地面忽然变成了水。','一阵低语让你耳鸣。','有东西在看着你，你确定。','空气里的魔力凝成了刀刃。'];
 function outerBank(){const o=S.outer;for(const k in o.loot)give(k,o.loot[k])}
 function outerReset(){S.outer={on:0,depth:0,st:100,loot:{},best:S.outer.best||0}}
@@ -676,9 +782,10 @@ function outerEnd(){
 function outerDeeper(e){
  const o=S.outer;if(!o.on)return;
  o.depth++;o.best=Math.max(o.best||0,o.depth);
+ if(ichorSet())o.st=Math.min(100,o.st+3);
  if(o.depth>=3&&Math.random()<.2)S.warp+=1;
- if(Math.random()<Math.min(.75,.22+o.depth*.06)){
-  const dmg=Math.round((8+o.depth*3+Math.floor(Math.random()*8))*(inv('amulet')>0?.55:1));
+ if(Math.random()<Math.max(.05,Math.min(.75,.22+o.depth*.06)-eqVal('hazard'))){
+  const dmg=Math.round((8+o.depth*3+Math.floor(Math.random()*8))*(1-Math.min(.7,eqVal('dmg'))));
   o.st-=dmg;addFlux(1);msg(`${rnd(HZ)}稳定度 −${dmg}。`,'bad');pop(e,'−'+dmg,'bad');
   if(o.st<=0)outerEnd();
  }else{
@@ -688,7 +795,7 @@ function outerDeeper(e){
   let w=tbl.reduce((x,d)=>x+d[1],0)*Math.random(),item=tbl[0][0];
   for(const d of tbl){w-=d[1];if(w<=0){item=d[0];break}}
   if(item==='shard')item='shard_'+rnd(P);
-  const q=1+(Math.random()<.4?1:0)+Math.floor(o.depth/4);
+  const q=1+(Math.random()<.4?1:0)+Math.floor(o.depth/4)+(Math.random()<eqVal('loot')?1:0);
   o.loot[item]=(o.loot[item]||0)+q;
   msg(`你在第 ${o.depth} 层找到了 ${IT[item].n} ×${q}。`,'good');pop(e,'+'+q+' '+IT[item].n);
  }
@@ -700,7 +807,7 @@ function outerRetreat(){
  outerBank();msg(`你撤离了异域，带回 ${n} 件战利品。`,'good');outerReset();render();
 }
 function checkWin(){
- if(!S.won&&S.wand.cap==='void'&&inv('amulet')>0&&S.golems.length>=3){S.won=1;msg('你通过了毕业试炼。','gold')}
+ if(!S.won&&S.wand.cap==='void'&&has('amulet')&&S.golems.length>=3){S.won=1;msg('你通过了毕业试炼。','gold')}
 }
 
 /* ---------- 动作 ---------- */
@@ -709,7 +816,7 @@ const ACT={
  harvest:(d,e)=>harvest(d.id,e),
  cleanse:(d,e)=>cleanse(d.id,e),
  craft:(d,e)=>{doRecipe(d.id,e);render()},
- inspect:d=>{U.insp=d.id;renderInv();renderInfo()},
+ inspect:d=>{U.insp=d.id;renderInv();renderInfo();if(U.tab==='bag')renderMain()},
  scan:(d,e)=>scan(d.id,e),
  charge:(d,e)=>{charge(d.src,e);render()},
  focus:d=>{S.focus=d.id||null;renderWand()},
@@ -721,6 +828,11 @@ const ACT={
  book:()=>{U.book=!U.book;renderMain()},
  startRes:d=>startRes(d.id),
  cancelRes:()=>cancelRes(),
+ equip:d=>equipItem(d.id),
+ unequip:d=>unequip(d.slot),
+ useItem:d=>useItem(d.id),
+ bagf:d=>{U.bagf=d.id;renderMain()},
+ outerTonic:()=>{if(!(S.outer.on&&inv('tonic')>0))return;take('tonic',1);S.outer.st=Math.min(100,S.outer.st+50);render()},
  outerGo:()=>{const o=S.outer;if(o.on)return;o.on=1;o.depth=0;o.st=100;o.loot={};msg('你踏入了异域。','gold');render()},
  outerDeeper:(d,e)=>outerDeeper(e),
  outerRetreat:()=>outerRetreat(),
@@ -807,7 +919,7 @@ function renderNav(){
 function renderMain(){
  const t=TABS.find(x=>x.id===U.tab)||TABS[0];
  if(!t.ok()){setHtml($('#main'),lockedView(t.lock));return}
- const v={world:vWorld,craft:vCraft,notes:vNotes,arcane:vArcane,cru:vCru,node:vNode,inf:vInf,golem:vGolem,tinker:vTinker,outer:vOuter}[t.id];
+ const v={world:vWorld,craft:vCraft,notes:vNotes,arcane:vArcane,cru:vCru,node:vNode,inf:vInf,golem:vGolem,tinker:vTinker,outer:vOuter,bag:vBag}[t.id];
  setHtml($('#main'),(S.won?winBanner():'')+v());
 }
 const winBanner=()=>`<div class="card win"><h2>毕业试炼完成</h2><p>虚空杖帽、守护护符、三个魔像。你已经走完了奥术学徒的整条路。世界仍在运转，继续摆弄你的魔像工厂和节点吧。</p></div>`;
@@ -823,7 +935,7 @@ function vWorld(){
 }
 function vCraft(){
  const grp={basic:'基础加工',smelt:'冶炼',tool:'工具',magic:'魔法入门'};
- return Object.keys(grp).map(g=>`<div class="sec"><h3>${grp[g]}</h3><div class="recs">${R.filter(r=>r.st==='craft'&&r.g===g).map(recRow).join('')}</div></div>`).join('');
+ return Object.keys(grp).map(g=>`<div class="sec"><h3>${grp[g]}</h3><div class="recs">${R.filter(r=>r.st==='craft'&&r.g===g&&rvis(r)).map(recRow).join('')}</div></div>`).join('');
 }
 function vArcane(){
  const list=R.filter(r=>r.st==='arcane'&&rvis(r));
@@ -877,7 +989,7 @@ function bookHtml(){
 
 /* 坩埚 */
 function vCru(){
- const items=IORDER.filter(k=>inv(k)>0&&k!=='thaumometer');
+ const items=IORDER.filter(k=>inv(k)>0&&!KEEP.includes(k)&&!EQ[k]);
  const ess=Object.keys(S.ess);
  const comp=Object.keys(A).filter(k=>A[k].p&&S.known[k]&&S.known[A[k].p[0]]&&S.known[A[k].p[1]]);
  return `<div class="sec"><h3>坩埚 <small>加水、加热后才能溶解物质与炼金</small></h3>
@@ -908,6 +1020,46 @@ function vNode(){
 }
 
 /* 魔像 */
+function catOf(k){
+ if(EQ[k]||['attractor','transvector','bucket','striker','thaumometer'].includes(k))return 'gear';
+ if(['cake','tonic','holywater','escape','purify'].includes(k)||k.startsWith('shard_'))return 'use';
+ return 'mat';
+}
+function infoHtml(k){
+ const t=IT[k],n=inv(k),eqd=isEq(k);
+ const d=EQ[k]?EQ[k].d:(DESC[k]||(k.startsWith('shard_')?'使用：向魔杖充入 12 点对应魔力。也可以溶解成精华。':''));
+ const canScan=inv('thaumometer')>0||isEq('goggles');
+ const slot=Object.keys(S.equip).find(x=>S.equip[x]===k);
+ const acts=[];
+ if(EQ[k]&&n>0)acts.push(`<button class="btn sm primary" data-act="equip" data-id="${k}">装备</button>`);
+ if(slot)acts.push(`<button class="btn sm" data-act="unequip" data-slot="${slot}">卸下</button>`);
+ if(k.startsWith('shard_')&&n>0)acts.push(`<button class="btn sm primary" data-act="useItem" data-id="${k}" ${hasWand()?'':'disabled'}>充入魔杖</button>`);
+ return `<h3>${t.n} <small>${eqd?'已装备':'×'+n}</small></h3>${d?`<p class="muted" style="margin-bottom:8px">${d}</p>`:''}`
+  +(S.scanned[k]?`<div class="chips">${Object.keys(t.a).map(a=>`<span class="chip">${aspIcon(a)}<b>${t.a[a]}</b></span>`).join('')}</div>`:`<p class="muted">元素未知。</p>${n>0?`<div class="row" style="margin-top:8px"><button class="btn sm" data-act="scan" data-id="${k}" ${canScan?'':'disabled'}>${canScan?'扫描':'需要探知仪或护目镜'}</button></div>`:''}`)
+  +(acts.length?`<div class="row" style="margin-top:8px">${acts.join('')}</div>`:'');
+}
+function vBag(){
+ const f=U.bagf||'all';
+ const ids=IORDER.filter(k=>inv(k)>0&&(f==='all'||catOf(k)===f));
+ const cols=9,total=Math.max(36,Math.ceil(ids.length/cols)*cols);
+ const slots=ids.map(k=>`<button class="slot ${U.insp===k?'on':''} ${S.scanned[k]?'scanned':''}" data-act="inspect" data-id="${k}" title="${IT[k].n}">${itemIcon(k)}<em>${inv(k)}</em></button>`);
+ while(slots.length<total)slots.push('<div class="slot empty"></div>');
+ const eqs=SLOTS.map(([sl,lb])=>{const id=S.equip[sl];return id?`<button class="slot eqs on" data-act="unequip" data-slot="${sl}" title="${IT[id].n}（点击卸下）">${itemIcon(id)}<span class="lb">${lb}</span></button>`:`<div class="slot eqs" title="${lb}（空）"><span class="lb">${lb}</span></div>`}).join('');
+ const PN=['无镐','石镐','铁镐','神秘金属镐'],AN=['无斧','铁斧','神秘金属斧'];
+ const tl=(g,c,nm,on)=>`<div class="slot eqs ${on?'on':''}" title="${nm}"><i class="ico" style="--c:${c};--t:#fff;opacity:${on?1:.3}">${g}</i><span class="lb">${nm}</span></div>`;
+ const tools=tl('镐','#a9acba',PN[S.tools.pick],S.tools.pick>0)+tl('斧','#a9acba',AN[S.tools.axe],S.tools.axe>0)
+  +tl('杖','#a97bff',hasWand()?`${RODS[S.wand.rod].n}·${CAPS[S.wand.cap].n}`:'无魔杖',hasWand())
+  +tl('焦','#d4602c',S.focus&&inv(S.focus)?IT[S.focus].n.replace('焦点',''):'无焦点',!!(S.focus&&inv(S.focus)));
+ const eff=[];
+ SLOTS.forEach(([sl])=>{const id=S.equip[sl];if(id)eff.push(`<p><b>${IT[id].n}</b> <small>${EQ[id].d}</small></p>`)});
+ if(setBonus())eff.push('<p><b>秘法套装</b> <small>魔力消耗额外 −5%。</small></p>');
+ if(ichorSet())eff.push('<p><b>灵宝套装</b> <small>魔力消耗额外 −8%，异域每深入一层恢复 3 点稳定度。</small></p>');
+ if(hasWand())eff.push(`<p><b>魔杖</b> <small>${RODS[S.wand.rod].n}杖芯，每种 ${RODS[S.wand.rod].max}；总魔力消耗 −${Math.round(disc()*100)}%。</small></p>`);
+ const chips=[['all','全部'],['mat','材料'],['gear','装备与装置'],['use','消耗品']].map(([id,l])=>`<button class="cat ${f===id?'on':''}" data-act="bagf" data-id="${id}">${l}</button>`).join('');
+ return `<div class="sec"><h3>背包 <small>${Object.keys(S.inv).length} 种物品 · 点物品查看，装备类点「装备」</small></h3>
+ <div class="bagwrap"><div class="card eqp"><h3>装备</h3><div class="eqg">${eqs}</div><h3 style="margin-top:14px">工具与魔杖</h3><div class="eqg">${tools}</div><div class="eff">${eff.join('')||'<p class="muted">还没有任何装备效果。</p>'}</div></div>
+ <div style="min-width:0"><div class="cats">${chips}</div><div class="bag9">${slots.join('')}</div><div class="card" style="margin-top:12px">${U.insp&&IT[U.insp]?infoHtml(U.insp):'<p class="muted">点一个物品查看详情。</p>'}</div></div></div></div>`;
+}
 function vTinker(){
  const list=R.filter(r=>r.st==='tink'&&rvis(r));
  const dev=[['attractor','动能吸引器','被动：世界采集时有 25% 概率多得 1 个'],['transvector','向量传送器','被动：魔像采集速度 +50%'],['bucket','永满水桶','在坩埚页使用：−2 水魔力，+4 水位'],['striker','熔火打火石','在坩埚页使用：−3 火魔力，+60 秒热量']].filter(d=>inv(d[0])>0);
@@ -918,24 +1070,24 @@ function vTinker(){
 }
 function vOuter(){
  const o=S.outer;
- const sup=`<div class="chips"><span class="chip" title="蛋糕：+40 稳定度">${itemIcon('cake','s')}<b>蛋糕 ${inv('cake')}</b></span><span class="chip" title="圣水：+30 稳定度">${itemIcon('holywater','s')}<b>圣水 ${inv('holywater')}</b></span><span class="chip" title="稳定度归零时自动触发">${itemIcon('escape','s')}<b>逃脱符印 ${inv('escape')}</b></span></div>`;
+ const sup=`<div class="chips"><span class="chip" title="蛋糕：+40 稳定度">${itemIcon('cake','s')}<b>蛋糕 ${inv('cake')}</b></span><span class="chip" title="圣水：+30 稳定度">${itemIcon('holywater','s')}<b>圣水 ${inv('holywater')}</b></span><span class="chip" title="稳定度归零时自动触发">${itemIcon('escape','s')}<b>逃脱符印 ${inv('escape')}</b></span><span class="chip" title="镇静药剂：+50 稳定度">${itemIcon('tonic','s')}<b>药剂 ${inv('tonic')}</b></span></div>`;
  if(!o.on)return `<div class="sec"><h3>异域 <small>裂隙另一侧的高风险采集区</small></h3>
  <div class="card"><p class="lead">每深入一层，危险和收获同时增加。稳定度归零会丢掉所有战利品，扭曲 +3，污染 +12。随时可以撤离，把战利品带回来。深处能找到虚空灵液，浅处有虚空碎片、魔晶和奥术石英。</p>
  <div class="row"><button class="btn primary" data-act="outerGo">出发</button><span class="muted">最深纪录：${o.best} 层</span></div>
  <div class="row" style="margin-top:12px"><small>补给</small>${sup}</div>
- <p class="muted" style="margin-top:8px">${inv('amulet')>0?'守护护符生效：受到的伤害 −45%。':'没有守护护符，伤害不会减免。'}</p></div></div>`;
- const risk=Math.round(Math.min(.75,.22+(o.depth+1)*.06)*100);
+ <p class="muted" style="margin-top:8px">${Math.min(.7,eqVal('dmg'))>0?`装备减伤：异域伤害 −${Math.round(Math.min(.7,eqVal('dmg'))*100)}%。`:'没有装备减伤。去背包里装上护符和法袍。'}</p></div></div>`;
+ const risk=Math.round(Math.max(.05,Math.min(.75,.22+(o.depth+1)*.06)-eqVal('hazard'))*100);
  const st=Math.max(0,Math.round(o.st));
  const lk=Object.keys(o.loot);
  return `<div class="sec"><h3>异域 <small>第 ${o.depth} 层 · 下一层危险概率约 ${risk}%</small></h3>
  <div class="card"><div class="meter"><span>稳定度 <b>${st}</b>/100</span><div class="bar"><i style="width:${st}%;--c:${st<30?'var(--bad)':'var(--ok)'}"></i></div></div>
  <div class="row" style="margin-top:10px"><small>战利品</small>${lk.length?`<div class="chips">${lk.map(k=>`<span class="chip">${itemIcon(k,'s')}<b>${IT[k].n} ×${o.loot[k]}</b></span>`).join('')}</div>`:'<span class="muted">还没有</span>'}</div>
- <div class="row" style="margin-top:14px"><button class="btn primary" data-act="outerDeeper">深入下一层</button><button class="btn" data-act="outerRetreat">撤离（带走战利品）</button><button class="btn sm" data-act="outerCake" ${inv('cake')>0?'':'disabled'}>吃蛋糕 +40</button><button class="btn sm" data-act="outerHoly" ${inv('holywater')>0?'':'disabled'}>用圣水 +30</button></div>
+ <div class="row" style="margin-top:14px"><button class="btn primary" data-act="outerDeeper">深入下一层</button><button class="btn" data-act="outerRetreat">撤离（带走战利品）</button><button class="btn sm" data-act="outerCake" ${inv('cake')>0?'':'disabled'}>吃蛋糕 +40</button><button class="btn sm" data-act="outerHoly" ${inv('holywater')>0?'':'disabled'}>用圣水 +30</button><button class="btn sm" data-act="outerTonic" ${inv('tonic')>0?'':'disabled'}>镇静药剂 +50</button></div>
  <div class="row" style="margin-top:10px"><small>补给</small>${sup}</div></div></div>`;
 }
 function vGolem(){
  return `<div class="sec"><h3>魔像 <small>${S.golems.length}/6 · 自动采集资源</small></h3>
- <div class="row">${Object.keys(GT).map(k=>{const g=GT[k];const ok=Object.keys(g.cost).every(x=>inv(x)>=g.cost[x]);return `<div class="rec" style="grid-template-columns:minmax(0,1fr) auto;flex:1 1 260px"><div><b class="nm">${g.n}</b><p>采集速度 ×${g.m}</p><div class="need">${Object.keys(g.cost).map(x=>needI(x,g.cost[x])).join('')}</div></div><button class="btn ${ok?'primary':''}" data-act="golem" data-t="${k}" ${ok&&S.golems.length<6?'':'disabled'}>制造</button></div>`}).join('')}</div>
+ <div class="row">${Object.keys(GT).filter(k=>!GT[k].res||S.res[GT[k].res]).map(k=>{const g=GT[k];const ok=Object.keys(g.cost).every(x=>inv(x)>=g.cost[x]);return `<div class="rec" style="grid-template-columns:minmax(0,1fr) auto;flex:1 1 260px"><div><b class="nm">${g.n}</b><p>采集速度 ×${g.m}</p><div class="need">${Object.keys(g.cost).map(x=>needI(x,g.cost[x])).join('')}</div></div><button class="btn ${ok?'primary':''}" data-act="golem" data-t="${k}" ${ok&&S.golems.length<6?'':'disabled'}>制造</button></div>`}).join('')}</div>
  <p class="lead" style="margin-top:8px">魔像核心在注魔祭坛制作。</p></div>
  <div class="sec"><h3>工作安排</h3><div class="card">${S.golems.length?S.golems.map((g,i)=>`<div class="golem"><i class="ico" style="--c:${g.t==='iron'?'#d6d6e2':'#b88f55'};--t:#17102a">像</i><div class="row" style="justify-content:space-between"><span><b>${GT[g.t].n}</b> <small>${(GTASK[g.task][1]*GT[g.t].m).toFixed(2)} 个/秒 · ${GTASK[g.task][0]}</small></span><button class="btn sm" data-act="gdel" data-i="${i}">解散</button></div><div class="tasks">${Object.keys(GTASK).filter(k=>!GTASK[k][2]||S.res[GTASK[k][2]]).map(k=>`<button class="btn sm ${g.task===k?'on':''}" data-act="gtask" data-i="${i}" data-task="${k}">${GTASK[k][0]}</button>`).join('')}</div></div>`).join(''):'<p class="muted">还没有魔像。</p>'}</div></div>`;
 }
@@ -984,10 +1136,8 @@ function renderInv(){
 }
 function renderInfo(){
  const k=U.insp;
- if(!k||!inv(k)&&!IT[k]){setHtml($('#info'),`<h3>物品信息</h3><p class="muted">点背包里的物品查看。</p>`);return}
- const t=IT[k];
- setHtml($('#info'),`<h3>${t.n} <small>×${inv(k)}</small></h3>
- ${S.scanned[k]?`<div class="chips">${Object.keys(t.a).map(a=>`<span class="chip">${aspIcon(a)}<b>${t.a[a]}</b></span>`).join('')}</div>`:`<p class="muted">元素未知。</p><div class="row" style="margin-top:8px"><button class="btn sm primary" data-act="scan" data-id="${k}" ${inv('thaumometer')?'':'disabled'}>${inv('thaumometer')?'用探知仪扫描':'需要探知仪'}</button></div>`}`);
+ if(!k||!IT[k]){setHtml($('#info'),`<h3>物品信息</h3><p class="muted">点背包里的物品查看。</p>`);return}
+ setHtml($('#info'),infoHtml(k));
 }
 function renderLog(){
  const el=$('#logp');if(!el)return;
@@ -1000,7 +1150,7 @@ function renderFoot(){
  <span>进度每 10 秒自动保存在本机浏览器。这是一个向《神秘时代 4》致意的同人小游戏，全程只需鼠标。</span>`);
 }
 function light(){renderHud();renderInv();renderQuest();updateWand();renderInfo();}
-function render(){renderDrawer();renderHud();renderQuest();renderNav();renderMain();renderWand();renderPools();renderInv();renderInfo();renderLog();renderFoot();}
+function render(){$('#invp').hidden=$('#info').hidden=(U.tab==='bag');renderDrawer();renderHud();renderQuest();renderNav();renderMain();renderWand();renderPools();renderInv();renderInfo();renderLog();renderFoot();}
 
 /* ---------- 实时更新 ---------- */
 function updateLive(){
@@ -1017,9 +1167,9 @@ function tick(){
  let sideDirty=false,mainDirty=false;
  /* 光环与魔杖 */
  P.forEach(p=>{S.aura[p]=Math.min(AMAX,S.aura[p]+0.8*(1-S.flux/130))});
- if(hasWand()){const m=wandMax();P.forEach(p=>{const t=Math.min(0.25,S.aura[p],m-S.vis[p]);if(t>0&&S.flux<60){S.vis[p]+=t;S.aura[p]-=t}})}
+ if(hasWand()){const m=wandMax();P.forEach(p=>{const t=Math.min(0.25*(1+eqVal('regen')),S.aura[p],m-S.vis[p]);if(t>0&&S.flux<60){S.vis[p]+=t;S.aura[p]-=t}})}
  /* 污染 */
- S.flux=Math.max(0,S.flux-0.1+S.taint.length*0.03);
+ S.flux=Math.max(0,S.flux-0.1*(1+eqVal('flux'))+S.taint.length*0.03);
  if(S.flux>=45&&Math.random()<(S.flux>=70?0.3:0.12)&&S.taint.length<TILES.length-3){
   const f=TILES.map(t=>t.id).filter(x=>!S.taint.includes(x));if(f.length){const id=rnd(f);S.taint.push(id);msg(`${TILES.find(t=>t.id===id).n}出现了魔力污染。`,'bad');if(U.tab==='world')mainDirty=true}
  }
@@ -1034,10 +1184,10 @@ function tick(){
  /* 魔像 */
  let got=false;
  S.golems.forEach(g=>{const r=GTASK[g.task][1]*GT[g.t].m*(inv('transvector')>0?1.5:1);g.acc+=r;if(g.acc>=1){const n=Math.floor(g.acc);g.acc-=n;give(g.task,n);got=true}});
- if(got){renderInv();renderQuest()}
+ if(got){renderInv();renderQuest();if(U.tab==='bag')renderMain()}
  /* 扭曲低语 */
  if(S.warp>0&&S.tk%30===0){
-  const p=Math.min(.7,S.warp/25)*(inv('amulet')?0.25:1);
+  const p=Math.min(.7,S.warp/25)*(1-Math.min(.9,eqVal('warp')));
   if(Math.random()<p){const w=rnd(WARPFX);msg(w[0],'bad');w[1]();sideDirty=true;mainDirty=true}
  }
  if(sideDirty){renderPools();renderInv();renderLog()}
@@ -1048,11 +1198,13 @@ function tick(){
 
 /* ---------- 启动 ---------- */
 S=load();
+if(!S.equip)S.equip={head:null,body:null,legs:null,feet:null,charm:null,ring1:null,ring2:null};
+if(inv('amulet')>0&&!S.equip.charm){S.equip.charm='amulet';take('amulet',1)}
 if(!S.log.length)msg('欢迎，学徒。先去「世界」砍几棵树。','gold');
 render();
 setInterval(tick,1000);
 window.addEventListener('pagehide',save);
-globalThis.__arc={get S(){return S},ACT,render,tick,R,RS,TILES,Q,A,IT,NB,GT,GTASK,RODS,canRecipe,canCombine};
+globalThis.__arc={get S(){return S},ACT,render,tick,R,RS,TILES,Q,A,IT,NB,GT,GTASK,RODS,canRecipe,canCombine,EQ,disc,has,isEq,equipItem,eqVal,ichorSet};
 })();
 </script>
 
