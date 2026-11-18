@@ -291,6 +291,7 @@ const IT={
  sand:{n:'沙子',g:'沙',c:'#cdb86f',a:{terra:1,perditio:1}},
  reed:{n:'芦苇',g:'苇',c:'#6fae52',a:{herba:2,aqua:1}},
  water:{n:'水桶',g:'水',c:'#3f8fe0',a:{aqua:3}},
+ feather:{n:'羽毛',g:'羽',c:'#e8e4d0',a:{aer:3,motus:1}},
  coal:{n:'煤炭',g:'煤',c:'#3a3a46',a:{ignis:2,potentia:1}},
  ironore:{n:'铁矿',g:'矿',c:'#b98f72',a:{metallum:2,terra:1}},
  goldore:{n:'金矿',g:'矿',c:'#d9b348',a:{metallum:2,lux:1}},
@@ -325,6 +326,7 @@ const TILES=[
  {id:'sand',n:'河滩沙地',item:'sand',g:'沙',c:'#cdb86f',ch:1,h:'沙子，可烧成玻璃。'},
  {id:'reed',n:'芦苇丛',item:'reed',g:'苇',c:'#6fae52',ch:1,h:'造纸的原料。'},
  {id:'pond',n:'清水池',item:'water',g:'水',c:'#3f8fe0',ch:1,h:'打一桶水，坩埚要用。'},
+ {id:'cliff',n:'高崖鸟巢',item:'feather',g:'崖',c:'#7d95b8',ch:1,h:'风很大的崖壁，能捡到羽毛。风之精华就在羽毛里。'},
  {id:'waste',n:'荒原',item:'flesh',g:'荒',c:'#7a5a5a',ch:.4,h:'游荡着僵尸，偶尔能捡到腐肉。'}
 ];
 
@@ -378,10 +380,10 @@ const R=[
  {id:'a_alt',st:'arcane',n:'注魔祭坛',d:'高阶合成的基座。',inp:{cobble:12,thaumium:6},vis:{ordo:20,ignis:12,terra:12},req:'INFUSION',once:1,gl:'坛',c:'#6a4aa8',fx:()=>{S.has.altar=1}},
  {id:'a_voc',st:'arcane',n:'虚空杖帽',d:'魔力消耗 -30%。',inp:{void:4},vis:{ordo:16,perditio:16,ignis:10},req:'VOID',eq:['cap','void'],gl:'帽',c:'#3b2a5c'},
 
- {id:'c_th',st:'cru',n:'神秘金属锭',d:'铁锭被魔力浸透。',inp:{iron:1},ess:{praecantatio:2,ordo:1},out:{thaumium:1},req:'THAUMIUM'},
+ {id:'c_th',st:'cru',n:'神秘金属锭',d:'铁锭被魔力浸透。',inp:{iron:1},ess:{praecantatio:1,ordo:1},out:{thaumium:1},req:'THAUMIUM'},
  {id:'c_go',st:'cru',n:'嬗变：铁变金',d:'改变金属的本质。',inp:{iron:1},ess:{alkimia:3,lux:1},out:{gold:1},req:'TRANSMUTE'},
  {id:'c_pu',st:'cru',n:'净化粉',d:'用来清除污染，一份原料得两份。',inp:{sand:1},ess:{sano:2,ordo:2},out:{purify:2},req:'PURIFY'},
- {id:'c_vo',st:'cru',n:'虚空金属锭',d:'神秘金属吞下了虚空。',inp:{thaumium:1},ess:{vacuos:4,tenebrae:2,mortuus:1},out:{void:1},req:'VOID'},
+ {id:'c_vo',st:'cru',n:'虚空金属锭',d:'神秘金属吞下了虚空。',inp:{thaumium:1},ess:{vacuos:3,tenebrae:1,mortuus:1},out:{void:1},req:'VOID'},
 
  {id:'i_gw',st:'inf',n:'绿木杖芯',d:'魔力容量提升到每种90。',inp:{stick:4,redstone:2},ess:{arbor:8,auram:3,potentia:3},inst:3,req:'GREATWOOD',eq:['rod','great'],gl:'芯',c:'#3f8f5a'},
  {id:'i_core',st:'inf',n:'魔像核心',d:'给魔像注入最简单的意志。',inp:{iron:2,redstone:2,flesh:1},ess:{spiritus:3,motus:4,cognitio:2},inst:2,out:{core:1},req:'GOLEMANCY'},
@@ -390,7 +392,7 @@ const R=[
  {id:'i_amu',st:'inf',n:'守护护符',d:'大幅降低扭曲低语的发生。',inp:{gold:2,thaumium:1,paper:2},ess:{ordo:8,sano:4,praecantatio:3},inst:3,out:{amulet:1},req:'WARDING'}
 ];
 const GT={wood:{n:'木魔像',m:1,cost:{core:1,plank:8}},iron:{n:'铁魔像',m:2.4,cost:{core:1,iron:6}}};
-const GTASK={log:['伐木',.30],cobble:['采石',.30],sand:['采沙',.22],reed:['割芦苇',.22],water:['取水',.14],coal:['挖煤',.12],ironore:['采铁矿',.07]};
+const GTASK={log:['伐木',.30],feather:['拾羽毛',.2],cobble:['采石',.30],sand:['采沙',.22],reed:['割芦苇',.22],water:['取水',.14],coal:['挖煤',.12],ironore:['采铁矿',.07]};
 const TABS=[
  {id:'world',n:'世界',s:'采集资源',ok:()=>true},
  {id:'craft',n:'合成',s:'工作台与熔炉',ok:()=>true},
@@ -447,7 +449,7 @@ function combine(kind,id,e){
  pool[a.p[0]]--;pool[a.p[1]]--;
  if(kind==='ess'){
   [a.p[0],a.p[1]].forEach(x=>{if(pool[x]<=0)delete pool[x]});
-  if((pool[id]||0)>=64){addFlux(1)}else pool[id]=(pool[id]||0)+1;
+  if((pool[id]||0)<64)pool[id]=(pool[id]||0)+1;
  } else pool[id]=(pool[id]||0)+1;
  if(!S.known[id]){S.known[id]=1;msg(`你发现了元素：${A[id].f}（${A[id].l}）。`,'gold')}
  if(e)pop(e,'+1 '+A[id].f);
@@ -482,6 +484,7 @@ function doRecipe(id,e){
  if(r.inst&&r.inst>S.stab){const f=(r.inst-S.stab)*4;addFlux(f);msg(`注魔不稳定，释放了 ${f} 点污染。多做些稳定符文。`,'bad')}
  msg(`完成：${r.n}。`,'good');
  if(e)pop(e,'完成 '+r.n);
+ checkWin();
 }
 
 /* ---------- 世界采集 ---------- */
@@ -592,9 +595,9 @@ function dissolve(id,all,e){
  take(id,n);S.cru.water--;let over=0;
  for(const a in IT[id].a){
   const add=IT[id].a[a]*n;const cur=S.ess[a]||0;const room=Math.max(0,64-cur);
-  S.ess[a]=cur+Math.min(add,room);over+=Math.max(0,add-room);
+  S.ess[a]=cur+Math.min(add,room);over+=Math.max(0,add-room);S.known[a]=1;
  }
- if(over>0){const f=Math.ceil(over/4);addFlux(f);msg(`精华溢出，散失了 ${over} 份，污染 +${f}。`,'bad')}
+ if(over>0){msg(`精华溢出，散失了 ${over} 份。用不上的精华可以誊写为灵感。`,'bad')}
  msg(`溶解 ${IT[id].n}×${n}。`);if(e)pop(e,'溶解');render();
 }
 function transcribe(id,e){
@@ -792,7 +795,7 @@ function vCru(){
   <div class="meter"><span>热量 <b id="cht">${Math.ceil(S.cru.heat)}</b> 秒</span><div class="bar"><i id="chb" style="width:${S.cru.heat/240*100}%;--c:#ff6a35"></i></div><button class="btn sm" data-act="coal">投入煤炭（+90秒）</button></div>
  </div></div>
  <div class="sec"><h3>炼金配方</h3><div class="recs">${R.filter(r=>r.st==='cru'&&rvis(r)).map(recRow).join('')||'<p class="muted">研究炼金类条目后，这里会出现配方。</p>'}</div></div>
- <div class="sec"><h3>溶解物质 <small>每次操作耗 1 单位水；精华每种上限 64，溢出会产生污染</small></h3>
+ <div class="sec"><h3>溶解物质 <small>每次操作耗 1 单位水；精华每种上限 64，溢出的部分会散失。风之精华来自羽毛（高崖鸟巢）</small></h3>
  <div class="card">${items.length?items.map(k=>`<div class="dis">${itemIcon(k)}<div><b>${IT[k].n}</b> <small>×${inv(k)}</small><div class="chips" style="margin-top:4px">${S.scanned[k]?Object.keys(IT[k].a).map(a=>`<span class="chip">${aspIcon(a)}<b>${IT[k].a[a]}</b></span>`).join(''):'<small>元素未知，先用探知仪扫描</small>'}</div></div><div class="row"><button class="btn sm" data-act="dis" data-id="${k}" data-all="0">×1</button><button class="btn sm" data-act="dis" data-id="${k}" data-all="1">全部</button></div></div>`).join(''):'<p class="muted">背包是空的。</p>'}</div></div>
  <div class="sec"><h3>精华 <small>用于炼金与注魔</small></h3><div class="card">${ess.length?ess.map(a=>`<div class="dis">${aspIcon(a)}<div><b>${A[a].f}</b> <small>${S.ess[a]}/64</small></div><button class="btn sm" data-act="transcribe" data-id="${a}">誊写为灵感</button></div>`).join(''):'<p class="muted">还没有精华。把物品溶解进坩埚。</p>'}</div></div>
  <div class="sec"><h3>合成精华 <small>两种成分精华各 1 份，得到 1 份化合物</small></h3><div class="book">${comp.map(k=>`<div class="bk">${aspIcon(k,'lg')}<div><b>${A[k].f}</b> <small>${S.ess[k]||0}</small><div class="eq">${aspIcon(A[k].p[0])}+${aspIcon(A[k].p[1])}</div></div><button class="btn sm" data-act="combine" data-kind="ess" data-id="${k}" ${canCombine('ess',k)?'':'disabled'}>合成</button></div>`).join('')}</div></div>`;
@@ -933,7 +936,7 @@ if(!S.log.length)msg('欢迎，学徒。先去「世界」砍几棵树。','gold
 render();
 setInterval(tick,1000);
 window.addEventListener('pagehide',save);
-globalThis.__arc={get S(){return S},ACT,render,tick,R,RS,TILES,Q};
+globalThis.__arc={get S(){return S},ACT,render,tick,R,RS,TILES,Q,A,IT,NB,GT,GTASK,RODS,canRecipe,canCombine};
 })();
 </script>
 
