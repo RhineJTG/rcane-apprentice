@@ -217,6 +217,10 @@ small{color:var(--muted);font-weight:400}
 .log{max-height:170px;overflow:auto;font-size:13px;display:grid;gap:3px}
 .log p.bad{color:var(--bad)}.log p.good{color:var(--ok)}.log p.gold{color:var(--gold)}
 .foot{margin-top:24px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;color:var(--muted);font-size:13px}
+.save-status{flex-basis:100%}
+.save-status:empty{position:absolute}
+.save-status.good{color:var(--ok)}
+.save-status.bad{color:var(--bad)}
 .win{border-color:var(--gold);background:linear-gradient(180deg,#2c2140,#1a1427)}
 .win h2{color:var(--gold);font-size:22px;margin-bottom:6px}
 .golem{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 12px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
@@ -241,7 +245,12 @@ small{color:var(--muted);font-weight:400}
       <section class="card" id="logp"></section>
     </aside>
   </div>
-  <footer class="foot" id="foot"></footer>
+  <footer class="foot" id="foot">
+    <div class="row" id="save-actions"></div>
+    <input type="file" id="save-file" accept=".json,application/json" hidden>
+    <p class="save-status" id="save-status" role="status"></p>
+    <span>进度每 10 秒自动保存在本机浏览器。这是一个向《神秘时代 4》致意的同人小游戏，全程只需鼠标。</span>
+  </footer>
 </div>
 <div id="pops"></div>
 <aside id="drawer" aria-label="元素册">
@@ -530,6 +539,8 @@ const TABS=[
 /* ---------- 状态 ---------- */
 let S;
 const U={tab:'world',sel:null,insp:null,cat:'basic',book:false,resetArm:false,pCool:0};
+let pendingImport=null;
+let readingImport=false;
 function fresh(){
  const aura={},vis={},pool={},known={};
  P.forEach(p=>{aura[p]=AMAX;vis[p]=0;pool[p]=3;known[p]=1});
@@ -537,8 +548,63 @@ function fresh(){
   wand:{rod:null,cap:null},vis,aura,flux:0,warp:0,cru:{water:0,heat:0},node:null,search:0,
   golems:[],taint:[],focus:null,stab:0,rs:null,log:[],won:0,tk:0,outer:{on:0,depth:0,st:100,loot:{},best:0},equip:{head:null,body:null,legs:null,feet:null,charm:null,ring1:null,ring2:null}};
 }
-function load(){ try{const r=localStorage.getItem(KEY); if(r) return Object.assign(fresh(),JSON.parse(r));}catch(e){} return fresh(); }
-function save(){ try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){} }
+const isRecord=v=>v!==null&&typeof v==='object'&&!Array.isArray(v);
+const isAmount=v=>Number.isFinite(v)&&v>=0;
+const isCount=v=>Number.isSafeInteger(v)&&v>=0;
+const isFlag=v=>v===0||v===1||typeof v==='boolean';
+const hasId=(table,id)=>typeof id==='string'&&Object.hasOwn(table,id);
+const validMap=(map,test,ids)=>isRecord(map)&&Object.entries(map).every(([id,v])=>(!ids||Object.hasOwn(ids,id))&&test(v));
+
+function decodeSave(text){
+ let data=JSON.parse(text);
+ if(isRecord(data)&&Object.hasOwn(data,'format')){
+  if(data.format!==KEY)return null;
+  data=data.state;
+ }
+ if(!isRecord(data)||!Object.hasOwn(data,'inv')||!Object.hasOwn(data,'ever'))return null;
+
+ const state=fresh();
+ const legacyEquipment=data.equip==null;
+ for(const key of Object.keys(state)){
+  if(Object.hasOwn(data,key)&&!(key==='equip'&&legacyEquipment))state[key]=data[key];
+ }
+ const {inv,ever,pool,ess,known,scanned,res,has,built,vis,aura,tools,wand,cru,equip,outer,node,rs,golems,taint,log}=state;
+ if(!isRecord(outer)||!isFlag(outer.on)||![outer.depth,outer.best].every(isCount)||!isAmount(outer.st))return null;
+ if(![inv,ever,outer.loot].every(map=>validMap(map,isCount,IT)))return null;
+ if(![pool,ess].every(map=>validMap(map,isCount,A))||!P.every(p=>Object.hasOwn(pool,p)))return null;
+ if(![[known,A],[scanned,IT],[res,RSD],[has],[built]].every(([map,ids])=>validMap(map,isFlag,ids)))return null;
+ if(![vis,aura].every(map=>validMap(map,isAmount,A)&&P.every(p=>Object.hasOwn(map,p))))return null;
+ if(!isAmount(state.flux)||![state.warp,state.search,state.stab,state.tk].every(isCount)||!isFlag(state.won))return null;
+ if(!isRecord(tools)||![tools.pick,tools.axe].every(isCount))return null;
+ if(!isRecord(cru)||![cru.water,cru.heat].every(isAmount))return null;
+ if(!isRecord(wand)||!(wand.rod===null||hasId(RODS,wand.rod))||!(wand.cap===null||hasId(CAPS,wand.cap)))return null;
+ if(![null,'focus_dig','focus_fuse'].includes(state.focus))return null;
+ if(!isRecord(equip)||Object.keys(equip).length!==SLOTS.length||!SLOTS.every(([slot])=>{
+  const id=equip[slot];
+  return id===null||(hasId(EQ,id)&&EQ[id].slot===(slot.startsWith('ring')?'ring':slot));
+ }))return null;
+ if(node!==null&&(!isRecord(node)||typeof node.n!=='string'||!isAmount(node.e)||!isAmount(node.max)||node.max===0
+  ||!Array.isArray(node.pr)||!node.pr.every(p=>P.includes(p))))return null;
+ if(rs!==null&&(!isRecord(rs)||!hasId(RSD,rs.id)||!Array.isArray(rs.cells)
+  ||rs.cells.length!==RSD[rs.id].len||!rs.cells.every(id=>id===null||hasId(A,id))))return null;
+ if(!Array.isArray(golems)||!golems.every(g=>isRecord(g)&&hasId(GT,g.t)&&hasId(GTASK,g.task)&&isAmount(g.acc)))return null;
+ if(!Array.isArray(taint)||!taint.every(id=>TILES.some(t=>t.id===id)))return null;
+ if(!Array.isArray(log)||!log.every(l=>isRecord(l)&&typeof l.t==='string'&&['','good','bad','gold'].includes(l.k)))return null;
+
+ if(legacyEquipment&&inv.amulet>0){
+  equip.charm='amulet';
+  if(--inv.amulet===0)delete inv.amulet;
+ }
+ return state;
+}
+function load(){
+ try{const text=localStorage.getItem(KEY);if(text)return decodeSave(text)||fresh()}catch{}
+ return fresh();
+}
+function save(state=S){
+ try{localStorage.setItem(KEY,JSON.stringify(state));return true}catch{return false}
+}
+const escapeHtml=text=>text.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
 
 const inv=id=>S.inv[id]||0;
 const ev=id=>S.ever[id]||0;
@@ -810,6 +876,59 @@ function checkWin(){
  if(!S.won&&S.wand.cap==='void'&&has('amulet')&&S.golems.length>=3){S.won=1;msg('你通过了毕业试炼。','gold')}
 }
 
+/* ---------- 存档文件 ---------- */
+const saveFile=$('#save-file');
+function saveStatus(text,kind=''){
+ const status=$('#save-status');
+ status.textContent=text;
+ status.className='save-status'+(kind?' '+kind:'');
+}
+function exportSave(){
+ const json=JSON.stringify({format:KEY,state:S},null,2);
+ const url=URL.createObjectURL(new Blob([json],{type:'application/json'}));
+ const link=document.createElement('a');
+ link.href=url;
+ link.download='arcane-apprentice-'+new Date().toISOString().replace(/[:.]/g,'-')+'.json';
+ document.body.appendChild(link);
+ link.click();
+ link.remove();
+ setTimeout(()=>URL.revokeObjectURL(url),1000);
+ saveStatus('已开始下载 JSON 存档。','good');
+}
+saveFile.addEventListener('change',async ()=>{
+ const file=saveFile.files[0];
+ saveFile.value='';
+ if(!file||readingImport||pendingImport)return;
+ readingImport=true;
+ U.resetArm=false;
+ renderFoot();
+ saveStatus('正在读取存档…');
+ try{
+  pendingImport=decodeSave(await file.text());
+  if(pendingImport)saveStatus('');
+  else saveStatus('无法识别此存档。请选择《奥术学徒》的 JSON 存档。','bad');
+ }catch{
+  saveStatus('无法读取有效的 JSON 存档。','bad');
+ }finally{
+  readingImport=false;
+  renderFoot();
+  $(pendingImport?'[data-act="confirmImport"]':'[data-act="importSave"]').focus();
+ }
+});
+function confirmImport(){
+ if(!pendingImport)return;
+ if(!save(pendingImport)){
+  saveStatus('无法写入浏览器存档，当前进度已保留。','bad');
+  return;
+ }
+ S=pendingImport;
+ pendingImport=null;
+ U.tab='world';U.sel=null;U.insp=null;U.pCool=0;
+ render();
+ saveStatus('存档已导入并保存。','good');
+ $('#save-actions [data-act="importSave"]').focus();
+}
+
 /* ---------- 动作 ---------- */
 const ACT={
  tab:d=>{U.tab=d.id;render()},
@@ -852,10 +971,23 @@ const ACT={
  golem:d=>buildGolem(d.t),
  gtask:d=>{S.golems[+d.i].task=d.task;renderMain()},
  gdel:d=>{S.golems.splice(+d.i,1);render()},
- save:()=>{save();msg('已保存。','good')},
+ save:()=>{
+  if(save()){saveStatus('');msg('已保存。','good')}
+  else saveStatus('保存失败。请导出 JSON 备份进度。','bad');
+ },
+ exportSave,
+ importSave:()=>saveFile.click(),
+ confirmImport,
+ cancelImport:()=>{
+  pendingImport=null;
+  saveStatus('');
+  renderFoot();
+  $('#save-actions [data-act="importSave"]').focus();
+ },
  reset:()=>{
   if(!U.resetArm){U.resetArm=true;renderFoot();return}
   try{localStorage.removeItem(KEY)}catch(e){}
+  saveStatus('');
   S=fresh();U.tab='world';U.sel=null;U.insp=null;U.resetArm=false;msg('新的学徒生涯开始了。','gold');render();
  },
  noreset:()=>{U.resetArm=false;renderFoot()}
@@ -1008,7 +1140,7 @@ function vCru(){
 function vNode(){
  if(S.node){
   const n=S.node;
-  return `<div class="sec"><h3>${n.n}</h3><div class="card node">
+   return `<div class="sec"><h3>${escapeHtml(n.n)}</h3><div class="card node">
   <div class="row"><span>富含：</span>${n.pr.map(p=>`<span class="chip">${aspIcon(p)}<b>${A[p].f}</b></span>`).join('')}</div>
   <div class="meter"><span>能量 <b id="net">${Math.floor(n.e)}</b>/${n.max}</span><div class="bar"><i id="neb" style="width:${n.e/n.max*100}%;--c:var(--gold)"></i></div></div>
   <div class="row"><button class="btn primary" data-act="charge" data-src="node">从节点汲取魔力</button></div>
@@ -1141,13 +1273,22 @@ function renderInfo(){
 }
 function renderLog(){
  const el=$('#logp');if(!el)return;
- const h=`<h3>日志</h3><div class="log">${S.log.slice(-12).reverse().map(l=>`<p class="${l.k}">${l.t}</p>`).join('')||'<p class="muted">还没有记录。</p>'}</div>`;
+ const h=`<h3>日志</h3><div class="log">${S.log.slice(-12).reverse().map(l=>`<p class="${l.k}">${escapeHtml(l.t)}</p>`).join('')||'<p class="muted">还没有记录。</p>'}</div>`;
  setHtml(el,h);
 }
 function renderFoot(){
- setHtml($('#foot'),`<button class="btn sm" data-act="save">保存</button>
- ${U.resetArm?`<span>确定清空全部进度？</span><button class="btn sm" data-act="reset">确定重置</button><button class="btn sm" data-act="noreset">取消</button>`:`<button class="btn sm" data-act="reset">重置存档</button>`}
- <span>进度每 10 秒自动保存在本机浏览器。这是一个向《神秘时代 4》致意的同人小游戏，全程只需鼠标。</span>`);
+ let confirmation;
+ if(pendingImport){
+  confirmation=`<span role="alert">导入将覆盖当前进度。</span><button class="btn sm primary" data-act="confirmImport">确认导入</button><button class="btn sm" data-act="cancelImport">取消</button>`;
+ }else if(U.resetArm){
+  confirmation=`<span>确定清空全部进度？</span><button class="btn sm" data-act="reset">确定重置</button><button class="btn sm" data-act="noreset">取消</button>`;
+ }else{
+  confirmation=`<button class="btn sm" data-act="reset" ${readingImport?'disabled':''}>重置存档</button>`;
+ }
+ setHtml($('#save-actions'),`<button class="btn sm" data-act="save">保存</button>
+ <button class="btn sm" data-act="exportSave">导出 JSON</button>
+ <button class="btn sm" data-act="importSave" ${readingImport||pendingImport?'disabled':''}>导入 JSON</button>
+ ${confirmation}`);
 }
 function light(){renderHud();renderInv();renderQuest();updateWand();renderInfo();}
 function render(){$('#invp').hidden=$('#info').hidden=(U.tab==='bag');renderDrawer();renderHud();renderQuest();renderNav();renderMain();renderWand();renderPools();renderInv();renderInfo();renderLog();renderFoot();}
@@ -1198,12 +1339,10 @@ function tick(){
 
 /* ---------- 启动 ---------- */
 S=load();
-if(!S.equip)S.equip={head:null,body:null,legs:null,feet:null,charm:null,ring1:null,ring2:null};
-if(inv('amulet')>0&&!S.equip.charm){S.equip.charm='amulet';take('amulet',1)}
 if(!S.log.length)msg('欢迎，学徒。先去「世界」砍几棵树。','gold');
 render();
 setInterval(tick,1000);
-window.addEventListener('pagehide',save);
+window.addEventListener('pagehide',()=>save());
 globalThis.__arc={get S(){return S},ACT,render,tick,R,RS,TILES,Q,A,IT,NB,GT,GTASK,RODS,canRecipe,canCombine,EQ,disc,has,isEq,equipItem,eqVal,ichorSet};
 })();
 </script>
