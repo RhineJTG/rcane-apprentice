@@ -1,0 +1,214 @@
+/* Stations share a stone floor. Each apparatus keeps its own motion and palette. */
+#lab-banner:empty + .sec {margin-top:0}
+#lab-content>.sec:first-child {margin-top:18px}
+.lab-scene {
+  position:relative; isolation:isolate; container-type:inline-size; overflow:hidden; height:195px;
+  border:1px solid var(--line-hi); border-radius:4px; --scene-glow:#3b285c;
+  background:radial-gradient(ellipse at 50% 84%,var(--scene-glow),transparent 64%),linear-gradient(#181223,#0c0912);
+}
+.lab-scene::before {
+  content:""; position:absolute; z-index:-1; bottom:-67px; left:50%; width:390px; height:160px;
+  transform:translateX(-50%) perspective(145px) rotateX(52deg); transform-origin:50% 0;
+  background:url("originals/thaumcraft/blocks/arcane_stone.png") 0 0/32px; image-rendering:pixelated;
+  mask-image:radial-gradient(ellipse at 50% 40%,#000 14%,transparent 70%); opacity:.19;
+}
+.lab-scene .lab-texture {display:block; image-rendering:pixelated; object-fit:contain}
+.lab-scene .ico,.lab-scene .asp {box-shadow:none; background:none; filter:drop-shadow(0 2px 2px #050409)}
+.lab-scene .ico {width:38px; height:38px}
+.lab-scene .pixel-sprite {width:32px}
+
+/* Crucible */
+.crucible-scene {--brew:#49b6eb; --scene-glow:#34223c; --rim-height:112px}
+.crucible-scene[data-phase="heated"],.crucible-scene[data-phase="boiling"] {--scene-glow:#58313c}
+.crucible-art {position:absolute; width:128px; height:128px; left:50%; bottom:16px; transform:translateX(-50%); z-index:2}
+.cru-hearth {
+  display:none; position:absolute; left:50%; bottom:12px; width:71px; height:26px; transform:translateX(-50%);
+  background:radial-gradient(ellipse,#ffc879 5%,#ff7425 27%,#bc2f1940 60%,transparent 72%);
+  filter:drop-shadow(0 0 11px #ff642b99);
+}
+.crucible-scene[data-phase="heated"] .cru-hearth,.crucible-scene[data-phase="boiling"] .cru-hearth {
+  display:block; animation:stokeFire .72s steps(3,end) infinite alternate;
+}
+.cru-hearth i {
+  position:absolute; left:calc(50% + var(--x)); bottom:6px; width:4px; height:5px; background:#ffbf68;
+  animation:hearthSpark 1.15s var(--delay) ease-out infinite both;
+}
+.cru-bubble {
+  display:none; position:absolute; z-index:4; left:calc(50% + var(--x)); bottom:var(--rim-height);
+  width:5px; height:5px; border:1px solid color-mix(in srgb,var(--brew),white 45%);
+  box-shadow:0 0 7px var(--brew); border-radius:50%;
+}
+.crucible-scene[data-phase="boiling"] .cru-bubble {display:block; animation:brewBubble 1.35s var(--delay) ease-out infinite both}
+.cru-event {position:absolute; inset:0; pointer-events:none; z-index:5}
+.cru-flight,.cru-spray {position:absolute; left:50%; bottom:var(--rim-height)}
+.cru-flight {transform:translateX(-50%); animation:cruDrop .75s ease-in both}
+.cru-event.craft .cru-flight {animation:cruReveal 1s ease-out both}
+.cru-spray {
+  width:6px; height:6px; background:var(--effect); box-shadow:0 0 10px var(--effect);
+  animation:cruSplash .43s var(--delay,.36s) ease-out both;
+}
+.cru-event.fire .cru-spray {bottom:23px; --delay:0s}
+.cru-event.pour .cru-spray {--delay:0s}
+.cru-event.craft .cru-spray {--delay:.05s}
+.cru-event.dissolve .cru-spray {--delay:.53s}
+@keyframes stokeFire {to {opacity:.65; transform:translateX(-50%) scale(.9,1.12)}}
+@keyframes hearthSpark {0% {opacity:0} 24% {opacity:1} 100% {opacity:0; transform:translate(var(--drift),-29px) scale(.3)}}
+@keyframes brewBubble {
+  0% {opacity:0; transform:translateY(3px) scale(.4)}
+  26% {opacity:.9}
+  65% {opacity:.75; transform:translate(var(--drift),-22px) scale(1.3)}
+  100% {opacity:0; transform:translate(var(--drift),-43px) scale(.65)}
+}
+@keyframes cruDrop {
+  0% {opacity:0; transform:translate(-100%,-60px) rotate(-20deg)}
+  24% {opacity:1}
+  78%,100% {opacity:0; transform:translate(-50%,17px) rotate(23deg) scale(.45)}
+}
+@keyframes cruReveal {
+  0% {opacity:0; transform:translate(-50%,10px) scale(.45)}
+  42%,63% {opacity:1; transform:translate(-50%,-41px) scale(1.1)}
+  100% {opacity:0; transform:translate(-50%,-49px) scale(1)}
+}
+@keyframes cruSplash {
+  from {opacity:.88; transform:translateX(-50%) rotate(18deg)}
+  to {opacity:0; transform:translate(var(--dx),var(--dy)) rotate(78deg) scale(.35)}
+}
+
+/* Distillation */
+.distill-scene {display:grid; place-items:end center; --scene-glow:#342b49}
+.distill-scene[data-phase="heat"],.distill-scene[data-phase="condense"],.distill-scene[data-phase="collect"] {--scene-glow:#593340}
+.distill-rig {position:relative; width:min(calc(188px + (var(--vials) - 1)*34px),100%); height:175px; margin-bottom:8px}
+.distill-hearth {position:absolute; z-index:1; left:3px; bottom:5px; width:64px; height:64px}
+.distill-hearth.fired {display:none; filter:drop-shadow(0 0 10px #ff762886)}
+.distill-scene[data-phase="heat"] .fired,.distill-scene[data-phase="condense"] .fired,.distill-scene[data-phase="collect"] .fired {display:block}
+.distill-alembic {position:absolute; z-index:2; left:0; bottom:48px; width:69px; height:69px; filter:drop-shadow(0 3px 2px #09070e)}
+.distill-pipe {
+  position:absolute; left:47px; right:calc(1% + 34% / var(--vials)); bottom:96px; height:8px; border:2px solid #504149;
+  border-radius:2px; background:#221d2d; box-shadow:0 2px 1px #07050b;
+}
+.distill-scene[data-phase="condense"] .distill-pipe,.distill-scene[data-phase="collect"] .distill-pipe {
+  background:linear-gradient(90deg,transparent,#ffe9c88a,transparent) 0/36px 100% no-repeat,
+    repeating-linear-gradient(90deg,#dd9f63 0 8px,#875d49 8px 12px);
+  box-shadow:0 0 9px #e29d6d70;
+  animation:condensationFlow 1.1s linear infinite;
+}
+.distill-feed {display:none; position:absolute; z-index:4; left:18px; bottom:40px}
+.distill-scene[data-phase="heat"] .distill-feed {display:block; animation:loadDistiller .83s ease-in both}
+.distill-vapor {
+  display:none; position:absolute; z-index:3; left:calc(29px + var(--x)); bottom:64px; width:5px; height:5px;
+  background:#f3c6b1; box-shadow:0 0 9px #ffb589;
+}
+.distill-scene[data-phase="condense"] .distill-vapor,.distill-scene[data-phase="collect"] .distill-vapor {
+  display:block; animation:distillVapor 1.2s var(--delay) ease-out infinite both;
+}
+.distill-vials {position:absolute; left:31%; right:1%; bottom:4px; display:flex; align-items:end; justify-content:space-around; gap:1px}
+.distill-vial {position:relative; flex:1 1 0; max-width:53px; min-width:0; aspect-ratio:1}
+.distill-vial::before {
+  content:""; position:absolute; left:calc(50% - 2px); bottom:84%; width:4px; height:calc(94px - 84%);
+  background:linear-gradient(90deg,#504149,#7d6058,#4e4049);
+}
+.distill-vial .lab-texture {position:absolute; inset:0; width:100%; height:100%}
+.distill-vial .asp {position:absolute; left:50%; bottom:8px; transform:translateX(-50%); z-index:2}
+.distill-glass {
+  position:absolute; inset:0; opacity:.7;
+  clip-path:polygon(23% 34%,52% 48%,76% 35%,76% 70%,52% 84%,23% 71%);
+}
+.distill-glass::before {content:""; position:absolute; inset:auto 0 0; height:0; transition:height .35s;
+  background:linear-gradient(to right,var(--essence) 52%,color-mix(in srgb,var(--essence),black 24%) 52%)}
+.distill-scene[data-phase="collect"] .distill-glass::before {height:28%}
+.distill-scene[data-phase="done"] .distill-glass::before {height:54%}
+.distill-drop {
+  display:none; position:absolute; z-index:3; left:calc(50% - 2px); bottom:92px; width:4px; height:7px;
+  background:color-mix(in srgb,var(--essence) 74%,white); box-shadow:0 0 7px var(--essence);
+}
+.distill-scene[data-phase="collect"] .distill-drop {display:block; animation:jarDrop .7s var(--delay) linear infinite both}
+@keyframes loadDistiller {
+  0% {opacity:0; transform:translate(-20px,-38px) rotate(-20deg)}
+  30% {opacity:1}
+  100% {opacity:0; transform:translate(0,34px) scale(.3)}
+}
+@keyframes distillVapor {
+  0% {opacity:0} 28% {opacity:.85}
+  65% {opacity:.65; transform:translateY(-34px)}
+  100% {opacity:0; transform:translate(29px,-34px) scale(.3)}
+}
+@keyframes condensationFlow {from {background-position:-36px 0,0 0} to {background-position:calc(100% + 36px) 0,0 0}}
+@keyframes jarDrop {0% {opacity:0} 18% {opacity:1} 91%,100% {opacity:0; transform:translateY(65px)}}
+
+/* Infusion */
+.infusion-scene {height:218px; --scene-glow:#362449; --altar-span:clamp(65px,20cqw,144px); --ritual:#bb8bff}
+.infusion-scene[data-phase="attune"],.infusion-scene[data-phase="draw"],.infusion-scene[data-phase="bind"],.infusion-scene[data-phase="done"] {--scene-glow:#503670}
+.altar-matrix {
+  position:absolute; z-index:5; left:50%; top:15px; width:55px; height:58px;
+  transform:translateX(-50%); filter:drop-shadow(0 0 7px #ac83e078);
+}
+.infusion-scene[data-phase="attune"] .altar-matrix,.infusion-scene[data-phase="draw"] .altar-matrix,.infusion-scene[data-phase="bind"] .altar-matrix {
+  animation:matrixAwaken .83s ease-in-out infinite alternate;
+}
+.altar-seal {
+  position:absolute; left:50%; bottom:0; width:calc(2 * var(--altar-span) + 29px); height:44px;
+  transform:translateX(-50%); border:1px solid #9f75c74d; border-radius:50%;
+  background:repeating-radial-gradient(ellipse,#ab7de12b 0 1px,transparent 2px 11px);
+}
+.infusion-scene[data-phase="bind"] .altar-seal,.infusion-scene[data-phase="done"] .altar-seal {
+  box-shadow:0 0 16px color-mix(in srgb,var(--ritual) 65%,transparent);
+}
+.altar-center,.altar-tray {
+  position:absolute; display:grid; justify-items:center; z-index:2; left:50%; transform:translateX(-50%);
+}
+.altar-center {bottom:6px}
+.altar-center>.lab-texture {width:62px; height:52px}
+.altar-core {position:absolute; left:50%; bottom:39px; transform:translateX(-50%); display:grid; place-items:center}
+.altar-core b,.altar-tray b {position:absolute; right:0; bottom:0; font-size:11px; color:#f5eafc; text-shadow:1px 1px #100718}
+.infusion-scene[data-phase="bind"] .altar-core,.infusion-scene[data-phase="done"] .altar-core {
+  filter:drop-shadow(0 0 11px var(--ritual));
+}
+.infusion-scene[data-phase="bind"] .altar-core {animation:altarCharge .62s ease-in-out infinite alternate}
+.infusion-scene[data-phase="done"] .altar-core {animation:altarReveal .7s ease-out both}
+.infusion-scene[data-phase="done"] .altar-core .ico {width:56px; height:56px}
+.infusion-scene[data-phase="done"] .altar-core .pixel-sprite {width:45px}
+.altar-tray {bottom:13px; left:calc(50% + var(--side)*var(--altar-span)); width:42px}
+.altar-tray>.lab-texture {width:42px; height:33px}
+.altar-tray-item {position:absolute; bottom:24px; display:grid; place-items:center}
+.infusion-scene[data-phase="bind"] .altar-tray-item {animation:altarMerge .78s ease-in both}
+.altar-beam {
+  position:absolute; left:calc(50% - 1px); top:63px; width:2px; height:69px; opacity:0;
+  background:linear-gradient(var(--ritual),transparent 95%); box-shadow:0 0 10px var(--ritual);
+}
+.infusion-scene[data-phase="draw"] .altar-beam {opacity:.4}
+.infusion-scene[data-phase="bind"] .altar-beam {opacity:1; animation:altarBeam .58s ease-in-out infinite alternate}
+.altar-vial {
+  position:absolute; left:calc(50% + var(--side)*var(--altar-span)*var(--spread)); top:var(--vial-top);
+  transform:translateX(-50%); width:24px; height:33px; --vial-top:calc(59px + var(--lane)*32px);
+  filter:drop-shadow(0 0 5px var(--essence)); z-index:3;
+}
+.altar-vial .lab-texture {width:24px; height:33px}
+.altar-vial .asp {position:absolute; left:2px; bottom:4px; width:20px; height:20px}
+.essence-stream {display:none; position:absolute; top:0; left:50%; z-index:4; color:var(--essence)}
+.essence-stream::before {content:""; display:block; width:5px; height:5px; margin-left:-4px; background:currentColor; box-shadow:0 0 8px currentColor}
+.essence-stream .asp {width:19px; height:19px}
+.infusion-scene[data-phase="draw"] .essence-stream,.infusion-scene[data-phase="bind"] .essence-stream {
+  display:block; animation:essenceFlow 1.15s var(--delay) ease-in infinite both;
+}
+.altar-spark {
+  display:none; position:absolute; z-index:4; left:calc(50% + var(--x)); top:46px; width:5px; height:5px;
+  background:#ec91ff; box-shadow:0 0 8px #ef63ff;
+}
+.infusion-scene.unstable[data-phase="bind"] .altar-spark {display:block; animation:matrixSpark .66s var(--delay) ease-out infinite both}
+@keyframes matrixAwaken {to {transform:translate(-50%,-6px); filter:drop-shadow(0 0 15px var(--ritual))}}
+@keyframes altarCharge {to {transform:translate(-50%,-6px) scale(1.14); filter:drop-shadow(0 0 17px var(--ritual))}}
+@keyframes altarReveal {from {opacity:0; transform:translate(-50%,13px) scale(.65)} to {opacity:1; transform:translateX(-50%)}}
+@keyframes altarMerge {45% {opacity:1} to {opacity:0; transform:translate(calc(-1 * var(--side)*var(--altar-span)),-11px) scale(.37)}}
+@keyframes altarBeam {to {opacity:.38; transform:scaleX(.6)}}
+@keyframes essenceFlow {
+  0% {opacity:0; transform:translate(-50%,5px) scale(.75)}
+  23% {opacity:1}
+  91%,100% {opacity:0; transform:translate(calc(-50% - var(--side)*var(--altar-span)*var(--spread)),calc(32px - var(--vial-top))) scale(.32)}
+}
+@keyframes matrixSpark {0% {opacity:0} 21% {opacity:1} 100% {opacity:0; transform:translate(var(--drift),-19px) rotate(70deg) scale(.4)}}
+
+@media(prefers-reduced-motion:reduce) {
+  .lab-scene *,.lab-scene *::before,.lab-scene *::after {animation:none!important; transition:none!important}
+  .cru-bubble,.cru-hearth i,.cru-spray,.distill-vapor,.distill-drop,.essence-stream,.altar-spark {visibility:hidden}
+  .infusion-scene[data-phase="bind"] .altar-tray-item {visibility:hidden}
+}

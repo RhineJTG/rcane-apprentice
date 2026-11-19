@@ -1,24 +1,24 @@
 /* Texture sources and preparation are recorded in sources.json. */
 .pixel-sprite[data-sprite]{image-rendering:pixelated}
 .pixel-sprite[data-sprite][style]{background-repeat:no-repeat}
-.pixel-sprite[data-sprite="log"]{background-image:url("originals/minecraft/blocks/log_oak_top.png");background-size:contain;background-position:center}
+.pixel-sprite[data-sprite="log"]{background-image:url("prepared/blocks/oak-log.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="sapling"]{background-image:url("originals/minecraft/blocks/sapling_oak.png");background-size:contain;background-position:center}
-.pixel-sprite[data-sprite="plank"]{background-image:url("originals/minecraft/blocks/planks_oak.png");background-size:contain;background-position:center}
+.pixel-sprite[data-sprite="plank"]{background-image:url("prepared/blocks/oak-planks.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="stick"]{background-image:url("originals/minecraft/items/stick.png");background-size:contain;background-position:center}
-.pixel-sprite[data-sprite="cobble"]{background-image:url("originals/minecraft/blocks/cobblestone.png");background-size:contain;background-position:center}
-.pixel-sprite[data-sprite="sand"]{background-image:url("originals/minecraft/blocks/sand.png");background-size:contain;background-position:center}
+.pixel-sprite[data-sprite="cobble"]{background-image:url("prepared/blocks/cobblestone.png");background-size:contain;background-position:center}
+.pixel-sprite[data-sprite="sand"]{background-image:url("prepared/blocks/sand.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="reed"]{background-image:url("originals/minecraft/items/reeds.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="water"]{background-image:url("originals/minecraft/items/bucket_water.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="feather"]{background-image:url("originals/minecraft/items/feather.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="shroom"]{background-image:url("originals/thaumcraft/blocks/manashroom.png");background-size:contain;background-position:center}
-.pixel-sprite[data-sprite="greenlog"]{background-image:url("originals/thaumcraft/blocks/greatwoodtop.png");background-size:contain;background-position:center}
+.pixel-sprite[data-sprite="greenlog"]{background-image:url("prepared/blocks/greatwood-log.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="holywater"]{background-image:url("originals/thaumcraft/items/bucket_pure.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="voidshard"]{background-image:url("originals/thaumcraft/items/voidseed.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="quartz"]{background-image:url("originals/ttinkerer/items/darkQuartzItem.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="ichor"]{background-image:url("originals/ttinkerer/items/ichor.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="ichorium"]{background-image:url("originals/ttinkerer/items/ichorium.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="striker"]{background-image:url("originals/minecraft/items/flint_and_steel.png");background-size:contain;background-position:center}
-.pixel-sprite[data-sprite="transvector"]{background-image:url("prepared/icons/transvector.png");background-size:contain;background-position:center}
+.pixel-sprite[data-sprite="transvector"]{background-image:url("prepared/blocks/transvector-interface.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="cake"]{background-image:url("originals/minecraft/items/cake.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="cloth"]{background-image:url("originals/thaumcraft/items/cloth.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="tonic"]{background-image:url("originals/ttinkerer/items/potion_aqua.png");background-size:contain;background-position:center}
@@ -37,19 +37,25 @@
 .pixel-sprite[data-sprite="ichor_legs"]{background-image:url("originals/ttinkerer/items/ichorclothLegs.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="ichor_boots"]{background-image:url("originals/ttinkerer/items/ichorclothBoots.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="coal"]{background-image:url("originals/minecraft/items/coal.png");background-size:contain;background-position:center}
-.pixel-sprite[data-sprite="ironore"]{background-image:url("originals/minecraft/blocks/iron_ore.png");background-size:contain;background-position:center}
-.pixel-sprite[data-sprite="goldore"]{background-image:url("originals/minecraft/blocks/gold_ore.png");background-size:contain;background-position:center}
+.pixel-sprite[data-sprite="ironore"]{background-image:url("prepared/blocks/iron-ore.png");background-size:contain;background-position:center}
+.pixel-sprite[data-sprite="goldore"]{background-image:url("prepared/blocks/gold-ore.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="redstone"]{background-image:url("originals/minecraft/items/redstone_dust.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="flesh"]{background-image:url("originals/minecraft/items/rotten_flesh.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="iron"]{background-image:url("originals/minecraft/items/iron_ingot.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="gold"]{background-image:url("originals/minecraft/items/gold_ingot.png");background-size:contain;background-position:center}
-.pixel-sprite[data-sprite="glass"]{background-image:url("originals/minecraft/blocks/glass.png");background-size:contain;background-position:center}
+.pixel-sprite[data-sprite="glass"]{background-image:url("prepared/blocks/glass.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="paper"]{background-image:url("originals/minecraft/items/paper.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="book"]{background-image:url("originals/minecraft/items/book_normal.png");background-size:contain;background-position:center}
-.pixel-sprite[data-sprite="shelf"]{background-image:url("originals/minecraft/blocks/bookshelf.png");background-size:contain;background-position:center}
+.pixel-sprite[data-sprite="shelf"]{background-image:url("prepared/blocks/bookshelf.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="thaumometer"]{background-image:url("prepared/icons/thaumometer.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="thaumium"]{background-image:url("originals/thaumcraft/items/thaumiumingot.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="purify"]{background-image:url("originals/thaumcraft/items/bath_salts.png");background-size:contain;background-position:center}
+.pixel-sprite[data-sprite="bath_salts"]{background-image:url("prepared/icons/bath_salts.png");background-size:contain;background-position:center}
+.pixel-sprite[data-sprite="soap"]{background-image:url("originals/thaumcraft/items/soap.png");background-size:contain;background-position:center}
+.pixel-sprite[data-sprite="tallow"]{background-image:url("originals/thaumcraft/items/tallow.png");background-size:contain;background-position:center}
+.pixel-sprite[data-sprite="tallow_block"]{background-image:url("prepared/blocks/tallow-block.png");background-size:contain;background-position:center}
+.pixel-sprite[data-sprite="balanced_shard"]{background-image:url("prepared/icons/shard_balanced.png");background-size:contain;background-position:center}
+.pixel-sprite[data-sprite="salis_mundus"]{background-image:url("prepared/icons/dust.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="core"]{background-image:url("prepared/icons/core.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="void"]{background-image:url("originals/thaumcraft/items/voidingot.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="focus_dig"]{background-image:url("originals/thaumcraft/items/focus_excavation.png");background-size:contain;background-position:center}
@@ -65,9 +71,9 @@
 .pixel-sprite[data-sprite="wake"]{background-image:url("originals/thaumcraft/items/thaumonomicon.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="a_stab"]{background-image:url("originals/thaumcraft/misc/r_nodepreserve.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="a_gold"]{background-image:url("originals/thaumcraft/items/wand_cap_gold.png");background-size:contain;background-position:center}
-.pixel-sprite[data-sprite="a_cru"]{background-image:url("originals/thaumcraft/misc/r_crucible.png");background-size:contain;background-position:center}
+.pixel-sprite[data-sprite="a_cru"]{background-image:url("prepared/blocks/crucible.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="a_thc"]{background-image:url("prepared/icons/a_thc.png");background-size:contain;background-position:center}
-.pixel-sprite[data-sprite="a_alt"]{background-image:url("originals/thaumcraft/blocks/pedestal_side.png");background-size:contain;background-position:center}
+.pixel-sprite[data-sprite="a_alt"]{background-image:url("prepared/blocks/infusion-pedestal.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="a_voc"]{background-image:url("prepared/icons/a_voc.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="i_gw"]{background-image:url("originals/thaumcraft/items/wand_rod_greatwood.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="a_ich"]{background-image:url("originals/ttinkerer/items/ichorCap.png");background-size:contain;background-position:center}
@@ -102,6 +108,7 @@
 .pixel-sprite[data-sprite="auram"]{background-image:url("prepared/icons/auram.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="vitium"]{background-image:url("prepared/icons/vitium.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="tenebrae"]{background-image:url("prepared/icons/tenebrae.png");background-size:contain;background-position:center}
+.pixel-sprite[data-sprite="alienis"]{background-image:url("prepared/icons/alienis.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="herba"]{background-image:url("prepared/icons/herba.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="arbor"]{background-image:url("prepared/icons/arbor.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="spiritus"]{background-image:url("prepared/icons/spiritus.png");background-size:contain;background-position:center}
@@ -116,27 +123,27 @@
 .pixel-sprite[data-sprite="clay"]{background-image:url("originals/minecraft/items/clay_ball.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="brick"]{background-image:url("originals/minecraft/items/brick.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="flint"]{background-image:url("originals/minecraft/items/flint.png");background-size:contain;background-position:center}
-.pixel-sprite[data-sprite="obsidian"]{background-image:url("originals/minecraft/blocks/obsidian.png");background-size:contain;background-position:center}
+.pixel-sprite[data-sprite="obsidian"]{background-image:url("prepared/blocks/obsidian.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="gold_nugget"]{background-image:url("originals/minecraft/items/gold_nugget.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="cauldron"]{background-image:url("originals/minecraft/items/cauldron.png");background-size:contain;background-position:center}
-.pixel-sprite[data-sprite="furnace"]{background-image:url("originals/minecraft/blocks/furnace_front_off.png");background-size:contain;background-position:center}
+.pixel-sprite[data-sprite="furnace"]{background-image:url("prepared/blocks/furnace.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="travel_ration"]{background-image:url("originals/minecraft/items/bread.png");background-size:contain;background-position:center}
-.pixel-sprite[data-sprite="crafting-table"]{background-image:url("originals/minecraft/blocks/crafting_table_top.png");background-size:contain;background-position:center}
+.pixel-sprite[data-sprite="crafting-table"]{background-image:url("prepared/blocks/crafting-table.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="amber"]{background-image:url("originals/thaumcraft/items/amber.png");background-size:contain;background-position:center}
-.pixel-sprite[data-sprite="cinnabar"]{background-image:url("originals/thaumcraft/items/clustercinnabar.png");background-size:contain;background-position:center}
+.pixel-sprite[data-sprite="cinnabar"]{background-image:url("prepared/blocks/cinnabar-ore.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="quicksilver"]{background-image:url("originals/thaumcraft/items/quicksilver.png");background-size:contain;background-position:center}
-.pixel-sprite[data-sprite="silverlog"]{background-image:url("originals/thaumcraft/blocks/silverwoodtop.png");background-size:contain;background-position:center}
+.pixel-sprite[data-sprite="silverlog"]{background-image:url("prepared/blocks/silverwood-log.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="iron_nugget"]{background-image:url("originals/thaumcraft/items/nuggetiron.png");background-size:contain;background-position:center}
-.pixel-sprite[data-sprite="arcane_stone"]{background-image:url("originals/thaumcraft/blocks/arcane_stone.png");background-size:contain;background-position:center}
-.pixel-sprite[data-sprite="pedestal"]{background-image:url("originals/thaumcraft/blocks/pedestal_side.png");background-size:contain;background-position:center}
-.pixel-sprite[data-sprite="jar"]{background-image:url("originals/thaumcraft/blocks/jar_side.png");background-size:contain;background-position:center}
+.pixel-sprite[data-sprite="arcane_stone"]{background-image:url("prepared/blocks/arcane-stone.png");background-size:contain;background-position:center}
+.pixel-sprite[data-sprite="pedestal"]{background-image:url("prepared/blocks/infusion-pedestal.png");background-size:contain;background-position:center}
+.pixel-sprite[data-sprite="jar"]{background-image:url("prepared/blocks/warded-jar.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="nitor"]{background-image:url("originals/thaumcraft/items/nitor.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="alumentum"]{background-image:url("originals/thaumcraft/items/alumentum.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="core_blank"]{background-image:url("originals/thaumcraft/items/golem_core_blank.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="i_silver"]{background-image:url("originals/thaumcraft/items/wand_rod_silverwood.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="golem-clay"]{background-image:url("originals/thaumcraft/items/golem_clay.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="golem-runic"]{background-image:url("originals/thaumcraft/items/golem_thaumium.png");background-size:contain;background-position:center}
-.pixel-sprite[data-sprite="a_distiller"]{background-image:url("originals/thaumcraft/blocks/al_furnace_front_off.png");background-size:contain;background-position:center}
+.pixel-sprite[data-sprite="a_distiller"]{background-image:url("prepared/blocks/alchemical-furnace.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="prospector_charm"]{background-image:url("prepared/icons/prospector_charm.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="tempestas"]{background-image:url("prepared/icons/tempestas.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="fames"]{background-image:url("prepared/icons/fames.png");background-size:contain;background-position:center}
@@ -158,9 +165,11 @@
 .pixel-sprite[data-sprite="resonance_compass"]{background-image:url("prepared/icons/resonance_compass.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="runic_joint"]{background-image:url("prepared/icons/runic_joint.png");background-size:contain;background-position:center}
 .pixel-sprite[data-sprite="a_condenser"]{background-image:url("prepared/icons/a_condenser.png");background-size:contain;background-position:center}
-.pixel-sprite[data-sprite="matrix"]{background-image:url("prepared/icons/matrix.png");background-size:contain;background-position:center}
-.pixel-sprite[data-sprite="alembic"]{background-image:url("prepared/icons/alembic.png");background-size:contain;background-position:center}
-.pixel-sprite[data-sprite="arcane-workbench"]{background-image:url("prepared/icons/arcane-workbench.png");background-size:contain;background-position:center}
+.pixel-sprite[data-sprite="matrix"]{background-image:url("prepared/blocks/runic-matrix.png");background-size:contain;background-position:center}
+.pixel-sprite[data-sprite="alembic"]{background-image:url("prepared/blocks/alembic.png");background-size:contain;background-position:center}
+.pixel-sprite[data-sprite="arcane-workbench"]{background-image:url("prepared/blocks/arcane-workbench.png");background-size:contain;background-position:center}
+
+.pixel-sprite[data-sprite="attractor"]{background-image:url("prepared/blocks/kinetic-attractor.png");background-size:contain;background-position:center}
 
 .tile .pic[data-site]{
   image-rendering:pixelated;
@@ -172,21 +181,21 @@
   background:var(--local-subject) center/contain no-repeat;
   filter:drop-shadow(1px 3px 3px #000d);
 }
-.tile .pic[data-site="tree"]{--local-ground:url("prepared/world/tree-ground.png");--local-subject:url("originals/minecraft/blocks/log_oak_top.png")}
-.tile .pic[data-site="quarry"]{--local-ground:url("originals/minecraft/blocks/cobblestone.png");--local-subject:url("originals/minecraft/items/stone_pickaxe.png")}
+.tile .pic[data-site="tree"]{--local-ground:url("prepared/world/tree-ground.png");--local-subject:url("prepared/blocks/oak-log.png")}
+.tile .pic[data-site="quarry"]{--local-ground:url("originals/minecraft/blocks/cobblestone.png");--local-subject:url("prepared/blocks/cobblestone.png")}
 .tile .pic[data-site="coal"]{--local-ground:url("originals/minecraft/blocks/coal_ore.png");--local-subject:url("originals/minecraft/items/coal.png")}
-.tile .pic[data-site="iron"]{--local-ground:url("originals/minecraft/blocks/iron_ore.png");--local-subject:url("originals/minecraft/items/iron_ingot.png")}
-.tile .pic[data-site="gold"]{--local-ground:url("originals/minecraft/blocks/gold_ore.png");--local-subject:url("originals/minecraft/items/gold_ingot.png")}
+.tile .pic[data-site="iron"]{--local-ground:url("originals/minecraft/blocks/iron_ore.png");--local-subject:url("prepared/blocks/iron-ore.png")}
+.tile .pic[data-site="gold"]{--local-ground:url("originals/minecraft/blocks/gold_ore.png");--local-subject:url("prepared/blocks/gold-ore.png")}
 .tile .pic[data-site="red"]{--local-ground:url("originals/minecraft/blocks/redstone_ore.png");--local-subject:url("originals/minecraft/items/redstone_dust.png")}
-.tile .pic[data-site="sand"]{--local-ground:url("originals/minecraft/blocks/sand.png");--local-subject:url("originals/minecraft/blocks/reeds.png")}
+.tile .pic[data-site="sand"]{--local-ground:url("originals/minecraft/blocks/sand.png");--local-subject:url("prepared/blocks/sand.png")}
 .tile .pic[data-site="reed"]{--local-ground:url("prepared/world/reed-ground.png");--local-subject:url("originals/minecraft/items/reeds.png")}
 .tile .pic[data-site="pond"]{--local-ground:url("prepared/world/pond-ground.png");--local-subject:url("prepared/world/pond-object.png")}
 .tile .pic[data-site="cliff"]{--local-ground:url("originals/minecraft/blocks/stone.png");--local-subject:url("originals/minecraft/items/feather.png")}
 .tile .pic[data-site="grove"]{--local-ground:url("prepared/world/grove-ground.png");--local-subject:url("originals/thaumcraft/blocks/manashroom.png")}
 .tile .pic[data-site="crystal"]{--local-ground:url("originals/thaumcraft/blocks/infusedorestone.png");--local-subject:url("prepared/icons/shard_aqua.png")}
-.tile .pic[data-site="greenwood"]{--local-ground:url("prepared/world/greenwood-ground.png");--local-subject:url("originals/thaumcraft/blocks/greatwoodsapling.png")}
-.tile .pic[data-site="deep"]{--local-ground:url("originals/minecraft/blocks/stonebrick.png");--local-subject:url("originals/ttinkerer/items/ichorPick.png")}
-.tile .pic[data-site="lava"]{--local-ground:url("prepared/world/lava-ground.png");--local-subject:url("originals/minecraft/blocks/obsidian.png")}
+.tile .pic[data-site="greenwood"]{--local-ground:url("prepared/world/greenwood-ground.png");--local-subject:url("prepared/blocks/greatwood-log.png")}
+.tile .pic[data-site="deep"]{--local-ground:url("originals/minecraft/blocks/stonebrick.png");--local-subject:url("prepared/blocks/iron-ore.png")}
+.tile .pic[data-site="lava"]{--local-ground:url("prepared/world/lava-ground.png");--local-subject:url("prepared/blocks/obsidian.png")}
 .tile .pic[data-site="spring"]{--local-ground:url("prepared/world/spring-ground.png");--local-subject:url("originals/thaumcraft/items/bucket_pure.png")}
 .tile .pic[data-site="rift"]{--local-ground:url("originals/thaumcraft/blocks/obsidiantotem1.png");--local-subject:url("prepared/world/rift-object.png")}
 .tile .pic[data-site="waste"]{--local-ground:url("originals/minecraft/blocks/hardened_clay.png");--local-subject:url("originals/minecraft/items/rotten_flesh.png")}
@@ -197,8 +206,8 @@
 .tile .pic[data-site="brambles"]{--local-ground:url("prepared/world/brambles-ground.png");--local-subject:url("originals/minecraft/items/string.png")}
 .tile .pic[data-site="resinwood"]{--local-ground:url("originals/thaumcraft/blocks/greatwoodside.png");--local-subject:url("prepared/icons/resin.png")}
 .tile .pic[data-site="amberbed"]{--local-ground:url("originals/thaumcraft/blocks/amberore.png");--local-subject:url("originals/thaumcraft/items/amber.png")}
-.tile .pic[data-site="cinnabar"]{--local-ground:url("originals/thaumcraft/blocks/cinnibar.png");--local-subject:url("originals/thaumcraft/items/clustercinnabar.png")}
-.tile .pic[data-site="obsidian"]{--local-ground:url("originals/minecraft/blocks/obsidian.png");--local-subject:url("originals/thaumcraft/items/thaumiumpick.png")}
+.tile .pic[data-site="cinnabar"]{--local-ground:url("originals/thaumcraft/blocks/cinnibar.png");--local-subject:url("prepared/blocks/cinnabar-ore.png")}
+.tile .pic[data-site="obsidian"]{--local-ground:url("originals/minecraft/blocks/obsidian.png");--local-subject:url("prepared/blocks/obsidian.png")}
 .tile .pic[data-site="storm"]{--local-ground:url("prepared/world/storm-ground.png");--local-subject:url("prepared/icons/stormshard.png")}
 .tile .pic[data-site="coldpeak"]{--local-ground:url("originals/minecraft/blocks/ice_packed.png");--local-subject:url("prepared/icons/frostcrystal.png")}
-.tile .pic[data-site="silverwood"]{--local-ground:url("originals/thaumcraft/blocks/silverwoodleaveslow.png");--local-subject:url("originals/thaumcraft/blocks/silverwoodsapling.png")}
+.tile .pic[data-site="silverwood"]{--local-ground:url("originals/thaumcraft/blocks/silverwoodleaveslow.png");--local-subject:url("prepared/blocks/silverwood-log.png")}

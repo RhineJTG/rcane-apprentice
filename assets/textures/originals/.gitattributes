@@ -1,0 +1,2 @@
+# Preserve the original archive bytes of imported model assets on checkout.
+*.obj binary
