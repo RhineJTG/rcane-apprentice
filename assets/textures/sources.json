@@ -54,7 +54,7 @@
     "thaumometer": "prepared/icons/thaumometer.png",
     "thaumium": "originals/thaumcraft/items/thaumiumingot.png",
     "purify": "originals/thaumcraft/items/bath_salts.png",
-    "core": "originals/thaumcraft/items/golem_core_blank.png",
+    "core": "prepared/icons/core.png",
     "void": "originals/thaumcraft/items/voidingot.png",
     "focus_dig": "originals/thaumcraft/items/focus_excavation.png",
     "focus_fuse": "prepared/icons/focus_fuse.png",
@@ -112,7 +112,58 @@
     "sano": "prepared/icons/sano.png",
     "iter": "prepared/icons/iter.png",
     "cognitio": "prepared/icons/cognitio.png",
-    "sensus": "prepared/icons/sensus.png"
+    "sensus": "prepared/icons/sensus.png",
+    "leather": "originals/minecraft/items/leather.png",
+    "string": "originals/minecraft/items/string.png",
+    "wheat": "originals/minecraft/items/wheat.png",
+    "clay": "originals/minecraft/items/clay_ball.png",
+    "brick": "originals/minecraft/items/brick.png",
+    "flint": "originals/minecraft/items/flint.png",
+    "obsidian": "originals/minecraft/blocks/obsidian.png",
+    "gold_nugget": "originals/minecraft/items/gold_nugget.png",
+    "cauldron": "originals/minecraft/items/cauldron.png",
+    "furnace": "originals/minecraft/blocks/furnace_front_off.png",
+    "travel_ration": "originals/minecraft/items/bread.png",
+    "crafting-table": "originals/minecraft/blocks/crafting_table_top.png",
+    "amber": "originals/thaumcraft/items/amber.png",
+    "cinnabar": "originals/thaumcraft/items/clustercinnabar.png",
+    "quicksilver": "originals/thaumcraft/items/quicksilver.png",
+    "silverlog": "originals/thaumcraft/blocks/silverwoodtop.png",
+    "iron_nugget": "originals/thaumcraft/items/nuggetiron.png",
+    "arcane_stone": "originals/thaumcraft/blocks/arcane_stone.png",
+    "pedestal": "originals/thaumcraft/blocks/pedestal_side.png",
+    "jar": "originals/thaumcraft/blocks/jar_side.png",
+    "nitor": "originals/thaumcraft/items/nitor.png",
+    "alumentum": "originals/thaumcraft/items/alumentum.png",
+    "core_blank": "originals/thaumcraft/items/golem_core_blank.png",
+    "i_silver": "originals/thaumcraft/items/wand_rod_silverwood.png",
+    "golem-clay": "originals/thaumcraft/items/golem_clay.png",
+    "golem-runic": "originals/thaumcraft/items/golem_thaumium.png",
+    "a_distiller": "originals/thaumcraft/blocks/al_furnace_front_off.png",
+    "prospector_charm": "prepared/icons/prospector_charm.png",
+    "tempestas": "prepared/icons/tempestas.png",
+    "fames": "prepared/icons/fames.png",
+    "bestia": "prepared/icons/bestia.png",
+    "messis": "prepared/icons/messis.png",
+    "pannus": "prepared/icons/pannus.png",
+    "instrumentum": "prepared/icons/instrumentum.png",
+    "fabrico": "prepared/icons/fabrico.png",
+    "machina": "prepared/icons/machina.png",
+    "vinculum": "prepared/icons/vinculum.png",
+    "tutamen": "prepared/icons/tutamen.png",
+    "lucrum": "prepared/icons/lucrum.png",
+    "resonantia": "prepared/icons/resonantia.png",
+    "concordia": "prepared/icons/concordia.png",
+    "fermentum": "prepared/icons/fermentum.png",
+    "resin": "prepared/icons/resin.png",
+    "stormshard": "prepared/icons/stormshard.png",
+    "frostcrystal": "prepared/icons/frostcrystal.png",
+    "resonance_compass": "prepared/icons/resonance_compass.png",
+    "runic_joint": "prepared/icons/runic_joint.png",
+    "a_condenser": "prepared/icons/a_condenser.png",
+    "matrix": "prepared/icons/matrix.png",
+    "alembic": "prepared/icons/alembic.png",
+    "arcane-workbench": "prepared/icons/arcane-workbench.png"
   },
   "terrain": {
     "tree": {
@@ -186,6 +237,54 @@
     "waste": {
       "surface": "originals/minecraft/blocks/hardened_clay.png",
       "object": "originals/minecraft/items/rotten_flesh.png"
+    },
+    "pasture": {
+      "surface": "prepared/world/pasture-ground.png",
+      "object": "originals/minecraft/items/leather.png"
+    },
+    "mudbank": {
+      "surface": "originals/minecraft/blocks/clay.png",
+      "object": "originals/minecraft/items/clay_ball.png"
+    },
+    "gravel": {
+      "surface": "originals/minecraft/blocks/gravel.png",
+      "object": "originals/minecraft/items/flint.png"
+    },
+    "field": {
+      "surface": "originals/minecraft/blocks/farmland_wet.png",
+      "object": "originals/minecraft/blocks/wheat_stage_7.png"
+    },
+    "brambles": {
+      "surface": "prepared/world/brambles-ground.png",
+      "object": "originals/minecraft/items/string.png"
+    },
+    "resinwood": {
+      "surface": "originals/thaumcraft/blocks/greatwoodside.png",
+      "object": "prepared/icons/resin.png"
+    },
+    "amberbed": {
+      "surface": "originals/thaumcraft/blocks/amberore.png",
+      "object": "originals/thaumcraft/items/amber.png"
+    },
+    "cinnabar": {
+      "surface": "originals/thaumcraft/blocks/cinnibar.png",
+      "object": "originals/thaumcraft/items/clustercinnabar.png"
+    },
+    "obsidian": {
+      "surface": "originals/minecraft/blocks/obsidian.png",
+      "object": "originals/thaumcraft/items/thaumiumpick.png"
+    },
+    "storm": {
+      "surface": "prepared/world/storm-ground.png",
+      "object": "prepared/icons/stormshard.png"
+    },
+    "coldpeak": {
+      "surface": "originals/minecraft/blocks/ice_packed.png",
+      "object": "prepared/icons/frostcrystal.png"
+    },
+    "silverwood": {
+      "surface": "originals/thaumcraft/blocks/silverwoodleaveslow.png",
+      "object": "originals/thaumcraft/blocks/silverwoodsapling.png"
     }
   },
   "similar_source_items": {
@@ -478,8 +577,7 @@
       "entry": "assets/thaumcraft/textures/misc/r_crucible.png"
     },
     "prepared/icons/a_thc.png": {
-      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
-      "entry": "assets/thaumcraft/textures/items/wand_cap_thaumium.png",
+      "source": "originals/thaumcraft/items/wand_cap_thaumium.png",
       "frame": 0
     },
     "originals/thaumcraft/blocks/pedestal_side.png": {
@@ -487,8 +585,7 @@
       "entry": "assets/thaumcraft/textures/blocks/pedestal_side.png"
     },
     "prepared/icons/a_voc.png": {
-      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
-      "entry": "assets/thaumcraft/textures/items/wand_cap_void.png",
+      "source": "originals/thaumcraft/items/wand_cap_void.png",
       "frame": 0
     },
     "originals/thaumcraft/items/wand_rod_greatwood.png": {
@@ -773,6 +870,338 @@
     "originals/minecraft/blocks/hardened_clay.png": {
       "archive": "FTB Infinity Evolved.jar",
       "entry": "assets/minecraft/textures/blocks/hardened_clay.png"
+    },
+    "originals/minecraft/items/leather.png": {
+      "archive": "Minecraft Java Edition 1.7.10 client.jar",
+      "entry": "assets/minecraft/textures/items/leather.png"
+    },
+    "originals/minecraft/items/string.png": {
+      "archive": "Minecraft Java Edition 1.7.10 client.jar",
+      "entry": "assets/minecraft/textures/items/string.png"
+    },
+    "originals/minecraft/items/wheat.png": {
+      "archive": "Minecraft Java Edition 1.7.10 client.jar",
+      "entry": "assets/minecraft/textures/items/wheat.png"
+    },
+    "originals/minecraft/items/clay_ball.png": {
+      "archive": "Minecraft Java Edition 1.7.10 client.jar",
+      "entry": "assets/minecraft/textures/items/clay_ball.png"
+    },
+    "originals/minecraft/items/brick.png": {
+      "archive": "Minecraft Java Edition 1.7.10 client.jar",
+      "entry": "assets/minecraft/textures/items/brick.png"
+    },
+    "originals/minecraft/items/flint.png": {
+      "archive": "Minecraft Java Edition 1.7.10 client.jar",
+      "entry": "assets/minecraft/textures/items/flint.png"
+    },
+    "originals/minecraft/items/gold_nugget.png": {
+      "archive": "Minecraft Java Edition 1.7.10 client.jar",
+      "entry": "assets/minecraft/textures/items/gold_nugget.png"
+    },
+    "originals/minecraft/items/cauldron.png": {
+      "archive": "Minecraft Java Edition 1.7.10 client.jar",
+      "entry": "assets/minecraft/textures/items/cauldron.png"
+    },
+    "originals/minecraft/blocks/furnace_front_off.png": {
+      "archive": "Minecraft Java Edition 1.7.10 client.jar",
+      "entry": "assets/minecraft/textures/blocks/furnace_front_off.png"
+    },
+    "originals/minecraft/items/bread.png": {
+      "archive": "Minecraft Java Edition 1.7.10 client.jar",
+      "entry": "assets/minecraft/textures/items/bread.png"
+    },
+    "originals/minecraft/blocks/crafting_table_top.png": {
+      "archive": "Minecraft Java Edition 1.7.10 client.jar",
+      "entry": "assets/minecraft/textures/blocks/crafting_table_top.png"
+    },
+    "originals/thaumcraft/items/amber.png": {
+      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+      "entry": "assets/thaumcraft/textures/items/amber.png"
+    },
+    "originals/thaumcraft/items/clustercinnabar.png": {
+      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+      "entry": "assets/thaumcraft/textures/items/clustercinnabar.png"
+    },
+    "originals/thaumcraft/items/quicksilver.png": {
+      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+      "entry": "assets/thaumcraft/textures/items/quicksilver.png"
+    },
+    "originals/thaumcraft/blocks/silverwoodtop.png": {
+      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+      "entry": "assets/thaumcraft/textures/blocks/silverwoodtop.png"
+    },
+    "originals/thaumcraft/items/nuggetiron.png": {
+      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+      "entry": "assets/thaumcraft/textures/items/nuggetiron.png"
+    },
+    "originals/thaumcraft/blocks/arcane_stone.png": {
+      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+      "entry": "assets/thaumcraft/textures/blocks/arcane_stone.png"
+    },
+    "originals/thaumcraft/blocks/jar_side.png": {
+      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+      "entry": "assets/thaumcraft/textures/blocks/jar_side.png"
+    },
+    "originals/thaumcraft/items/nitor.png": {
+      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+      "entry": "assets/thaumcraft/textures/items/nitor.png"
+    },
+    "originals/thaumcraft/items/alumentum.png": {
+      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+      "entry": "assets/thaumcraft/textures/items/alumentum.png"
+    },
+    "originals/thaumcraft/items/wand_rod_silverwood.png": {
+      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+      "entry": "assets/thaumcraft/textures/items/wand_rod_silverwood.png"
+    },
+    "originals/thaumcraft/items/golem_clay.png": {
+      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+      "entry": "assets/thaumcraft/textures/items/golem_clay.png"
+    },
+    "originals/thaumcraft/items/golem_thaumium.png": {
+      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+      "entry": "assets/thaumcraft/textures/items/golem_thaumium.png"
+    },
+    "originals/thaumcraft/blocks/al_furnace_front_off.png": {
+      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+      "entry": "assets/thaumcraft/textures/blocks/al_furnace_front_off.png"
+    },
+    "originals/thaumcraft/items/wand_cap_thaumium.png": {
+      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+      "entry": "assets/thaumcraft/textures/items/wand_cap_thaumium.png"
+    },
+    "originals/thaumcraft/items/wand_cap_void.png": {
+      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+      "entry": "assets/thaumcraft/textures/items/wand_cap_void.png"
+    },
+    "originals/thaumcraft/items/golem_core_gather.png": {
+      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+      "entry": "assets/thaumcraft/textures/items/golem_core_gather.png"
+    },
+    "prepared/icons/core.png": {
+      "source": "originals/thaumcraft/items/golem_core_gather.png",
+      "frame": 0
+    },
+    "originals/thaumcraft/items/runic_amulet.png": {
+      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+      "entry": "assets/thaumcraft/textures/items/runic_amulet.png"
+    },
+    "prepared/icons/prospector_charm.png": {
+      "source": "originals/thaumcraft/items/runic_amulet.png",
+      "frame": 0
+    },
+    "originals/thaumcraft/aspects/tempestas.png": {
+      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+      "entry": "assets/thaumcraft/textures/aspects/tempestas.png"
+    },
+    "prepared/icons/tempestas.png": {
+      "source": "originals/thaumcraft/aspects/tempestas.png",
+      "tint": "#8ed4ff"
+    },
+    "originals/thaumcraft/aspects/fames.png": {
+      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+      "entry": "assets/thaumcraft/textures/aspects/fames.png"
+    },
+    "prepared/icons/fames.png": {
+      "source": "originals/thaumcraft/aspects/fames.png",
+      "tint": "#bc7054"
+    },
+    "originals/thaumcraft/aspects/bestia.png": {
+      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+      "entry": "assets/thaumcraft/textures/aspects/bestia.png"
+    },
+    "prepared/icons/bestia.png": {
+      "source": "originals/thaumcraft/aspects/bestia.png",
+      "tint": "#da9860"
+    },
+    "originals/thaumcraft/aspects/messis.png": {
+      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+      "entry": "assets/thaumcraft/textures/aspects/messis.png"
+    },
+    "prepared/icons/messis.png": {
+      "source": "originals/thaumcraft/aspects/messis.png",
+      "tint": "#e4bc62"
+    },
+    "originals/thaumcraft/aspects/pannus.png": {
+      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+      "entry": "assets/thaumcraft/textures/aspects/pannus.png"
+    },
+    "prepared/icons/pannus.png": {
+      "source": "originals/thaumcraft/aspects/pannus.png",
+      "tint": "#dfc4a6"
+    },
+    "originals/thaumcraft/aspects/instrumentum.png": {
+      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+      "entry": "assets/thaumcraft/textures/aspects/instrumentum.png"
+    },
+    "prepared/icons/instrumentum.png": {
+      "source": "originals/thaumcraft/aspects/instrumentum.png",
+      "tint": "#adb9d5"
+    },
+    "originals/thaumcraft/aspects/fabrico.png": {
+      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+      "entry": "assets/thaumcraft/textures/aspects/fabrico.png"
+    },
+    "prepared/icons/fabrico.png": {
+      "source": "originals/thaumcraft/aspects/fabrico.png",
+      "tint": "#b79065"
+    },
+    "originals/thaumcraft/aspects/machina.png": {
+      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+      "entry": "assets/thaumcraft/textures/aspects/machina.png"
+    },
+    "prepared/icons/machina.png": {
+      "source": "originals/thaumcraft/aspects/machina.png",
+      "tint": "#78bfae"
+    },
+    "originals/thaumcraft/aspects/vinculum.png": {
+      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+      "entry": "assets/thaumcraft/textures/aspects/vinculum.png"
+    },
+    "prepared/icons/vinculum.png": {
+      "source": "originals/thaumcraft/aspects/vinculum.png",
+      "tint": "#b1a7cc"
+    },
+    "originals/thaumcraft/aspects/tutamen.png": {
+      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+      "entry": "assets/thaumcraft/textures/aspects/tutamen.png"
+    },
+    "prepared/icons/tutamen.png": {
+      "source": "originals/thaumcraft/aspects/tutamen.png",
+      "tint": "#7da9d9"
+    },
+    "originals/thaumcraft/aspects/lucrum.png": {
+      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+      "entry": "assets/thaumcraft/textures/aspects/lucrum.png"
+    },
+    "prepared/icons/lucrum.png": {
+      "source": "originals/thaumcraft/aspects/lucrum.png",
+      "tint": "#ffce62"
+    },
+    "prepared/icons/resonantia.png": {
+      "source": "Arcane Apprentice original pixel art"
+    },
+    "prepared/icons/concordia.png": {
+      "source": "Arcane Apprentice original pixel art"
+    },
+    "prepared/icons/fermentum.png": {
+      "source": "Arcane Apprentice original pixel art"
+    },
+    "prepared/icons/resin.png": {
+      "source": "Arcane Apprentice original pixel art"
+    },
+    "prepared/icons/stormshard.png": {
+      "source": "Arcane Apprentice original pixel art"
+    },
+    "prepared/icons/frostcrystal.png": {
+      "source": "Arcane Apprentice original pixel art"
+    },
+    "prepared/icons/resonance_compass.png": {
+      "source": "Arcane Apprentice original pixel art"
+    },
+    "prepared/icons/runic_joint.png": {
+      "source": "Arcane Apprentice original pixel art"
+    },
+    "prepared/icons/a_condenser.png": {
+      "source": "Arcane Apprentice original pixel art"
+    },
+    "originals/thaumcraft/models/infuser.png": {
+      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+      "entry": "assets/thaumcraft/textures/models/infuser.png"
+    },
+    "prepared/icons/matrix.png": {
+      "layers": [
+        "originals/thaumcraft/models/infuser.png"
+      ],
+      "processing": "Projection of three rune faces with tinted rune overlays"
+    },
+    "originals/thaumcraft/models/alembic.png": {
+      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+      "entry": "assets/thaumcraft/textures/models/alembic.png"
+    },
+    "prepared/icons/alembic.png": {
+      "layers": [
+        "originals/thaumcraft/models/alembic.png"
+      ],
+      "processing": "Assembled retort front, connector and brass cap"
+    },
+    "originals/thaumcraft/models/wandtable.png": {
+      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+      "entry": "assets/thaumcraft/textures/models/wandtable.png"
+    },
+    "prepared/icons/arcane-workbench.png": {
+      "source": "originals/thaumcraft/models/wandtable.png",
+      "crop": [
+        16,
+        0,
+        32,
+        16
+      ]
+    },
+    "originals/thaumcraft/blocks/al_furnace_front_on.png": {
+      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+      "entry": "assets/thaumcraft/textures/blocks/al_furnace_front_on.png"
+    },
+    "originals/minecraft/blocks/grass_top.png": {
+      "archive": "Minecraft Java Edition 1.7.10 client.jar",
+      "entry": "assets/minecraft/textures/blocks/grass_top.png"
+    },
+    "originals/minecraft/blocks/leaves_oak_opaque.png": {
+      "archive": "Minecraft Java Edition 1.7.10 client.jar",
+      "entry": "assets/minecraft/textures/blocks/leaves_oak_opaque.png"
+    },
+    "originals/thaumcraft/blocks/greatwoodside.png": {
+      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+      "entry": "assets/thaumcraft/textures/blocks/greatwoodside.png"
+    },
+    "originals/thaumcraft/blocks/silverwoodleaveslow.png": {
+      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+      "entry": "assets/thaumcraft/textures/blocks/silverwoodleaveslow.png"
+    },
+    "prepared/world/pasture-ground.png": {
+      "source": "originals/minecraft/blocks/grass_top.png",
+      "tint": "#689b3b"
+    },
+    "prepared/world/brambles-ground.png": {
+      "source": "originals/minecraft/blocks/leaves_oak_opaque.png",
+      "tint": "#557844"
+    },
+    "prepared/world/storm-ground.png": {
+      "source": "originals/minecraft/blocks/stone.png",
+      "tint": "#424574"
+    },
+    "originals/minecraft/blocks/clay.png": {
+      "archive": "Minecraft Java Edition 1.7.10 client.jar",
+      "entry": "assets/minecraft/textures/blocks/clay.png"
+    },
+    "originals/minecraft/blocks/gravel.png": {
+      "archive": "Minecraft Java Edition 1.7.10 client.jar",
+      "entry": "assets/minecraft/textures/blocks/gravel.png"
+    },
+    "originals/minecraft/blocks/farmland_wet.png": {
+      "archive": "Minecraft Java Edition 1.7.10 client.jar",
+      "entry": "assets/minecraft/textures/blocks/farmland_wet.png"
+    },
+    "originals/minecraft/blocks/wheat_stage_7.png": {
+      "archive": "Minecraft Java Edition 1.7.10 client.jar",
+      "entry": "assets/minecraft/textures/blocks/wheat_stage_7.png"
+    },
+    "originals/thaumcraft/blocks/amberore.png": {
+      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+      "entry": "assets/thaumcraft/textures/blocks/amberore.png"
+    },
+    "originals/thaumcraft/blocks/cinnibar.png": {
+      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+      "entry": "assets/thaumcraft/textures/blocks/cinnibar.png"
+    },
+    "originals/minecraft/blocks/ice_packed.png": {
+      "archive": "Minecraft Java Edition 1.7.10 client.jar",
+      "entry": "assets/minecraft/textures/blocks/ice_packed.png"
+    },
+    "originals/thaumcraft/blocks/silverwoodsapling.png": {
+      "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+      "entry": "assets/thaumcraft/textures/blocks/silverwoodsapling.png"
     }
   },
   "fallback_icon_ids": [
