@@ -640,3 +640,24 @@
     font-size: 11px;
   }
 }
+
+@media (max-width: 1020px) {
+  .notebook-table {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    padding-inline: 8px;
+    background-position: center top;
+    background-size: 100% min(100cqi, 384px);
+  }
+
+  .notebook-palette {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, clamp(104px, 30cqi, 130px)), 1fr));
+    max-height: none;
+    overflow: visible;
+    padding: 3px;
+  }
+
+  .notebook-aspect b {
+    overflow-wrap: anywhere;
+  }
+}

@@ -91,7 +91,7 @@ small{color:var(--muted);font-weight:400}
 
 .card{background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:14px}
 .card+.card{margin-top:12px}
-.card>h3,.sec>h3{font-size:16px;margin-bottom:8px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.card>h3,.sec>h3,.bag-item-detail>h3{font-size:16px;margin-bottom:8px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
 .sec{margin-top:18px}
 .sec:first-child{margin-top:0}
 .lead{color:var(--muted);margin-bottom:12px}
@@ -149,6 +149,14 @@ small{color:var(--muted);font-weight:400}
 .bag9 .slot{min-width:0;background:#0c0914;border-color:#000;box-shadow:inset 1px 1px 0 rgba(255,255,255,.07),inset -1px -1px 0 rgba(255,255,255,.03)}
 .bag9 .slot .ico{width:min(34px,78%);height:auto;aspect-ratio:1;font-size:clamp(11px,2.6vw,16px)}
 .bag9 .slot.empty{opacity:.6}
+.bag-info{display:grid;grid-template-columns:minmax(0,1fr) minmax(76px,104px);align-items:start;gap:10px;margin-top:12px}
+.bag-scanner{display:grid;justify-items:end;gap:4px;text-align:right}
+.bag-scan{display:grid;place-items:center;gap:3px;min-width:64px;min-height:56px;padding:6px 8px;font-size:12px;line-height:1.25;color:var(--gold)}
+.bag-scan img{display:block;width:30px;height:27px;object-fit:contain;image-rendering:pixelated}
+.bag-scan[aria-disabled="true"]{border-color:var(--line);background:var(--slot);color:var(--muted);cursor:not-allowed}
+.bag-scan[aria-disabled="true"] img{opacity:.48}
+.bag-scan[data-scanned]{color:var(--ok)}
+.bag-scanner small{font-size:11px;line-height:1.35}
 .eqg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
 .slot.eqs{background:#0c0914;border-color:#000}
 .slot.eqs .ico{width:min(34px,72%);height:auto;aspect-ratio:1;margin-bottom:8px}
@@ -168,13 +176,17 @@ small{color:var(--muted);font-weight:400}
 @media(max-width:720px){
  .top{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px}
  .top .hud{grid-column:1/-1}
- #dtab{display:none}
- #mobile-drawer-toggle{display:inline-flex;color:var(--gold)}
 }
 .dhead{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 14px;border-bottom:1px solid var(--line)}
 .dhead h3{font-size:16px}
 .dhead p{font-size:12px;color:var(--muted);margin-top:2px}
 #dbody{flex:1;min-height:0;overflow-y:auto;padding:10px 12px 16px;display:grid;gap:8px;align-content:start}
+@media(max-width:1020px){
+ #mobile-drawer-toggle{display:inline-flex;color:var(--gold)}
+ #dtab,#drawer{display:none}
+ #drawer.open{display:block;position:static;width:auto;transform:none;margin-top:14px;padding:0;border:1px solid var(--gold);border-radius:4px;box-shadow:none}
+ #dbody{overflow:visible;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+}
 .dr{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;background:var(--slot);border:1px solid var(--line);border-radius:4px;padding:8px}
 .dr.on{border-color:var(--gold)}
 .dr.zero .dn small{opacity:.7}
@@ -227,8 +239,10 @@ small{color:var(--muted);font-weight:400}
 
 /* crucible, node */
 .vessel{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))}
-.lab-prep{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:12px;align-items:start}
+.lab-prep{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);grid-template-areas:"materials preview";gap:12px;align-items:start}
 .lab-prep>.card{min-width:0;margin-top:0}
+.distill-picker{grid-area:materials}
+.distill-preview{grid-area:preview}
 .lab-filter{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;margin:0 0 10px}
 .lab-filter select,.golem-job select{min-width:0;max-width:100%;font:inherit;color:var(--fg);color-scheme:dark;
  background:var(--slot);border:1px solid var(--line-hi);border-radius:4px;padding:6px}
@@ -243,7 +257,10 @@ small{color:var(--muted);font-weight:400}
 .golem-job:first-child{padding-top:0}
 .golem-job label{display:grid;gap:2px;font-size:12px;color:var(--muted);min-width:0}
 .golem-job p{font-size:12px}
-@media(max-width:950px){.lab-prep{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:1020px){
+ .lab-prep{grid-template-columns:minmax(0,1fr);grid-template-areas:"preview" "materials"}
+ .distill-options{max-height:none;overflow:visible}
+}
 @media(max-width:520px){
  .dis{grid-template-columns:auto minmax(0,1fr)}.dis>.row{grid-column:1/-1}
  .golem-job{grid-template-columns:auto minmax(0,1fr) auto}.golem-job label{grid-column:1/-1;grid-row:2}
@@ -315,8 +332,8 @@ small{color:var(--muted);font-weight:400}
 .workbench .need{margin:3px 0 0}
 .workbench-action{display:flex;justify-content:flex-end;margin-top:12px}
 @media(max-width:1020px){
- .workbench{grid-template-columns:minmax(0,1fr);grid-template-areas:"picker" "table"}
- .recipe-options{max-height:174px;overflow:auto;padding:4px}
+ .workbench{grid-template-columns:minmax(0,1fr);grid-template-areas:"table" "picker"}
+ .recipe-options{padding:4px}
 }
 @media(max-width:520px){
  .workbench-picker .cat{padding:4px 8px;font-size:13px}
@@ -326,6 +343,7 @@ small{color:var(--muted);font-weight:400}
 .win-head .btn{flex:0 0 auto}
 @media(max-width:720px){.win-head,.workbench-action{padding-inline-end:8px}}
 .log{max-height:170px;overflow:auto;font-size:13px;display:grid;gap:3px}
+@media(max-width:1020px){.log{max-height:none;overflow:visible}}
 .log p.bad{color:var(--bad)}.log p.good{color:var(--ok)}.log p.gold{color:var(--gold)}
 .foot{margin-top:24px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;color:var(--muted);font-size:13px}
 .save-status{flex-basis:100%}
@@ -356,6 +374,11 @@ small{color:var(--muted);font-weight:400}
       <section class="card" id="logp"></section>
     </aside>
   </div>
+  <aside id="drawer" aria-label="元素册">
+    <button id="dtab" data-act="drawer" aria-expanded="false" aria-controls="dbody">元素册</button>
+    <div class="dhead"><div><h3>元素册</h3><p>点左侧圆标选中元素，再去研究格子里放置。「相邻」是能与它直接相连的已知元素。</p></div><button class="btn sm" data-act="drawer">收起</button></div>
+    <div id="dbody"></div>
+  </aside>
   <footer class="foot" id="foot">
     <div class="row" id="save-actions"></div>
     <input type="file" id="save-file" accept=".json,application/json" hidden>
@@ -364,17 +387,13 @@ small{color:var(--muted);font-weight:400}
   </footer>
 </div>
 <div id="pops"></div>
-<aside id="drawer" aria-label="元素册">
-  <button id="dtab" data-act="drawer" aria-expanded="false" aria-controls="dbody">元素册</button>
-  <div class="dhead"><div><h3>元素册</h3><p>点左侧圆标选中元素，再去研究格子里放置。「相邻」是能与它直接相连的已知元素。</p></div><button class="btn sm" data-act="drawer">收起</button></div>
-  <div id="dbody"></div>
-</aside>
 
 <script src="assets/pixel-art/icons.js"></script>
 <script>
 (function(){
 'use strict';
 const $=s=>document.querySelector(s);
+const COMPACT_LAYOUT=window.matchMedia('(max-width: 1020px)');
 const KEY='arcane-apprentice-v1';
 
 /* ---------- 像素材质 ---------- */
@@ -1225,6 +1244,7 @@ function startRes(id){
  if(!hasId(RSD,id)||rsState(RSD[id])!=='ok')return;
  U.research=id;
  S.rs={id,cells:new Array(NOTES_HEXES.length).fill(null)};render();
+ if(COMPACT_LAYOUT.matches)focusNotebookBoard();
 }
 function refundResearchCells(r,used){
  r.cells.forEach((aspect,i)=>{if(aspect&&!used?.has(i))S.pool[aspect]=(S.pool[aspect]||0)+1});
@@ -1276,9 +1296,10 @@ function finishRes(e,path){
 }
 
 /* ---------- 扫描 ---------- */
+const scanTool=()=>inv('thaumometer')>0?'thaumometer':isEq('goggles')?'goggles':null;
 function scan(id,e){
  if(!hasId(IT,id)||!inv(id))return;
- if(!inv('thaumometer')&&!isEq('goggles')){msg('需要探知仪，或装备奥术护目镜。','bad');return}
+ if(!scanTool()){msg('需要探知仪，或装备奥术护目镜。','bad');return}
  if(S.scanned[id]){msg('这个物品已经扫描过了。','bad');return}
  S.scanned[id]=1;const parts=[];
  for(const a in IT[id].a){const n=IT[id].a[a];const pts=1+(n>=3?1:0)+eqVal('scan');S.known[a]=1;S.pool[a]=(S.pool[a]||0)+pts;parts.push(`${A[a].f}×${pts}`)}
@@ -1572,6 +1593,7 @@ const ACT={
   if(!Object.hasOwn(U.recipe,U.tab))return;
   U.recipe[U.tab]=d.id;
   renderMain();
+  showCompactPreview('#workbench-title');
  },
  dismissWin:()=>{
   if(!S.won||S.winDismissed)return;
@@ -1618,7 +1640,14 @@ const ACT={
  outerHoly:()=>{if(!(S.outer.on&&inv('holywater')>0))return;take('holywater',1);S.outer.st=Math.min(100,S.outer.st+30);render()},
  bucket:()=>{if(inv('bucket')<1)return;if(S.vis.aqua<2){msg('需要 2 点水魔力。','bad');return}S.vis.aqua-=2;S.cru.water=Math.min(16,S.cru.water+4);render();animateCrucible('pour')},
  strike:()=>{if(inv('striker')<1)return;if(S.vis.ignis<3){msg('需要 3 点火魔力。','bad');return}S.vis.ignis-=3;S.cru.heat=Math.min(240,S.cru.heat+60);render();animateCrucible('fire',A.ignis.c)},
- selAsp:d=>{U.sel=d.id;renderMain();renderDrawer()},
+ selAsp:(d,e)=>{
+  const fromBook=COMPACT_LAYOUT.matches&&e?.target.closest('#dbody')&&$('.notebook-sheet');
+  const returnToBoard=COMPACT_LAYOUT.matches&&e?.target.closest('.notebook-palette');
+  U.sel=d.id;
+  renderMain();renderDrawer();
+  if(fromBook)ACT.drawer();
+  if(returnToBoard||fromBook)focusNotebookBoard();
+ },
  drawer:()=>{
   U.drawer=!U.drawer;
   $('#drawer').classList.toggle('open',U.drawer);
@@ -1627,14 +1656,14 @@ const ACT={
   mobileToggle.setAttribute('aria-expanded',String(U.drawer));
   if(U.drawer){
    renderDrawer();
-   if(mobileToggle.offsetWidth)$('#drawer .dhead button').focus({preventScroll:true});
-  }else (mobileToggle.offsetWidth?mobileToggle:$('#dtab')).focus({preventScroll:true});
+   if(mobileToggle.offsetWidth)$('#drawer .dhead button').focus();
+  }else (mobileToggle.offsetWidth?mobileToggle:$('#dtab')).focus();
  },
  cell:(d,e)=>cellClick(Number(d.i),e),
  combine:(d,e)=>{combine(d.kind,d.id,e);render()},
  transcribe:(d,e)=>transcribe(d.id,d.stock==='distilled',d.all==='1',e),
  distillSource:d=>{U.distillSource=d.id;U.distillItem=null;U.distillAspect='all';renderMain()},
- distillPick:d=>{U.distillItem=d.id;renderMain()},
+ distillPick:d=>{U.distillItem=d.id;renderMain();showCompactPreview('.distill-preview')},
  distillStart:d=>startDistill(d.from,d.id,d.all==='1'),
  nitor:()=>{if(!inv('nitor')||S.cru.heat>=240)return;take('nitor',1);S.cru.heat=Math.min(240,S.cru.heat+180);render();animateCrucible('fire',A.lux.c)},
  water:()=>{if(inv('water')<1){msg('需要一桶水。去清水池打一桶。','bad');return}take('water',1);S.cru.water=Math.min(16,S.cru.water+8);render();animateCrucible('pour')},
@@ -1970,8 +1999,7 @@ function animateFurnace(){
 function vWorkbench(station){
  const groups=station==='craft'?`<div id="workbench-groups" class="cats" aria-label="配方分类">${Object.entries(CRAFT_GROUPS).map(([id,label])=>`<button class="cat" data-act="craftGroup" data-id="${id}" aria-pressed="false">${label}</button>`).join('')}</div>`:'';
  return `<div class="workbench">
- <section class="card workbench-picker"><h3>选择配方</h3>${groups}<div class="recipe-options" id="workbench-recipes"></div></section>
- <section class="card workbench-table ${station==='arcane'?'arcane-station':'craft-station'}" aria-labelledby="workbench-title"><h3 id="workbench-title"></h3>
+ <section class="card workbench-table ${station==='arcane'?'arcane-station':'craft-station'}" aria-labelledby="workbench-title"><h3 id="workbench-title" tabindex="-1"></h3>
  <div class="crafting-board" id="workbench-board" data-station="${station}">
   <div id="workbench-display" aria-hidden="true"></div>
   <span class="station-position station-sprite" id="furnace-flame" style="--x:56;--y:36;--w:14;--h:13;--u:176;--v:0" aria-hidden="true"></span>
@@ -1980,7 +2008,11 @@ function vWorkbench(station){
  </div>
  <div id="workbench-preview"></div>
  <div class="workbench-action"><button class="btn primary" id="workbench-action" data-act="craft" data-id="" disabled>合成</button></div></section>
+ <section class="card workbench-picker"><h3>选择配方</h3>${groups}<div class="recipe-options" id="workbench-recipes"></div></section>
  </div>`;
+}
+function showCompactPreview(selector){
+ if(COMPACT_LAYOUT.matches)$(selector)?.focus();
 }
 function pressSelected(container,id){
  for(const button of container.querySelectorAll('button')){
@@ -2100,6 +2132,15 @@ function notebookTabs(action,labels,icons,active,label){
  return `<div class="notebook-tabs ${action==='cat'?'notebook-categories':''}" role="group" aria-label="${label}">${Object.entries(labels).map(([id,name])=>
   `<button type="button" data-act="${action}" data-id="${id}" aria-pressed="${id===active}">${notebookIcon(icons[id])}<span>${name}</span></button>`).join('')}</div>`;
 }
+COMPACT_LAYOUT.addEventListener('change',()=>{
+ if(U.tab==='notes')renderMain();
+});
+function focusNotebookBoard(){
+ const board=$('.notebook-sheet');
+ if(!board)return;
+ board.querySelector('[tabindex="0"]')?.focus({preventScroll:true});
+ board.scrollIntoView({block:'nearest'});
+}
 function renderNotebook(main,markup){
  const active=document.activeElement;
  const focused=active?.matches('.notebook [data-act]')?active:null;
@@ -2123,7 +2164,7 @@ function renderNotebook(main,markup){
  const controls=[...main.querySelectorAll('.notebook [data-act]')];
  const replacement=controls.find(el=>!el.disabled&&el.dataset.act===act&&el.dataset.id===id&&el.dataset.i===i&&el.dataset.kind===kind);
  if(replacement){replacement.focus({preventScroll:true});return}
- if(act==='startRes')main.querySelector('.notebook-palette button')?.focus();
+ if(act==='startRes'&&!COMPACT_LAYOUT.matches)main.querySelector('.notebook-palette button')?.focus();
  if(act==='cell'||act==='cancelRes')main.querySelector('.notebook-node[aria-pressed="true"]')?.focus({preventScroll:true});
  if(act==='combine'&&kind==='pool')controls.find(el=>el.dataset.act==='selAsp'&&el.dataset.id===id)?.focus({preventScroll:true});
 }
@@ -2194,7 +2235,8 @@ function openRecipe(id){
  if(r.st==='craft')U.craftGroup=r.g;
  if(Object.hasOwn(U.recipe,tab))U.recipe[tab]=id;
  render();
- $(`[data-recipe="${id}"]`)?.scrollIntoView({block:'nearest'});
+ if(Object.hasOwn(U.recipe,tab))showCompactPreview('#workbench-title');
+ else $(`[data-recipe="${id}"]`)?.scrollIntoView({block:'nearest'});
 }
 function openSoapNotes(){
  const recipe=R.find(r=>r.out?.soap);
@@ -2224,7 +2266,7 @@ function recipeCatalog(){
   const station=STATIONS[recipeCatalogStation(r)];
   const parts=(counts,icon,labels)=>Object.entries(counts||{}).map(([id,n])=>
    `<span class="chip">${icon(id)}<b>${labels[id].f||labels[id].n} ×${n}</b></span>`).join('');
-  return `<details class="catalog-entry" data-catalog-recipe="${r.id}"><summary>${recipeIcon(r)}<b>${r.n}</b><small>${station}</small></summary>
+  return `<details class="catalog-entry" ${COMPACT_LAYOUT.matches?'open':''} data-catalog-recipe="${r.id}"><summary>${recipeIcon(r)}<b>${r.n}</b><small>${station}</small></summary>
    <p>${r.d}</p>
    <div class="chips">${parts(r.inp,itemIcon,IT)}</div>
    ${r.vis?`<p>原始魔力</p><div class="chips">${parts(r.vis,aspIcon,A)}</div>`:''}
@@ -2240,7 +2282,7 @@ function itemCatalog(){
   const sites=TILES.filter(t=>t.item===id||t.drops?.some(([drop])=>drop===id)).map(t=>t.n);
   const sources=R.filter(r=>r.out&&Object.hasOwn(r.out,id)).map(r=>r.n);
   const uses=R.filter(r=>r.inp&&Object.hasOwn(r.inp,id)).map(r=>r.n);
-  return `<details class="catalog-entry"><summary>${itemIcon(id)}<b>${item.n}</b></summary>
+  return `<details class="catalog-entry" ${COMPACT_LAYOUT.matches?'open':''}><summary>${itemIcon(id)}<b>${item.n}</b></summary>
   ${item.d||EQ[id]?.d?`<p>${item.d||EQ[id].d}</p>`:''}
   ${sites.length?`<p>采集地点 ${sites.join('、')}</p>`:''}
   ${sources.length?`<p>制作配方 ${sources.join('、')}</p>`:''}
@@ -2279,22 +2321,21 @@ function puzzleHtml(){
    ${combineable?`<button type="button" data-act="combine" data-kind="pool" data-id="${k}" aria-label="用成分合成 1 点${A[k].f}">合成</button>`:''}
    </div>`;
  }).join('');
+ const hint='<small id="notebook-puzzle-controls">选中元素后点空格放置，再点一次可取回。也可用方向键移动，按回车操作。新元素可在元素册合成。</small>';
+ const palette=`<div class="notebook-palette">${pal}</div>`;
+ const tools=`<div class="notebook-tools"><h4>${notebookIcon('items/inkwell')}元素灵感</h4>
+  ${COMPACT_LAYOUT.matches?hint+palette:palette+hint}</div>`;
+ const sheet=`<div class="notebook-sheet" data-research="${d.id}" role="group" aria-label="研究笔记，37 个六边格"
+  aria-describedby="notebook-puzzle-rules notebook-puzzle-controls">
+  <div aria-hidden="true">${links}</div>${cells}
+ </div>`;
  return `<section class="notebook-puzzle" aria-labelledby="notebook-puzzle-title">
   <header class="notebook-puzzle-heading">
    <h3 id="notebook-puzzle-title">${notebookIcon('items/researchnotes')}${d.n}</h3>
    <button type="button" class="btn sm" data-act="cancelRes">放弃研究</button>
   </header>
   <p class="notebook-directions" id="notebook-puzzle-rules">连接${A[d.a].f}与${A[d.b].f}。相邻格中的成分与化合物会自动连线。</p>
-  <div class="notebook-table">
-   <div class="notebook-tools"><h4>${notebookIcon('items/inkwell')}元素灵感</h4>
-    <div class="notebook-palette">${pal}</div>
-    <small id="notebook-puzzle-controls">选中元素后点空格放置，再点一次可取回。也可用方向键移动，按回车操作。新元素可在元素册合成。</small>
-   </div>
-   <div class="notebook-sheet" data-research="${d.id}" role="group" aria-label="研究笔记，37 个六边格"
-    aria-describedby="notebook-puzzle-rules notebook-puzzle-controls">
-    <div aria-hidden="true">${links}</div>${cells}
-   </div>
-  </div>
+  <div class="notebook-table">${COMPACT_LAYOUT.matches?sheet+tools:tools+sheet}</div>
  </section>`;
 }
 const NOTEBOOK_HEX_CENTERS=NOTES_HEXES.map(([q,r])=>[50+q*12,50+(r+q/2)*8*Math.sqrt(3)]);
@@ -2441,12 +2482,12 @@ function vDistill(){
   scene:distillScene(job||U.distillResult),
   controls:`${job?labMeter('distill'):''}
    <p class="muted">每批消耗一份燃料。第一次提取某种精华时会装上一个空罐，之后可重复使用该罐。</p>`,
-  content:`<div class="sec"><h3>选择蒸馏材料</h3><div class="lab-prep"><div class="card">
+  content:`<div class="sec"><h3>选择蒸馏材料</h3><div class="lab-prep">
+  <div class="card distill-preview" tabindex="-1">${distillPreview(from,active)}</div><div class="card distill-picker">
   ${choiceTabs('distillSource',{item:'背包原料',ess:'坩埚精华'},from)}
   <label class="lab-filter">筛选要素 <select id="distill-aspect"><option value="all" ${selected==='all'?'selected':''}>全部</option>
   ${Object.keys(A).filter(a=>a===selected||aspects.has(a)).map(a=>`<option value="${a}" ${selected===a?'selected':''}>${A[a].f}</option>`).join('')}</select></label>
-  <div class="recipe-options distill-options">${choices||'<p class="muted">当前没有符合筛选的材料。</p>'}</div></div>
-  <div class="card">${distillPreview(from,active)}</div></div></div>
+  <div class="recipe-options distill-options">${choices||'<p class="muted">当前没有符合筛选的材料。</p>'}</div></div></div></div>
  <div class="sec"><h3>罐装精华 <small>供注魔祭坛取用</small></h3><div class="card">
   ${jars.length?jars.map(a=>essenceRow(a,S.distilled[a]||0,true)).join(''):'<p class="muted">蒸馏首批材料后，精华罐会出现在这里。</p>'}
   ${S.has.altar?'<div class="row lab-links"><button class="btn sm" data-act="tab" data-id="inf">前往注魔祭坛</button></div>':''}</div></div>`
@@ -2474,10 +2515,10 @@ function catOf(k){
  if(['cake','tonic','holywater','escape','purify','travel_ration','nitor','alumentum','soap','bath_salts'].includes(k)||k.startsWith('shard_'))return 'use';
  return 'mat';
 }
-function infoHtml(k){
+function infoHtml(k,inBag=false){
  const t=IT[k],n=inv(k),eqd=isEq(k);
  const d=EQ[k]?EQ[k].d:(t.d||DESC[k]||(k.startsWith('shard_')?'使用：向魔杖充入 12 点对应魔力。也可以溶解成精华。':''));
- const canScan=inv('thaumometer')>0||isEq('goggles');
+ const tool=inBag?null:scanTool();
  const slot=Object.keys(S.equip).find(x=>S.equip[x]===k);
  const acts=[];
  if(EQ[k]&&n>0)acts.push(`<button class="btn sm primary" data-act="equip" data-id="${k}">装备</button>`);
@@ -2490,25 +2531,40 @@ function infoHtml(k){
   <p><span data-soap-phase role="status"></span> <strong data-soap-time></strong></p>
  </div>`:'';
  return `<h3>${t.n} <small>${count}</small></h3>${d?`<p class="muted" style="margin-bottom:8px">${d}</p>`:''}`
-  +(S.scanned[k]?`<div class="chips">${Object.keys(t.a).map(a=>`<span class="chip">${aspIcon(a)}<b>${t.a[a]}</b></span>`).join('')}</div>`:`<p class="muted">元素未知。</p>${n>0?`<div class="row" style="margin-top:8px"><button class="btn sm" data-act="scan" data-id="${k}" ${canScan?'':'disabled'}>${canScan?'扫描':'需要探知仪或护目镜'}</button></div>`:''}`)
+  +(S.scanned[k]?`<div class="chips">${Object.keys(t.a).map(a=>`<span class="chip">${aspIcon(a)}<b>${t.a[a]}</b></span>`).join('')}</div>`:'<p class="muted">元素未知。</p>')
+  +(!inBag&&n>0&&!S.scanned[k]?`<div class="row" style="margin-top:8px"><button class="btn sm" data-act="scan" data-id="${k}" ${tool?'':'disabled'}>${tool?'扫描':'需要探知仪或护目镜'}</button></div>`:'')
   +(acts.length?`<div class="row" style="margin-top:8px">${acts.join('')}</div>`:'')+scrub;
+}
+function bagScanHtml(k){
+ const tool=scanTool();
+ const held=k&&inv(k)>0;
+ const scanned=k&&S.scanned[k];
+ const enabled=held&&tool&&!scanned;
+ const action=scanned?'已扫描':'扫描';
+ const name=k?`${action}${IT[k].n}`:'扫描所选背包物品';
+ let hint=tool?IT[tool].n:'';
+ if(k&&!held)hint='物品不在背包';
+ else if(!tool&&!scanned)hint='需要探知仪或装备奥术护目镜';
+ return `<div class="bag-scanner"><button type="button" class="btn bag-scan" data-act="scan" data-id="${k||''}" aria-label="${name}" ${enabled?'':'aria-disabled="true"'}${scanned?' data-scanned':''}${hint?' aria-describedby="bag-scan-hint"':''}>
+  <img src="${texturePath}/prepared/icons/thaumometer.png" alt="" draggable="false"><span>${action}</span></button>
+  ${hint?`<small id="bag-scan-hint">${hint}</small>`:''}</div>`;
 }
 function renderItemInfo(el,html){
  const focused=document.activeElement;
- const restore=el.contains(focused)&&focused.hasAttribute('data-soap-scrub');
+ const restore=el.contains(focused)&&focused.matches('[data-soap-scrub], .bag-scan');
  setHtml(el,html);
- if(restore&&!el.contains(focused))el.querySelector('[data-soap-scrub]')?.focus({preventScroll:true});
+ if(restore&&!el.contains(focused))el.querySelector(`[data-act="${focused.dataset.act}"]`)?.focus({preventScroll:true});
 }
 function renderBag(main,banner){
  setHtml(main,`<div id="bag-banner"></div><section class="sec"><h3 id="bag-heading"></h3>
  <div class="bagwrap"><div class="card eqp" id="bag-equipment"></div>
- <div style="min-width:0"><div id="bag-items"></div><div class="card" id="bag-info" style="margin-top:12px"></div>
+ <div style="min-width:0"><div id="bag-items"></div><div class="card bag-info" id="bag-info"></div>
  </div></div></section>`);
  setHtml($('#bag-banner'),banner);
  const f=U.bagf||'all';
  const ids=IORDER.filter(k=>inv(k)>0&&(f==='all'||catOf(k)===f));
  const cols=9,total=Math.max(36,Math.ceil(ids.length/cols)*cols);
- const slots=ids.map(k=>`<button class="slot ${U.insp===k?'on':''} ${S.scanned[k]?'scanned':''}" data-act="inspect" data-id="${k}" title="${IT[k].n}" aria-label="${IT[k].n} ×${inv(k)}">${itemIcon(k)}<em>${inv(k)}</em></button>`);
+ const slots=ids.map(k=>`<button class="slot ${U.insp===k?'on':''} ${S.scanned[k]?'scanned':''}" data-act="inspect" data-id="${k}" title="${IT[k].n}" aria-label="${IT[k].n} ×${inv(k)}" aria-pressed="${U.insp===k}" aria-controls="bag-info">${itemIcon(k)}<em>${inv(k)}</em></button>`);
  while(slots.length<total)slots.push('<div class="slot empty"></div>');
  const eqs=SLOTS.map(([sl,lb])=>{const id=S.equip[sl];return id?`<button class="slot eqs on" data-act="unequip" data-slot="${sl}" title="${IT[id].n}（点击卸下）" aria-label="卸下${IT[id].n}">${itemIcon(id)}<span class="lb">${lb}</span></button>`:`<div class="slot eqs" title="${lb}（空）"><span class="lb">${lb}</span></div>`}).join('');
  const axeNames=['无斧','铁斧','神秘金属斧'];
@@ -2527,8 +2583,13 @@ function renderBag(main,banner){
  setHtml($('#bag-heading'),`背包 <small>${Object.keys(S.inv).length} 种物品 · 点物品查看，装备类点「装备」</small>`);
  setHtml($('#bag-equipment'),`<h3>装备</h3><div class="eqg">${eqs}</div><h3 style="margin-top:14px">工具与魔杖</h3>
  <div class="eqg">${tools}</div><div class="eff">${eff.join('')||'<p class="muted">还没有任何装备效果。</p>'}</div>`);
- setHtml($('#bag-items'),`<div class="cats">${chips}</div><div class="bag9">${slots.join('')}</div>`);
- renderItemInfo($('#bag-info'),U.insp&&IT[U.insp]?infoHtml(U.insp):'<p class="muted">点一个物品查看详情。</p>');
+ const bagItems=$('#bag-items');
+ const focusedSlot=document.activeElement.closest('#bag-items [data-act="inspect"]');
+ setHtml(bagItems,`<div class="cats">${chips}</div><div class="bag9">${slots.join('')}</div>`);
+ if(focusedSlot&&!bagItems.contains(focusedSlot))bagItems.querySelector(`[data-act="inspect"][data-id="${focusedSlot.dataset.id}"]`)?.focus({preventScroll:true});
+ const k=hasId(IT,U.insp)?U.insp:null;
+ const details=k?infoHtml(k,true):'<p class="muted">点一个物品查看详情。</p>';
+ renderItemInfo($('#bag-info'),`<div class="bag-item-detail">${details}</div>${bagScanHtml(k)}`);
 }
 function vTinker(){
  const list=R.filter(r=>r.st==='tink'&&rvis(r));
@@ -2636,7 +2697,7 @@ function renderInv(){
  ${ks.length?`<div class="slots">${ks.map(k=>`<button class="slot ${U.insp===k?'on':''} ${S.scanned[k]?'scanned':''}" data-act="inspect" data-id="${k}" title="${IT[k].n}" aria-label="${IT[k].n} ×${inv(k)}">${itemIcon(k)}<em>${inv(k)}</em></button>`).join('')}</div>`:'<p class="muted">空空如也。去「世界」采集。</p>'}`);
 }
 function renderInfo(){
- if(U.tab==='bag')return;
+ if(U.tab==='bag'){setHtml($('#info'),'');return}
  const k=U.insp;
  if(!k||!IT[k]){setHtml($('#info'),`<h3>物品信息</h3><p class="muted">点背包里的物品查看。</p>`);return}
  renderItemInfo($('#info'),infoHtml(k));
