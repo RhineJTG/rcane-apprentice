@@ -76,14 +76,18 @@ small{color:var(--muted);font-weight:400}
 .btn:disabled{opacity:.4;cursor:not-allowed}
 
 /* aspect + item icons */
-.asp{--c:#fff;--t:#17102a;display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:radial-gradient(circle at 35% 30%,color-mix(in srgb,var(--c) 70%,#fff),var(--c) 62%,color-mix(in srgb,var(--c) 70%,#000));
-  color:var(--t);font-style:normal;font-weight:800;font-size:12px;font-family:var(--f-disp);flex:0 0 auto;box-shadow:0 0 0 1px rgba(0,0,0,.5)}
+.asp,.ico{--c:#a698c4;display:inline-grid;place-items:center;flex:0 0 auto;color:var(--fg);font-style:normal;font-weight:800;font-family:var(--f-disp);
+  background:linear-gradient(145deg,color-mix(in srgb,var(--c) 28%,var(--panel-hi)),var(--slot));
+  box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--c) 45%,var(--line)),0 1px 2px #000}
+.asp{width:24px;height:24px;border-radius:50%;font-size:12px}
 .asp.lg{width:38px;height:38px;font-size:18px}
-.asp.q{--c:#3a3052;--t:var(--muted)}
-.ico{--c:#888;--t:#fff;display:inline-grid;place-items:center;width:34px;height:34px;flex:0 0 auto;border-radius:3px;
-  background:linear-gradient(150deg,var(--c),color-mix(in srgb,var(--c) 55%,#000));color:var(--t);font-style:normal;font-weight:800;font-family:var(--f-disp);font-size:16px;
-  box-shadow:inset 0 0 0 2px rgba(255,255,255,.12),0 0 0 1px #000}
+.asp.q{--c:#3a3052;color:var(--muted)}
+.ico{width:34px;height:34px;border-radius:3px;font-size:16px}
 .ico.s{width:22px;height:22px;font-size:12px}
+.pixel-sprite{display:block;width:28px;max-width:calc(100% - 4px);aspect-ratio:1;
+  background-image:url('assets/pixel-art/icons.png');background-size:var(--sheet-size);background-position:var(--sprite-position);background-repeat:no-repeat;image-rendering:pixelated}
+.asp .pixel-sprite,.ico.s .pixel-sprite{width:16px}
+.asp.lg .pixel-sprite{width:28px}
 .chip{display:inline-flex;align-items:center;gap:5px;background:var(--slot);border:1px solid var(--line);border-radius:14px;padding:2px 9px 2px 3px;font-size:13px}
 .chip b{font-variant-numeric:tabular-nums}
 .chip.z{opacity:.4}
@@ -94,15 +98,18 @@ small{color:var(--muted);font-weight:400}
 /* world tiles */
 .tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:10px}
 .tile{--c:#777;position:relative;text-align:left;border:1px solid var(--line);border-radius:4px;padding:0;background:var(--panel);overflow:hidden;display:flex;flex-direction:column}
-.tile .pic{height:74px;display:grid;place-items:center;font-family:var(--f-disp);font-weight:800;font-size:30px;color:rgba(255,255,255,.85);
+.tile .pic{position:relative;height:74px;display:grid;place-items:center;overflow:hidden;color:var(--fg);
   background:linear-gradient(45deg,rgba(255,255,255,.07) 25%,transparent 25% 50%,rgba(255,255,255,.07) 50% 75%,transparent 75%) 0 0/10px 10px,linear-gradient(160deg,var(--c),color-mix(in srgb,var(--c) 50%,#000))}
+.tile .pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;image-rendering:pixelated}
+.pic-mark{position:relative;z-index:1;display:grid;place-items:center;width:40px;aspect-ratio:1;border:1px solid var(--line-hi);border-radius:4px;background:#211831e0}
 .tile .tx{padding:8px 10px 10px}
 .tile b{display:block;font-family:var(--f-disp)}
 .tile small{display:block;font-size:12px}
 .tile:hover:not(.lockd){border-color:var(--gold);transform:translateY(-1px)}
 .tile:active:not(.lockd){transform:translateY(1px)}
 .tile.lockd{opacity:.5;cursor:not-allowed}
-.tile.taint .pic{background:repeating-linear-gradient(135deg,#4a1a5a 0 8px,#2a0f36 8px 16px);color:#e8b2ff}
+.tile.taint .pic::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,#71307988 0 7px,#2a0f3699 7px 14px)}
+.tile.taint .pic-mark{border-color:var(--flux)}
 .tile.taint{border-color:var(--flux)}
 
 /* backpack */
@@ -115,6 +122,7 @@ small{color:var(--muted);font-weight:400}
 .eqg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
 .slot.eqs{background:#0c0914;border-color:#000}
 .slot.eqs .ico{width:min(34px,72%);height:auto;aspect-ratio:1;margin-bottom:8px}
+.slot.eqs:not(.on) .ico{opacity:.35}
 .slot .lb{position:absolute;left:0;right:0;bottom:2px;font-size:10px;line-height:1;color:var(--muted);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .slot.eqs:not(.on) .lb{position:static;font-size:11px}
 .eff{margin-top:12px;display:grid;gap:6px;font-size:13px}
@@ -227,6 +235,7 @@ small{color:var(--muted);font-weight:400}
 .golem .tasks{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:5px}
 .golem .tasks .btn.on{border-color:var(--gold);color:var(--gold)}
 </style>
+<link rel="stylesheet" href="assets/textures/textures.css">
 
 <div class="wrap">
   <header class="top">
@@ -259,11 +268,25 @@ small{color:var(--muted);font-weight:400}
   <div id="dbody"></div>
 </aside>
 
+<script src="assets/pixel-art/icons.js"></script>
 <script>
 (function(){
 'use strict';
 const $=s=>document.querySelector(s);
 const KEY='arcane-apprentice-v1';
+
+/* ---------- 像素材质 ---------- */
+const artPath='assets/pixel-art';
+const iconSheet=typeof ARCANE_ICON_SHEET==='undefined'?null:ARCANE_ICON_SHEET;
+const spriteIds=iconSheet?iconSheet.rows.flatMap(row=>row.split(' ')):[];
+const spriteMarkup=new Map(spriteIds.map((id,i)=>{
+ const {columns,rows}=iconSheet;
+ const x=(i%columns)/(columns-1)*100;
+ const y=Math.floor(i/columns)/(rows.length-1)*100;
+ return [id,`<span class="pixel-sprite" data-sprite="${id}" aria-hidden="true" style="--sheet-size:${columns*100}% ${rows.length*100}%;--sprite-position:${x}% ${y}%"></span>`];
+}));
+const pixelSprite=(id,fallback)=>spriteMarkup.get(id)??fallback;
+const objectIcon=(id,color,fallback,size='')=>`<i class="ico ${size}" style="--c:${color}" aria-hidden="true">${pixelSprite(id,fallback)}</i>`;
 
 /* ---------- 元素 ---------- */
 const P=['aer','terra','ignis','aqua','ordo','perditio'];
@@ -301,8 +324,7 @@ const NB={};
 Object.keys(A).forEach(k=>NB[k]=new Set());
 Object.keys(A).forEach(k=>{ if(A[k].p){ A[k].p.forEach(x=>{NB[k].add(x);NB[x].add(k)}) } });
 const linked=(a,b)=>NB[a].has(b);
-const lum=c=>{const n=parseInt(c.slice(1),16);return (0.299*(n>>16)+0.587*((n>>8)&255)+0.114*(n&255))/255};
-const aspIcon=(id,sz)=>`<i class="asp ${sz||''}" style="--c:${A[id].c};--t:${lum(A[id].c)>0.55?'#17102a':'#fff'}" title="${A[id].f} ${A[id].l}">${A[id].n}</i>`;
+const aspIcon=(id,sz='')=>`<i class="asp ${sz}" style="--c:${A[id].c}" role="img" aria-label="${A[id].f}" title="${A[id].f} ${A[id].l}">${pixelSprite(id,A[id].n)}</i>`;
 
 /* ---------- 物品 ---------- */
 const IT={
@@ -371,7 +393,7 @@ const IT={
  amulet:{n:'守护护符',g:'护',c:'#6fb0d8',a:{ordo:2,sano:1,praecantatio:1}}
 };
 const IORDER=Object.keys(IT);
-const itemIcon=(id,sz)=>{const t=IT[id];return `<i class="ico ${sz||''}" style="--c:${t.c};--t:${lum(t.c)>0.6?'#17102a':'#fff'}">${t.g}</i>`};
+const itemIcon=(id,sz)=>objectIcon(id,IT[id].c,IT[id].g,sz);
 
 /* ---------- 世界 ---------- */
 const TILES=[
@@ -538,7 +560,7 @@ const TABS=[
 
 /* ---------- 状态 ---------- */
 let S;
-const U={tab:'world',sel:null,insp:null,cat:'basic',book:false,resetArm:false,pCool:0};
+const U={tab:'world',sel:null,insp:null,cat:'basic',book:false,drawer:false,resetArm:false,pCool:0};
 let pendingImport=null;
 let readingImport=false;
 function fresh(){
@@ -622,6 +644,14 @@ function pop(e,t,cls){
  $('#pops').appendChild(d);setTimeout(()=>d.remove(),900);
 }
 function setHtml(el,h){ if(el&&el.__h!==h){el.__h=h;el.innerHTML=h;} }
+function updateMeter(labelId,barId,text,fill){
+ const label=document.getElementById(labelId),bar=document.getElementById(barId);
+ if(!label||!bar)return;
+ const value=String(text);
+ const width=`${Math.round(fill*1000)/1000}%`;
+ if(label.textContent!==value)label.textContent=value;
+ if(bar.style.width!==width)bar.style.width=width;
+}
 function addFlux(n){S.flux=Math.min(100,S.flux+n)}
 
 /* ---------- 扫描 / 元素 ---------- */
@@ -666,7 +696,7 @@ function doRecipe(id,e){
  if(r.ess) for(const a in r.ess){S.ess[a]-=r.ess[a];if(S.ess[a]<=0)delete S.ess[a]}
  if(r.st==='cru') S.cru.water--;
  if(r.out) for(const k in r.out) give(k,r.out[k]);
- if(r.out) for(const k in r.out) if(EQ[k]&&!S.equip[slotFor(k)]&&!(EQ[k].slot==='ring'&&isEq(k))) equipItem(k);
+ if(r.out) for(const k in r.out) if(EQ[k]&&!S.equip[slotFor(k)]&&!(EQ[k].slot==='ring'&&isEq(k))) equipItem(k,false);
  if(r.tool) S.tools[r.tool[0]]=r.tool[1];
  if(r.eq){S.wand[r.eq[0]]=r.eq[1];}
  if(r.once) S.built[r.id]=1;
@@ -696,7 +726,7 @@ function harvest(id,e){
  if(t.warp){S.warp+=t.warp}
  pop(e,`+${qty} ${IT[item].n}`);
  if(t.id==='tree'&&Math.random()<.25){give('sapling',1);pop(e,'+1 树苗')}
- light();
+ renderHud();updateWand();renderInventory();
 }
 function cleanse(id,e){
  if(inv('purify')>0){take('purify',1)}
@@ -720,7 +750,8 @@ function charge(src,e){
   if(add>0){S.node.e-=6;if(S.node.e<30){addFlux(2);msg('节点被过度汲取，魔力污染上升。','bad')}}
  }
  if(add<=0){msg('魔杖已满，或这里没有可用的魔力。','bad');return}
- pop(e,'+'+Math.round(add)+' 魔力');light();
+ pop(e,'+'+Math.round(add)+' 魔力');
+ render();
 }
 function outburst(){
  S.flux=45;S.warp+=2;
@@ -731,8 +762,20 @@ function outburst(){
 const WARPFX=[
  ['书架后面传来低语，你分不清是不是自己的声音。',()=>{}],
  ['眼前的符文短暂地倒转了。',()=>{}],
- ['耳鸣之后，背包里少了一些东西。',()=>{for(const k of Object.keys(S.inv)){if(KEEP.includes(k)||EQ[k])continue;if(Math.random()<.4){S.inv[k]-=Math.ceil(S.inv[k]*.1);if(S.inv[k]<=0)delete S.inv[k]}}}],
- ['脑海里的元素忽然散开，你忘掉了一部分灵感。',()=>{for(let i=0;i<3;i++){const k=rnd(Object.keys(S.pool).filter(x=>S.pool[x]>0)||[]);if(k)S.pool[k]--}}],
+ ['耳鸣之后，背包里少了一些东西。',()=>{
+  for(const k of Object.keys(S.inv)){
+   if(KEEP.includes(k)||EQ[k])continue;
+   if(Math.random()<.4)take(k,Math.ceil(S.inv[k]*.1));
+  }
+  return 'inventory';
+ }],
+ ['脑海里的元素忽然散开，你忘掉了一部分灵感。',()=>{
+  for(let i=0;i<3;i++){
+   const k=rnd(Object.keys(S.pool).filter(x=>S.pool[x]>0));
+   if(k)S.pool[k]--;
+  }
+  return 'pool';
+ }],
  ['空气变得黏稠，魔力污染悄悄上升。',()=>addFlux(4)]
 ];
 
@@ -819,12 +862,13 @@ function eqVal(p){let v=0;for(const s in S.equip){const id=S.equip[s];if(id&&EQ[
 function setBonus(){return S.equip.body==='robe_chest'&&S.equip.legs==='robe_legs'&&S.equip.feet==='robe_boots'}
 function ichorSet(){return S.equip.head==='ichor_cowl'&&S.equip.body==='ichor_robe'&&S.equip.legs==='ichor_legs'&&S.equip.feet==='ichor_boots'}
 function slotFor(id){const sl=EQ[id].slot;if(sl!=='ring')return sl;if(!S.equip.ring1)return 'ring1';if(!S.equip.ring2)return 'ring2';return 'ring1'}
-function equipItem(id){
+function equipItem(id,renderView=true){
  if(!EQ[id]||inv(id)<1)return;
  if(EQ[id].slot==='ring'&&isEq(id)){msg('已经戴着一枚同样的戒指了。','bad');return}
  const sl=slotFor(id),old=S.equip[sl];
  take(id,1);if(old)S.inv[old]=inv(old)+1;
- S.equip[sl]=id;msg(`装备了${IT[id].n}。`,'good');render();
+ S.equip[sl]=id;msg(`装备了${IT[id].n}。`,'good');
+ if(renderView)render();
 }
 function unequip(sl){
  const id=S.equip[sl];if(!id)return;
@@ -937,8 +981,12 @@ const ACT={
  craft:(d,e)=>{doRecipe(d.id,e);render()},
  inspect:d=>{U.insp=d.id;renderInv();renderInfo();if(U.tab==='bag')renderMain()},
  scan:(d,e)=>scan(d.id,e),
- charge:(d,e)=>{charge(d.src,e);render()},
- focus:d=>{S.focus=d.id||null;renderWand()},
+ charge:(d,e)=>charge(d.src,e),
+ focus:d=>{
+  S.focus=d.id||null;
+  renderWand();
+  if(U.tab==='world'||U.tab==='bag')renderMain();
+ },
  ponder:(d,e)=>{
   const now=Date.now();if(now<U.pCool)return;U.pCool=now+1200;
   const a=rnd(P),b=rnd(P);S.pool[a]++;S.pool[b]++;pop(e,`+${A[a].f} +${A[b].f}`);renderPools();if(U.tab==='notes')renderMain();
@@ -960,7 +1008,12 @@ const ACT={
  bucket:()=>{if(inv('bucket')<1)return;if(S.vis.aqua<2){msg('需要 2 点水魔力。','bad');return}S.vis.aqua-=2;S.cru.water=Math.min(16,S.cru.water+4);render()},
  strike:()=>{if(inv('striker')<1)return;if(S.vis.ignis<3){msg('需要 3 点火魔力。','bad');return}S.vis.ignis-=3;S.cru.heat=Math.min(240,S.cru.heat+60);render()},
  selAsp:d=>{U.sel=d.id;renderMain();renderDrawer()},
- drawer:()=>{U.drawer=!U.drawer;$('#drawer').classList.toggle('open',U.drawer);$('#dtab').setAttribute('aria-expanded',U.drawer?'true':'false')},
+ drawer:()=>{
+  U.drawer=!U.drawer;
+  $('#drawer').classList.toggle('open',U.drawer);
+  $('#dtab').setAttribute('aria-expanded',String(U.drawer));
+  if(U.drawer)renderDrawer();
+ },
  cell:(d,e)=>cellClick(+d.i,e),
  combine:(d,e)=>{combine(d.kind,d.id,e);render()},
  transcribe:(d,e)=>transcribe(d.id,e),
@@ -1003,7 +1056,7 @@ const needV=(p,n)=>{const c=vcost(n),h=Math.floor(S.vis[p]||0);return `<span cla
 const needE=(a,n)=>`<span class="nc ${(S.ess[a]||0)>=n?'ok':'lack'}">${aspIcon(a)}<b>${A[a].f}</b><em>${S.ess[a]||0}/${n}</em></span>`;
 function recRow(r){
  const c=canRecipe(r);
- const ic=r.out?itemIcon(Object.keys(r.out)[0]):`<i class="ico" style="--c:${r.c||'#7a5cd6'};--t:#fff">${r.gl||'魔'}</i>`;
+ const ic=r.out?itemIcon(Object.keys(r.out)[0]):objectIcon(r.id,r.c||'#7a5cd6',r.gl||'魔');
  const outTxt=r.out?Object.keys(r.out).map(k=>`${IT[k].n}×${r.out[k]}`).join('、'):'';
  const needs=Object.keys(r.inp||{}).map(k=>needI(k,r.inp[k])).join('')
   +Object.keys(r.vis||{}).map(p=>needV(p,r.vis[p])).join('')
@@ -1015,9 +1068,10 @@ const lockedView=t=>`<div class="card"><h3>尚未解锁</h3><p class="lead">${t}
 /* ---------- 渲染：头部 / 任务 / 导航 ---------- */
 function renderHud(){
  setHtml($('#hud'),`
-  <div class="hchip" title="魔力污染越高，越容易出现污染区域与爆发">污染 <div class="bar"><i style="width:${S.flux}%;--c:var(--flux)"></i></div><b>${Math.floor(S.flux)}</b></div>
+  <div class="hchip" title="魔力污染越高，越容易出现污染区域与爆发">污染 <div class="bar"><i id="flux-bar" style="--c:var(--flux)"></i></div><b id="flux-value"></b></div>
   <div class="hchip" title="扭曲来自禁忌知识与污染爆发，会引发低语事件">扭曲 <b>${S.warp}</b></div>
   <div class="hchip">魔像 <b>${S.golems.length}/6</b></div>`);
+ updateMeter('flux-value','flux-bar',Math.floor(S.flux),S.flux);
 }
 const Q=[
  {t:'在「世界」里砍树，取得原木。',tab:'world',ok:()=>ev('log')>0},
@@ -1053,6 +1107,7 @@ function renderMain(){
  if(!t.ok()){setHtml($('#main'),lockedView(t.lock));return}
  const v={world:vWorld,craft:vCraft,notes:vNotes,arcane:vArcane,cru:vCru,node:vNode,inf:vInf,golem:vGolem,tinker:vTinker,outer:vOuter,bag:vBag}[t.id];
  setHtml($('#main'),(S.won?winBanner():'')+v());
+ updateMainMeters();
 }
 const winBanner=()=>`<div class="card win"><h2>毕业试炼完成</h2><p>虚空杖帽、守护护符、三个魔像。你已经走完了奥术学徒的整条路。世界仍在运转，继续摆弄你的魔像工厂和节点吧。</p></div>`;
 
@@ -1060,10 +1115,12 @@ function vWorld(){
  const f=S.focus&&inv(S.focus)?`当前焦点：${IT[S.focus].n}`:'';
  return `<div class="sec"><h3>世界 <small>点击地块采集。${f}</small></h3>
  <div class="tiles">${TILES.map(t=>{
-  if(t.res&&!S.res[t.res])return `<button class="tile lockd" style="--c:#3a3548" disabled><div class="pic">?</div><div class="tx"><b>未知地点</b><small>研究「${RSD[t.res].n}」后发现</small></div></button>`;
+  if(t.res&&!S.res[t.res])return `<button class="tile lockd" style="--c:#3a3548" disabled><div class="pic" aria-hidden="true"><span class="pic-mark">${pixelSprite('site-lock','?')}</span></div><div class="tx"><b>未知地点</b><small>研究「${RSD[t.res].n}」后发现</small></div></button>`;
   const tn=S.taint.includes(t.id);const lk=t.pick&&S.tools.pick<t.pick;
-  if(tn)return `<button class="tile taint" style="--c:${t.c}" data-act="cleanse" data-id="${t.id}"><div class="pic">秽</div><div class="tx"><b>${t.n}</b><small>被污染。点击净化（净化粉或圣水 ×1，或 6 点秩序魔力）</small></div></button>`;
-  return `<button class="tile ${lk?'lockd':''}" style="--c:${t.c}" data-act="harvest" data-id="${t.id}"><div class="pic">${t.g}</div><div class="tx"><b>${t.n}</b><small>${t.h}</small></div></button>`}).join('')}</div></div>`;
+  const mark=tn?`<span class="pic-mark">${pixelSprite('site-taint','秽')}</span>`:'';
+  const pic=`<div class="pic" data-site="${t.id}" aria-hidden="true"><img src="${artPath}/world/${t.id}.png" width="96" height="48" alt="" draggable="false">${mark}</div>`;
+  if(tn)return `<button class="tile taint" style="--c:${t.c}" data-act="cleanse" data-id="${t.id}">${pic}<div class="tx"><b>${t.n}</b><small>被污染。点击净化（净化粉或圣水 ×1，或 6 点秩序魔力）</small></div></button>`;
+  return `<button class="tile ${lk?'lockd':''}" style="--c:${t.c}" data-act="harvest" data-id="${t.id}">${pic}<div class="tx"><b>${t.n}</b><small>${t.h}</small></div></button>`}).join('')}</div></div>`;
 }
 function vCraft(){
  const grp={basic:'基础加工',smelt:'冶炼',tool:'工具',magic:'魔法入门'};
@@ -1126,8 +1183,8 @@ function vCru(){
  const comp=Object.keys(A).filter(k=>A[k].p&&S.known[k]&&S.known[A[k].p[0]]&&S.known[A[k].p[1]]);
  return `<div class="sec"><h3>坩埚 <small>加水、加热后才能溶解物质与炼金</small></h3>
  <div class="card vessel">
-  <div class="meter"><span>水位 <b id="cwt">${S.cru.water}</b>/16</span><div class="bar"><i id="cwb" style="width:${S.cru.water/16*100}%;--c:#3fc4f2"></i></div><button class="btn sm" data-act="water">倒入水桶（+8）</button>${inv('bucket')>0?'<button class="btn sm" data-act="bucket">永满水桶（−2 水魔力，+4）</button>':''}</div>
-  <div class="meter"><span>热量 <b id="cht">${Math.ceil(S.cru.heat)}</b> 秒</span><div class="bar"><i id="chb" style="width:${S.cru.heat/240*100}%;--c:#ff6a35"></i></div><button class="btn sm" data-act="coal">投入煤炭（+90秒）</button>${inv('striker')>0?'<button class="btn sm" data-act="strike">熔火打火石（−3 火魔力，+60秒）</button>':''}</div>
+  <div class="meter"><span>水位 <b id="cwt"></b>/16</span><div class="bar"><i id="cwb" style="--c:#3fc4f2"></i></div><button class="btn sm" data-act="water">倒入水桶（+8）</button>${inv('bucket')>0?'<button class="btn sm" data-act="bucket">永满水桶（−2 水魔力，+4）</button>':''}</div>
+  <div class="meter"><span>热量 <b id="cht"></b> 秒</span><div class="bar"><i id="chb" style="--c:#ff6a35"></i></div><button class="btn sm" data-act="coal">投入煤炭（+90秒）</button>${inv('striker')>0?'<button class="btn sm" data-act="strike">熔火打火石（−3 火魔力，+60秒）</button>':''}</div>
  </div></div>
  <div class="sec"><h3>炼金配方</h3><div class="recs">${R.filter(r=>r.st==='cru'&&rvis(r)).map(recRow).join('')||'<p class="muted">研究炼金类条目后，这里会出现配方。</p>'}</div></div>
  <div class="sec"><h3>溶解物质 <small>每次操作耗 1 单位水；精华每种上限 64，溢出的部分会散失。风之精华来自羽毛（高崖鸟巢）</small></h3>
@@ -1142,12 +1199,12 @@ function vNode(){
   const n=S.node;
    return `<div class="sec"><h3>${escapeHtml(n.n)}</h3><div class="card node">
   <div class="row"><span>富含：</span>${n.pr.map(p=>`<span class="chip">${aspIcon(p)}<b>${A[p].f}</b></span>`).join('')}</div>
-  <div class="meter"><span>能量 <b id="net">${Math.floor(n.e)}</b>/${n.max}</span><div class="bar"><i id="neb" style="width:${n.e/n.max*100}%;--c:var(--gold)"></i></div></div>
+  <div class="meter"><span>能量 <b id="net"></b>/${n.max}</span><div class="bar"><i id="neb" style="--c:var(--gold)"></i></div></div>
   <div class="row"><button class="btn primary" data-act="charge" data-src="node">从节点汲取魔力</button></div>
   <p class="lead">每次汲取：富含的元素 +10，其他 +4，消耗 6 点能量。能量低于 30 时继续汲取会产生污染。能量会缓慢恢复。</p></div></div>`;
  }
  return `<div class="sec"><h3>节点 <small>魔力汇聚的地方</small></h3><div class="card node"><p class="lead">天空与地面之间有看不见的魔力漩涡。去找一个。</p>
-  <div class="meter"><span id="nst">${S.search>0?`搜寻中… ${S.search} 秒`:'尚未搜寻'}</span><div class="bar"><i id="nsb" style="width:${S.search>0?(8-S.search)/8*100:0}%"></i></div></div>
+  <div class="meter"><span id="nst"></span><div class="bar"><i id="nsb"></i></div></div>
   <div class="row"><button class="btn primary" data-act="find" ${S.search>0?'disabled':''}>寻找节点</button></div></div></div>`;
 }
 
@@ -1174,14 +1231,16 @@ function vBag(){
  const f=U.bagf||'all';
  const ids=IORDER.filter(k=>inv(k)>0&&(f==='all'||catOf(k)===f));
  const cols=9,total=Math.max(36,Math.ceil(ids.length/cols)*cols);
- const slots=ids.map(k=>`<button class="slot ${U.insp===k?'on':''} ${S.scanned[k]?'scanned':''}" data-act="inspect" data-id="${k}" title="${IT[k].n}">${itemIcon(k)}<em>${inv(k)}</em></button>`);
+ const slots=ids.map(k=>`<button class="slot ${U.insp===k?'on':''} ${S.scanned[k]?'scanned':''}" data-act="inspect" data-id="${k}" title="${IT[k].n}" aria-label="${IT[k].n} ×${inv(k)}">${itemIcon(k)}<em>${inv(k)}</em></button>`);
  while(slots.length<total)slots.push('<div class="slot empty"></div>');
- const eqs=SLOTS.map(([sl,lb])=>{const id=S.equip[sl];return id?`<button class="slot eqs on" data-act="unequip" data-slot="${sl}" title="${IT[id].n}（点击卸下）">${itemIcon(id)}<span class="lb">${lb}</span></button>`:`<div class="slot eqs" title="${lb}（空）"><span class="lb">${lb}</span></div>`}).join('');
+ const eqs=SLOTS.map(([sl,lb])=>{const id=S.equip[sl];return id?`<button class="slot eqs on" data-act="unequip" data-slot="${sl}" title="${IT[id].n}（点击卸下）" aria-label="卸下${IT[id].n}">${itemIcon(id)}<span class="lb">${lb}</span></button>`:`<div class="slot eqs" title="${lb}（空）"><span class="lb">${lb}</span></div>`}).join('');
  const PN=['无镐','石镐','铁镐','神秘金属镐'],AN=['无斧','铁斧','神秘金属斧'];
- const tl=(g,c,nm,on)=>`<div class="slot eqs ${on?'on':''}" title="${nm}"><i class="ico" style="--c:${c};--t:#fff;opacity:${on?1:.3}">${g}</i><span class="lb">${nm}</span></div>`;
- const tools=tl('镐','#a9acba',PN[S.tools.pick],S.tools.pick>0)+tl('斧','#a9acba',AN[S.tools.axe],S.tools.axe>0)
-  +tl('杖','#a97bff',hasWand()?`${RODS[S.wand.rod].n}·${CAPS[S.wand.cap].n}`:'无魔杖',hasWand())
-  +tl('焦','#d4602c',S.focus&&inv(S.focus)?IT[S.focus].n.replace('焦点',''):'无焦点',!!(S.focus&&inv(S.focus)));
+ const tl=(icon,nm,on)=>`<div class="slot eqs ${on?'on':''}" title="${nm}">${icon}<span class="lb">${nm}</span></div>`;
+ const focus=S.focus&&inv(S.focus)?S.focus:null;
+ const tools=tl(objectIcon('pick'+(S.tools.pick||1),'#a9acba','镐'),PN[S.tools.pick],S.tools.pick>0)
+  +tl(objectIcon('axe'+(S.tools.axe||1),'#a9acba','斧'),AN[S.tools.axe],S.tools.axe>0)
+  +tl(objectIcon('wand','#a97bff','杖'),hasWand()?`${RODS[S.wand.rod].n}·${CAPS[S.wand.cap].n}`:'无魔杖',hasWand())
+  +tl(itemIcon(focus||'focus_dig'),focus?IT[focus].n.replace('焦点',''):'无焦点',!!focus);
  const eff=[];
  SLOTS.forEach(([sl])=>{const id=S.equip[sl];if(id)eff.push(`<p><b>${IT[id].n}</b> <small>${EQ[id].d}</small></p>`)});
  if(setBonus())eff.push('<p><b>秘法套装</b> <small>魔力消耗额外 −5%。</small></p>');
@@ -1221,31 +1280,33 @@ function vGolem(){
  return `<div class="sec"><h3>魔像 <small>${S.golems.length}/6 · 自动采集资源</small></h3>
  <div class="row">${Object.keys(GT).filter(k=>!GT[k].res||S.res[GT[k].res]).map(k=>{const g=GT[k];const ok=Object.keys(g.cost).every(x=>inv(x)>=g.cost[x]);return `<div class="rec" style="grid-template-columns:minmax(0,1fr) auto;flex:1 1 260px"><div><b class="nm">${g.n}</b><p>采集速度 ×${g.m}</p><div class="need">${Object.keys(g.cost).map(x=>needI(x,g.cost[x])).join('')}</div></div><button class="btn ${ok?'primary':''}" data-act="golem" data-t="${k}" ${ok&&S.golems.length<6?'':'disabled'}>制造</button></div>`}).join('')}</div>
  <p class="lead" style="margin-top:8px">魔像核心在注魔祭坛制作。</p></div>
- <div class="sec"><h3>工作安排</h3><div class="card">${S.golems.length?S.golems.map((g,i)=>`<div class="golem"><i class="ico" style="--c:${g.t==='iron'?'#d6d6e2':'#b88f55'};--t:#17102a">像</i><div class="row" style="justify-content:space-between"><span><b>${GT[g.t].n}</b> <small>${(GTASK[g.task][1]*GT[g.t].m).toFixed(2)} 个/秒 · ${GTASK[g.task][0]}</small></span><button class="btn sm" data-act="gdel" data-i="${i}">解散</button></div><div class="tasks">${Object.keys(GTASK).filter(k=>!GTASK[k][2]||S.res[GTASK[k][2]]).map(k=>`<button class="btn sm ${g.task===k?'on':''}" data-act="gtask" data-i="${i}" data-task="${k}">${GTASK[k][0]}</button>`).join('')}</div></div>`).join(''):'<p class="muted">还没有魔像。</p>'}</div></div>`;
+ <div class="sec"><h3>工作安排</h3><div class="card">${S.golems.length?S.golems.map((g,i)=>`<div class="golem">${objectIcon('golem-'+g.t,g.t==='iron'?'#d6d6e2':'#b88f55','像')}<div class="row" style="justify-content:space-between"><span><b>${GT[g.t].n}</b> <small>${(GTASK[g.task][1]*GT[g.t].m).toFixed(2)} 个/秒 · ${GTASK[g.task][0]}</small></span><button class="btn sm" data-act="gdel" data-i="${i}">解散</button></div><div class="tasks">${Object.keys(GTASK).filter(k=>!GTASK[k][2]||S.res[GTASK[k][2]]).map(k=>`<button class="btn sm ${g.task===k?'on':''}" data-act="gtask" data-i="${i}" data-task="${k}">${GTASK[k][0]}</button>`).join('')}</div></div>`).join(''):'<p class="muted">还没有魔像。</p>'}</div></div>`;
 }
 
 /* ---------- 渲染：侧栏 ---------- */
 function renderWand(){
  const el=$('#wandp');
  if(!hasWand()){setHtml(el,`<h3>魔杖</h3><p class="muted">还没有魔杖。在「合成」里制作木杖芯与铁杖帽。</p>`);return}
- const max=wandMax();
  const foci=['focus_dig','focus_fuse'].filter(k=>inv(k)>0);
  setHtml(el,`<h3>魔杖 <small>${RODS[S.wand.rod].n}杖芯 · ${CAPS[S.wand.cap].n}杖帽 · 消耗 -${Math.round(disc()*100)}%</small></h3>
- ${P.map(p=>`<div class="vrow">${aspIcon(p)}<div class="bar"><i id="vb-${p}" style="width:${S.vis[p]/max*100}%;--c:${A[p].c}"></i></div><span id="vt-${p}">${Math.floor(S.vis[p])}/${max}</span></div>`).join('')}
+ ${P.map(p=>`<div class="vrow">${aspIcon(p)}<div class="bar"><i id="vb-${p}" style="--c:${A[p].c}"></i></div><span id="vt-${p}"></span></div>`).join('')}
  <div class="row" style="margin-top:8px"><button class="btn sm primary" data-act="charge" data-src="aura">吸取光环</button>${S.node?'<button class="btn sm" data-act="charge" data-src="node">吸取节点</button>':''}</div>
  <p class="muted" style="font-size:12px;margin-top:6px">光环每秒恢复，魔杖也会自动缓慢充能。</p>
  ${foci.length?`<div class="row" style="margin-top:8px"><small>焦点</small><button class="btn sm ${!S.focus?'primary':''}" data-act="focus" data-id="">无</button>${foci.map(k=>`<button class="btn sm ${S.focus===k?'primary':''}" data-act="focus" data-id="${k}">${IT[k].n}</button>`).join('')}</div>`:''}`);
+ updateWand();
 }
 function updateWand(){
- if(!hasWand())return;const max=wandMax();
- P.forEach(p=>{const b=$('#vb-'+p),t=$('#vt-'+p);if(b)b.style.width=(S.vis[p]/max*100)+'%';if(t)t.textContent=Math.floor(S.vis[p])+'/'+max});
+ if(!hasWand())return;
+ const max=wandMax();
+ for(const p of P)updateMeter('vt-'+p,'vb-'+p,`${Math.floor(S.vis[p])}/${max}`,S.vis[p]/max*100);
 }
 function renderDrawer(){
- const body=$('#dbody');if(!body)return;
+ if(!U.drawer)return;
+ const body=$('#dbody');
  const ids=Object.keys(A).filter(k=>S.known[k]);
  setHtml(body,ids.map(id=>{
   const a=A[id],n=S.pool[id]||0;
-  const nb=Object.keys(A).filter(x=>NB[id].has(x)&&S.known[x]);
+  const nb=ids.filter(x=>NB[id].has(x));
   const comp=a.p?`<div class="dl"><small>成分</small>${aspIcon(a.p[0])}+${aspIcon(a.p[1])}</div>`:'<div class="dl"><small>原始元素</small></div>';
   const btn=a.p&&S.known[a.p[0]]&&S.known[a.p[1]]?`<button class="btn sm" data-act="combine" data-kind="pool" data-id="${id}" ${canCombine('pool',id)?'':'disabled'}>合成</button>`:'';
   return `<div class="dr ${U.sel===id?'on':''} ${n?'':'zero'}"><button class="dpick" data-act="selAsp" data-id="${id}" title="选中 ${a.f}">${aspIcon(id,'lg')}</button><div><div class="dn"><b>${a.f}</b> <small>${a.l} · 持有 ${n}</small></div>${comp}<div class="dl"><small>相邻</small>${nb.map(x=>aspIcon(x)).join('')}</div></div>${btn}</div>`;
@@ -1261,12 +1322,14 @@ function renderPools(){
  ${es.length?`<h3 style="margin-top:14px">精华 <small>坩埚中的元素</small></h3><div class="chips">${es.map(k=>`<span class="chip">${aspIcon(k)}<b>${S.ess[k]}</b></span>`).join('')}</div>`:''}`);
 }
 function renderInv(){
+ if(U.tab==='bag')return;
  const ks=IORDER.filter(k=>inv(k)>0);
  const tools=[];if(S.tools.pick)tools.push(S.tools.pick>1?'铁镐':'石镐');if(S.tools.axe)tools.push('铁斧');
  setHtml($('#invp'),`<h3>背包 ${tools.length?`<small>${tools.join(' · ')}</small>`:''}</h3>
- ${ks.length?`<div class="slots">${ks.map(k=>`<button class="slot ${U.insp===k?'on':''} ${S.scanned[k]?'scanned':''}" data-act="inspect" data-id="${k}" title="${IT[k].n}">${itemIcon(k)}<em>${inv(k)}</em></button>`).join('')}</div>`:'<p class="muted">空空如也。去「世界」采集。</p>'}`);
+ ${ks.length?`<div class="slots">${ks.map(k=>`<button class="slot ${U.insp===k?'on':''} ${S.scanned[k]?'scanned':''}" data-act="inspect" data-id="${k}" title="${IT[k].n}" aria-label="${IT[k].n} ×${inv(k)}">${itemIcon(k)}<em>${inv(k)}</em></button>`).join('')}</div>`:'<p class="muted">空空如也。去「世界」采集。</p>'}`);
 }
 function renderInfo(){
+ if(U.tab==='bag')return;
  const k=U.insp;
  if(!k||!IT[k]){setHtml($('#info'),`<h3>物品信息</h3><p class="muted">点背包里的物品查看。</p>`);return}
  setHtml($('#info'),infoHtml(k));
@@ -1290,50 +1353,113 @@ function renderFoot(){
  <button class="btn sm" data-act="importSave" ${readingImport||pendingImport?'disabled':''}>导入 JSON</button>
  ${confirmation}`);
 }
-function light(){renderHud();renderInv();renderQuest();updateWand();renderInfo();}
-function render(){$('#invp').hidden=$('#info').hidden=(U.tab==='bag');renderDrawer();renderHud();renderQuest();renderNav();renderMain();renderWand();renderPools();renderInv();renderInfo();renderLog();renderFoot();}
+function renderInventory(){
+ renderQuest();renderInv();renderInfo();
+}
+function render(){
+ $('#invp').hidden=$('#info').hidden=(U.tab==='bag');
+ renderHud();renderNav();renderMain();renderWand();renderPools();
+ renderInventory();renderLog();renderFoot();
+}
 
 /* ---------- 实时更新 ---------- */
-function updateLive(){
- renderHud();updateWand();
+const inventoryTabs=new Set(['bag','craft','arcane','cru','inf','golem','tinker','outer']);
+const visTabs=new Set(R.filter(r=>r.vis).map(r=>r.st==='tink'?'tinker':r.st));
+function updateMainMeters(){
  if(U.tab==='cru'){
-  const a=$('#cwt'),b=$('#cwb'),c=$('#cht'),d=$('#chb');
-  if(a){a.textContent=S.cru.water;b.style.width=(S.cru.water/16*100)+'%';c.textContent=Math.ceil(S.cru.heat);d.style.width=(S.cru.heat/240*100)+'%'}
+  updateMeter('cwt','cwb',S.cru.water,S.cru.water/16*100);
+  updateMeter('cht','chb',Math.ceil(S.cru.heat),S.cru.heat/240*100);
+ }else if(U.tab==='node'){
+  if(S.node)updateMeter('net','neb',Math.floor(S.node.e),S.node.e/S.node.max*100);
+  else if(S.search>0)updateMeter('nst','nsb',`搜寻中… ${S.search} 秒`,(8-S.search)/8*100);
+  else updateMeter('nst','nsb','尚未搜寻',0);
  }
- if(U.tab==='node'&&S.node){const t=$('#net'),b=$('#neb');if(t){t.textContent=Math.floor(S.node.e);b.style.width=(S.node.e/S.node.max*100)+'%'}}
- if(U.tab==='node'&&!S.node&&S.search>0){const t=$('#nst'),b=$('#nsb');if(t){t.textContent='搜寻中… '+S.search+' 秒';b.style.width=((8-S.search)/8*100)+'%'}}
 }
 function tick(){
  S.tk++;
- let sideDirty=false,mainDirty=false;
+ let mainDirty=false,inventoryDirty=false,poolsDirty=false,wandDirty=false,visChanged=false;
  /* 光环与魔杖 */
- P.forEach(p=>{S.aura[p]=Math.min(AMAX,S.aura[p]+0.8*(1-S.flux/130))});
- if(hasWand()){const m=wandMax();P.forEach(p=>{const t=Math.min(0.25*(1+eqVal('regen')),S.aura[p],m-S.vis[p]);if(t>0&&S.flux<60){S.vis[p]+=t;S.aura[p]-=t}})}
+ const auraGain=0.8*(1-S.flux/130);
+ for(const p of P)S.aura[p]=Math.min(AMAX,S.aura[p]+auraGain);
+ if(hasWand()&&S.flux<60){
+  const max=wandMax(),rate=0.25*(1+eqVal('regen')),showCosts=visTabs.has(U.tab);
+  for(const p of P){
+   const before=S.vis[p];
+   const gain=Math.min(rate,S.aura[p],max-before);
+   if(gain<=0)continue;
+   S.vis[p]+=gain;
+   S.aura[p]-=gain;
+   visChanged=true;
+   if(showCosts&&Math.floor(before)!==Math.floor(S.vis[p]))mainDirty=true;
+  }
+ }
  /* 污染 */
  S.flux=Math.max(0,S.flux-0.1*(1+eqVal('flux'))+S.taint.length*0.03);
  if(S.flux>=45&&Math.random()<(S.flux>=70?0.3:0.12)&&S.taint.length<TILES.length-3){
   const f=TILES.map(t=>t.id).filter(x=>!S.taint.includes(x));if(f.length){const id=rnd(f);S.taint.push(id);msg(`${TILES.find(t=>t.id===id).n}出现了魔力污染。`,'bad');if(U.tab==='world')mainDirty=true}
  }
- if(S.flux>=100){outburst();sideDirty=true;mainDirty=true}
+ if(S.flux>=100){
+  outburst();
+  inventoryDirty=wandDirty=true;
+  if(U.tab==='world')mainDirty=true;
+ }
  /* 坩埚 */
- if(S.cru.heat>0)S.cru.heat=Math.max(0,S.cru.heat-1);
+ if(S.cru.heat>0){
+  S.cru.heat=Math.max(0,S.cru.heat-1);
+  if(S.cru.heat===0&&U.tab==='cru')mainDirty=true;
+ }
  /* 节点 */
- if(S.search>0){S.search--;if(S.search===0){const pr=P.slice().sort(()=>Math.random()-.5).slice(0,2);S.node={n:`${A[pr[0]].f}${A[pr[1]].f}节点`,pr,e:150,max:150};msg(`你找到了一个节点：${S.node.n}。`,'gold');mainDirty=true;sideDirty=true}}
+ if(S.search>0&&--S.search===0){
+  const pr=P.slice().sort(()=>Math.random()-.5).slice(0,2);
+  S.node={n:`${A[pr[0]].f}${A[pr[1]].f}节点`,pr,e:150,max:150};
+  msg(`你找到了一个节点：${S.node.n}。`,'gold');
+  wandDirty=true;
+  if(U.tab==='node')mainDirty=true;
+ }
  if(S.node&&S.node.e<S.node.max)S.node.e=Math.min(S.node.max,S.node.e+0.4);
  /* 灵感 */
- if(S.tk%8===0){const a=rnd(P);S.pool[a]++;sideDirty=true;if(U.tab==='notes'&&S.rs)mainDirty=true}
+ if(S.tk%8===0){
+  S.pool[rnd(P)]++;
+  poolsDirty=true;
+ }
  /* 魔像 */
- let got=false;
- S.golems.forEach(g=>{const r=GTASK[g.task][1]*GT[g.t].m*(inv('transvector')>0?1.5:1);g.acc+=r;if(g.acc>=1){const n=Math.floor(g.acc);g.acc-=n;give(g.task,n);got=true}});
- if(got){renderInv();renderQuest();if(U.tab==='bag')renderMain()}
+ const golemBoost=inv('transvector')>0?1.5:1;
+ for(const g of S.golems){
+  g.acc+=GTASK[g.task][1]*GT[g.t].m*golemBoost;
+  if(g.acc<1)continue;
+  const count=Math.floor(g.acc);
+  g.acc-=count;
+  give(g.task,count);
+  inventoryDirty=true;
+ }
  /* 扭曲低语 */
  if(S.warp>0&&S.tk%30===0){
   const p=Math.min(.7,S.warp/25)*(1-Math.min(.9,eqVal('warp')));
-  if(Math.random()<p){const w=rnd(WARPFX);msg(w[0],'bad');w[1]();sideDirty=true;mainDirty=true}
+  if(Math.random()<p){
+   const [message,effect]=rnd(WARPFX);
+   msg(message,'bad');
+   const changed=effect();
+   if(changed==='inventory'){
+    inventoryDirty=wandDirty=true;
+    if(U.tab==='world')mainDirty=true;
+   }else if(changed==='pool'){
+    poolsDirty=true;
+   }
+  }
  }
- if(sideDirty){renderPools();renderInv();renderLog()}
+ if(poolsDirty){
+  renderPools();
+  if(U.tab==='notes'&&(U.book||S.rs))mainDirty=true;
+ }
+ if(inventoryDirty){
+  renderInventory();
+  if(inventoryTabs.has(U.tab))mainDirty=true;
+ }
+ if(wandDirty)renderWand();
+ else if(visChanged)updateWand();
  if(mainDirty)renderMain();
- updateLive();
+ else updateMainMeters();
+ renderHud();
  if(S.tk%10===0)save();
 }
 
