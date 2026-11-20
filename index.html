@@ -257,6 +257,21 @@ small{color:var(--muted);font-weight:400}
 .golem-job:first-child{padding-top:0}
 .golem-job label{display:grid;gap:2px;font-size:12px;color:var(--muted);min-width:0}
 .golem-job p{font-size:12px}
+.workshop-links{margin-bottom:8px}
+.worker-order{grid-column:1/-1;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:5px 8px;
+ background:var(--slot);border:1px solid var(--line-hi);border-radius:3px;padding:8px 10px}
+.worker-order>.ico{grid-row:1/3}
+.worker-order>small{font-variant-numeric:tabular-nums;text-align:right}
+.worker-order progress{grid-column:2/-1;width:100%;height:8px;accent-color:var(--gold)}
+.worker-order p{grid-column:1/-1;overflow-wrap:anywhere}
+.golem-workshop{grid-column:1/-1;background:var(--slot);border:1px solid var(--line);border-radius:4px;padding:6px 8px}
+.golem-workshop summary{cursor:pointer;font-size:13px}
+.golem-workshop summary small{color:var(--muted);margin-left:6px}
+.golem-workshop-devices{display:grid;gap:6px;margin-top:7px}
+.golem-workshop-device{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px}
+.golem-workshop-device small{margin-right:auto}
+.golem-workshop-essence{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px}
+.golem-workshop-essence .btn{display:inline-flex;align-items:center;gap:5px}
 @media(max-width:1020px){
  .lab-prep{grid-template-columns:minmax(0,1fr);grid-template-areas:"preview" "materials"}
  .distill-options{max-height:none;overflow:visible}
@@ -264,6 +279,8 @@ small{color:var(--muted);font-weight:400}
 @media(max-width:520px){
  .dis{grid-template-columns:auto minmax(0,1fr)}.dis>.row{grid-column:1/-1}
  .golem-job{grid-template-columns:auto minmax(0,1fr) auto}.golem-job label{grid-column:1/-1;grid-row:2}
+ .golem-workshop-device b{margin-right:auto}
+ .golem-workshop-device small{order:1;flex-basis:100%}
 }
 .meter{display:grid;gap:4px}
 .meter .bar{height:12px}
@@ -331,6 +348,21 @@ small{color:var(--muted);font-weight:400}
 .workbench-detail p{font-size:13px;color:var(--muted)}
 .workbench .need{margin:3px 0 0}
 .workbench-action{display:flex;justify-content:flex-end;margin-top:12px}
+.workbench-orders{margin-top:12px;border:1px solid var(--line);border-radius:4px;background:var(--slot)}
+.workbench-orders summary{padding:8px 10px;color:var(--gold);font-family:var(--f-disp);font-weight:700;cursor:pointer}
+.workbench-orders summary small{margin-inline-start:7px;color:var(--muted);font-weight:400}
+.workbench-order-body{display:grid;gap:8px;padding:0 10px 10px;font-size:13px}
+.workbench-order-fields{display:grid;grid-template-columns:minmax(0,1fr) minmax(84px,.35fr);gap:8px}
+.workbench-order-fields label{display:grid;gap:3px;min-width:0}
+.workbench-order-body select,.workbench-order-fields input{width:100%;min-height:36px;min-width:0;padding:5px;
+ color:var(--fg);background:var(--panel);border:1px solid var(--line-hi);border-radius:4px;color-scheme:dark;font:inherit}
+.workbench-orders summary:focus-visible,.workbench-order-body :is(select,input):focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.lab-order-recipe{display:grid;gap:3px}
+.workbench-order-form:not([hidden]){display:grid;gap:6px}
+.workbench-order-actions{display:flex;justify-content:flex-end;margin-top:2px}
+.workbench-order-status:not([hidden]){display:grid;gap:5px;list-style:none;margin:0;padding:0}
+.workbench-order-status li{display:grid;gap:2px;padding:5px 7px;border-left:2px solid var(--gold);background:var(--panel)}
+.workbench-order-footer{display:flex;justify-content:flex-end}
 @media(max-width:1020px){
  .workbench{grid-template-columns:minmax(0,1fr);grid-template-areas:"table" "picker"}
  .recipe-options{padding:4px}
@@ -339,6 +371,7 @@ small{color:var(--muted);font-weight:400}
  .workbench-picker .cat{padding:4px 8px;font-size:13px}
  .recipe-options{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
+@media(max-width:420px){.workbench-order-fields{grid-template-columns:minmax(0,1fr)}}
 .win-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
 .win-head .btn{flex:0 0 auto}
 @media(max-width:720px){.win-head,.workbench-action{padding-inline-end:8px}}
@@ -422,6 +455,8 @@ for(const id of ['alienis','bath_salts','salis_mundus','balanced_shard','soap','
  spriteMarkup.set(id,`<span class="pixel-sprite" data-sprite="${id}" aria-hidden="true"></span>`);
 }
 const pixelSprite=(id,fallback)=>spriteMarkup.get(id)??fallback;
+spriteMarkup.set('golem_crucible',pixelSprite('a_cru','埚'));
+spriteMarkup.set('golem_altar',pixelSprite('a_alt','坛'));
 const objectIcon=(id,color,fallback,size='')=>`<i class="ico ${size}" style="--c:${color}" aria-hidden="true">${pixelSprite(id,fallback)}</i>`;
 
 /* ---------- 元素 ---------- */
@@ -479,6 +514,8 @@ const aspIcon=(id,sz='')=>`<i class="asp ${sz}" style="--c:${A[id].c}" role="img
 
 /* ---------- 物品 ---------- */
 const IT={
+ golem_crucible:{n:'魔像坩埚',g:'埚',c:'#6a6a7a',a:{ignis:2,aqua:2},d:'安装到一只魔像的工坊，用于炼金。'},
+ golem_altar:{n:'魔像注魔祭坛',g:'坛',c:'#8762a3',a:{praecantatio:3,ordo:2},d:'安装到一只魔像的工坊，消耗该工坊蒸馏的精华进行注魔。'},
  log:{n:'原木',g:'木',c:'#8a6a3d',a:{arbor:3,herba:1}},
  sapling:{n:'树苗',g:'苗',c:'#5fa84a',a:{herba:1,victus:1}},
  plank:{n:'木板',g:'板',c:'#b88f55',a:{arbor:1}},
@@ -653,6 +690,7 @@ const CAPS={iron:{n:'铁',disc:0,rank:1},gold:{n:'金',disc:.1,rank:2},thaum:{n:
 const AMAX=100;
 const ESSENTIA_LIMIT=64;
 const GOLEM_LIMIT=6;
+const MAX_ORDER_QUANTITY=9999;
 const PICK_NAMES=['无镐','石镐','铁镐','神秘金属镐'];
 
 /* ---------- 研究 ---------- */
@@ -664,7 +702,7 @@ const RS=[
  {id:'TRANSMUTE',cat:'alch',n:'金属嬗变',d:'用炼金精华改变金属的本质。',req:['ALCHEMY'],a:'tenebrae',b:'vitium',len:2,learn:['tenebrae'],u:'解锁坩埚配方：铁锭嬗变为金锭。'},
  {id:'THAUMIUM',cat:'alch',n:'神秘金属',d:'被魔力浸透的铁，奥术装备的基础。',req:['ALCHEMY'],a:'metallum',b:'praecantatio',len:3,learn:[],u:'解锁坩埚配方：神秘金属锭，以及神秘金属杖帽。'},
  {id:'PURIFY',cat:'alch',n:'净化',d:'在净化圣泉采集圣水，或将净化粉溶于水中洗去环境污染。',req:['ALCHEMY'],a:'sano',b:'vitium',len:3,learn:['sano','vitium'],u:'解锁净化圣泉和净化粉配方。'},
- {id:'TALLOW',cat:'alch',n:'魔力油脂',d:'将腐肉放入富含魔力精华的坩埚，炼出能塑形的魔力油脂。',req:['ALCHEMY'],a:'mortuus',b:'praecantatio',len:2,learn:[],u:'解锁魔力油脂和油脂方块配方。'},
+ {id:'TALLOW',cat:'alch',n:'魔力油脂',d:'将腐肉放入富含魔力精华的坩埚，炼出魔力油脂。9 份油脂可压成一个油脂方块，用来炼制祛邪肥皂。',req:['ALCHEMY'],a:'mortuus',b:'praecantatio',len:2,learn:[],u:'解锁魔力油脂和油脂方块配方。'},
  {id:'BATHSALTS',cat:'alch',n:'净化浴盐',d:'从扭曲的启示中得知净化浴盐的做法。把浴盐倒入水中，浸浴可暂时抵御扭曲。',req:[],a:'auram',b:'sano',len:3,learn:[],u:'解锁净化浴盐配方。'},
  {id:'SANESOAP',cat:'alch',n:'祛邪肥皂',d:'用肥皂洗去临时扭曲。浸过净化之水或受到扭曲守护时，肥皂更可能带走普通扭曲。',req:['BATHSALTS'],a:'alienis',b:'sano',len:4,learn:['alienis'],u:'解锁祛邪肥皂配方。'},
  {id:'INFUSION',cat:'art',n:'注魔',d:'将罐装精华导入矩阵，使基座材料与核心物品结合。',req:['MASONRY','DISTILLATION'],a:'aqua',b:'vitium',len:4,learn:['spiritus'],u:'解锁符文矩阵、注魔祭坛与稳定符文。'},
@@ -809,6 +847,8 @@ const R=[
  {id:'a_pedestal',st:'arcane',n:'注魔基座',d:'成对制作基座以安放祭坛材料。',inp:{arcane_stone:4},vis:{terra:4,ordo:4},out:{pedestal:2},req:'MASONRY'},
  {id:'a_matrix',st:'arcane',n:'符文矩阵',d:'让魔晶围绕金芯共振，形成祭坛核心。',inp:{arcane_stone:4,gold:1,shard_aer:1,shard_ordo:1},vis:{ordo:8,aer:6},out:{matrix:1},req:'INFUSION'},
  {id:'a_alembic',st:'arcane',n:'蒸馏器',d:'玻璃管将炉中蒸气导向精华罐。',inp:{iron:3,glass:2,gold:1},vis:{aqua:5,ordo:4},out:{alembic:1},req:'DISTILLATION'},
+ {id:'a_golem_crucible',st:'arcane',n:'魔像坩埚',d:'制作一台可分配给魔像的炼金坩埚。',inp:{cauldron:1},vis:{ignis:4,aqua:4},req:'GOLEMANCY',out:{golem_crucible:1}},
+ {id:'a_golem_altar',st:'arcane',layout:'a_alt',n:'魔像注魔祭坛',d:'用符文矩阵、基座和奥术石块搭建魔像专用祭坛。',inp:{matrix:1,pedestal:4,arcane_stone:4},vis:{ordo:12,aer:8,terra:8},req:'INFUSION',out:{golem_altar:1}},
  {id:'a_jar',st:'arcane',n:'精华罐',d:'每个罐子可封存一种元素精华。',inp:{glass:3,plank:1},vis:{aqua:3,ordo:3},out:{jar:4},req:'DISTILLATION'},
  {id:'a_distiller',st:'arcane',n:'建造蒸馏炉',d:'将蒸馏器安装在炉上，打开精华蒸馏页。',inp:{alembic:1,furnace:1,brick:4},vis:{ignis:6,aqua:6},req:'DISTILLATION',once:1,gl:'炉',c:'#a78bd6',fx:()=>{S.has.distiller=1}},
  {id:'a_condenser',st:'arcane',n:'水银冷凝回路',d:'将蒸馏批量从 8 提升到 16，并加快处理。',inp:{quicksilver:3,glass:2,frostcrystal:1,amber:1},vis:{aqua:10,ordo:8},req:'CONDENSATION',once:1,need:()=>S.has.distiller,needTxt:'需要先建造蒸馏炉',c:'#9cc6e1',gl:'凝',fx:()=>{S.has.condenser=1}},
@@ -830,6 +870,7 @@ const GT={
  runic:{n:'符文魔像',rank:4,m:3.2,c:'#ac8fea',res:'RUNICGOLEM',sprite:'golem-runic',cost:{core:1,thaumium:4,runic_joint:1}}
 };
 const GTASK={
+ flesh:{site:'waste',rate:.12,rank:2},
  log:{site:'tree',rate:.30,rank:1},feather:{site:'cliff',rate:.20,rank:1},
  cobble:{site:'quarry',rate:.30,rank:1},sand:{site:'sand',rate:.22,rank:1},
  reed:{site:'reed',rate:.22,rank:1},water:{site:'pond',rate:.14,rank:1},
@@ -842,7 +883,9 @@ const GTASK={
  amber:{site:'amberbed',rate:.10,rank:3},cinnabar:{site:'cinnabar',rate:.10,rank:3},
  holywater:{site:'spring',rate:.10,rank:3},obsidian:{site:'obsidian',rate:.12,rank:4},
  stormshard:{site:'storm',rate:.12,rank:4},frostcrystal:{site:'coldpeak',rate:.14,rank:4},silverlog:{site:'silverwood',rate:.15,rank:4},
- shard_ordo:{site:'crystal',rate:.08,rank:4},voidshard:{site:'rift',rate:.08,rank:4}
+ ...Object.fromEntries(P.map(id=>['shard_'+id,{site:'crystal',rate:.08,rank:4}])),
+ voidshard:{site:'rift',rate:.08,rank:4},
+ quartz:{site:'rift',outerDepth:2,rate:.04,rank:4},ichor:{site:'rift',outerDepth:3,rate:.025,rank:4}
 };
 const TABS=[
  {id:'world',n:'世界',s:'采集资源',ok:()=>true},
@@ -850,11 +893,11 @@ const TABS=[
  {id:'craft',n:'合成',s:'工作台与熔炉',ok:()=>true},
  {id:'notes',n:'笔记',s:'研究与元素册',ok:()=>S.has.tm,lock:'用魔杖激活书架后解锁'},
  {id:'arcane',n:'奥术工作台',s:'消耗魔力合成',ok:()=>S.res.ARCANE,lock:'完成研究「奥术工作台」'},
- {id:'cru',n:'坩埚',s:'炼金',ok:()=>S.has.crucible,lock:'研究炼金术并在奥术工作台合成坩埚'},
+ {id:'cru',n:'坩埚',s:'炼金',ok:()=>S.has.crucible||S.res.GOLEMANCY&&S.res.ALCHEMY,lock:'研究炼金术，再建造坩埚或研究魔像学'},
  {id:'distill',n:'精华蒸馏',s:'提取与装罐',ok:()=>S.has.distiller,lock:'完成研究「精华蒸馏」后在奥术工作台建造蒸馏炉'},
  {id:'node',n:'节点',s:'魔力来源',ok:()=>S.res.NODES,lock:'完成研究「节点学」'},
- {id:'inf',n:'注魔祭坛',s:'高阶合成',ok:()=>S.has.altar,lock:'研究注魔并建造祭坛'},
- {id:'golem',n:'魔像',s:'自动采集',ok:()=>S.res.GOLEMANCY,lock:'完成研究「魔像学」'},
+ {id:'inf',n:'注魔祭坛',s:'高阶合成',ok:()=>S.has.altar||S.res.GOLEMANCY&&S.res.INFUSION,lock:'研究注魔，再建造祭坛或研究魔像学'},
+ {id:'golem',n:'魔像',s:'采集与委托',ok:()=>S.res.GOLEMANCY,lock:'完成研究「魔像学」'},
  {id:'tinker',n:'工匠台',s:'神秘工匠装置',ok:()=>S.res.TINKER,lock:'完成研究「神秘工匠」'},
  {id:'outer',n:'异域',s:'高风险采集',ok:()=>S.res.OUTER,lock:'完成研究「异域」'}
 ];
@@ -941,10 +984,21 @@ function decodeSave(text){
    state.rs={id:rs.id,cells};
   }else if(rs.cells.length!==NOTES_HEXES.length||researchAnchors(d).some(i=>rs.cells[i]!==null))return null;
  }
- if(!Array.isArray(golems)||!golems.every(g=>isRecord(g)&&hasId(GT,g.t)&&(g.task===null||hasId(GTASK,g.task))&&isAmount(g.acc)&&g.acc<1))return null;
+ if(!Array.isArray(golems)||!golems.every(g=>isRecord(g)&&hasId(GT,g.t)&&(g.task===null||hasId(GTASK,g.task))
+  &&isAmount(g.acc)&&g.acc<1&&validWorkshop(g.workshop)&&(g.order==null||validGolemOrder(g,res))))return null;
  if(!Array.isArray(taint)||!taint.every(id=>hasId(SITES,id)))return null;
  if(!Array.isArray(log)||!log.every(l=>isRecord(l)&&typeof l.t==='string'&&['','good','bad','gold'].includes(l.k)))return null;
 
+ for(const g of golems){
+  if(!g.order||g.order.version!==undefined)continue;
+  const recipe=RECIPES[g.order.recipe];
+  if(golemCanOrder(g,recipe,res))g.order.version=2;
+  else{
+   log.push({k:'gold',t:`「${recipe.n}」现需 ${orderRank(recipe)} 层制作，${GT[g.t].n}已结束这笔旧委托。已交付 ${g.order.delivered} 件。`});
+   if(log.length>40)log.shift();
+   g.order=null;
+  }
+ }
  if(legacyEquipment&&inv.amulet>0){
   equip.charm='amulet';
   if(--inv.amulet===0)delete inv.amulet;
@@ -1213,6 +1267,7 @@ function warpEvent(score){
   msg('你听见了身后的脚步声，回头却空无一人。','bad');
  }
 }
+const BATH_SALTS_WARP=11;
 function checkWarp(){
  const warp=warpTotal()+(S.equip.body==='void_chest'?2:0);
  const root=Math.sqrt(S.warpCounter);
@@ -1222,20 +1277,25 @@ function checkWarp(){
   if(Math.random()>=Math.min(.9,eqVal('warp'))){
    warpEvent(Math.floor(Math.random()*severity));
   }
-  if(S.warp.permanent+S.warp.normal>10&&!S.has.warpClue){
-   S.has.warpClue=1;msg('你从低语中记下了一条线索。炼金笔记中出现了「净化浴盐」。','gold');
+  if(S.warp.permanent+S.warp.normal>=BATH_SALTS_WARP&&!S.has.warpClue){
+   S.has.warpClue=1;msg('你从低语中记下了一条线索，可以在炼金笔记中研究「净化浴盐」了。','gold');
   }
  }
  if(S.warp.temporary>0)S.warp.temporary--;
 }
+const knowsBathSaltsClue=()=>S.has.warpClue||S.res.BATHSALTS||S.res.SANESOAP;
+const isPurificationResearch=id=>id==='BATHSALTS'||id==='SANESOAP';
 function warpNoteVisible(id){
- return !['BATHSALTS','SANESOAP'].includes(id)||S.has.warpClue||S.res.BATHSALTS||S.res.SANESOAP;
+ return !isPurificationResearch(id)||S.res.TALLOW||knowsBathSaltsClue();
+}
+function bathSaltsHint(){
+ return `永久与普通扭曲合计达到 ${BATH_SALTS_WARP} 点后，触发一次扭曲事件即可发现「净化浴盐」线索。当前合计 ${S.warp.permanent+S.warp.normal} 点。`;
 }
 
 /* ---------- 研究 ---------- */
 function rsState(d){
  if(S.res[d.id])return 'done';
- if(!warpNoteVisible(d.id))return 'lock';
+ if(d.id==='BATHSALTS'&&!knowsBathSaltsClue())return 'lock';
  if(!d.req.every(x=>S.res[x]))return 'lock';
  return 'ok';
 }
@@ -1309,23 +1369,131 @@ function scan(id,e){
 
 /* ---------- 坩埚与蒸馏 ---------- */
 const dissolvable=id=>hasId(IT,id)&&!KEEP.includes(id)&&!EQ[id];
+function essenceCapacity(stock,parts,limit=ESSENTIA_LIMIT){
+ return Object.entries(parts).reduce((max,[id,count])=>
+  Math.min(max,Math.floor((ESSENTIA_LIMIT-(stock[id]||0))/count)),limit);
+}
+function addEssences(stock,parts,count){
+ for(const [id,amount] of Object.entries(parts))stock[id]=(stock[id]||0)+amount*count;
+}
 function dissolve(id,all,e){
  if(!S.has.crucible||!dissolvable(id))return;
  if(S.cru.heat<=0||S.cru.water<=0){msg('坩埚需要先加热并加水。','bad');return}
- const parts=Object.entries(IT[id].a);
- const capacity=parts.reduce((limit,[a,n])=>Math.min(limit,Math.floor((ESSENTIA_LIMIT-(S.ess[a]||0))/n)),inv(id));
- const n=all?capacity:Math.min(1,capacity);
+ const parts=IT[id].a;
+ const n=essenceCapacity(S.ess,parts,all?inv(id):Math.min(1,inv(id)));
  if(n<=0){msg('材料不足或坩埚中的精华已满。','bad');return}
  take(id,n);S.cru.water--;
- for(const [a,count] of parts){
-  S.ess[a]=(S.ess[a]||0)+count*n;
-  S.known[a]=1;
- }
+ addEssences(S.ess,parts,n);
+ for(const a of Object.keys(parts))S.known[a]=1;
  msg(`溶解 ${IT[id].n} ×${n}。`);
  if(e)pop(e,'溶解');
  render();
  animateCrucible('dissolve',dominantLabColor(IT[id].a),itemIcon(id));
 }
+
+const ORDER_SUPPLY_KEEP=new Set([
+ 'cauldron','furnace','golem_crucible','alembic','golem_altar','matrix','pedestal','jar','focus_dig','focus_fuse','escape'
+]);
+function protectedOrderProducts(r,path){
+ const products=new Set([...path,...Object.keys(r.out||{})]);
+ for(const g of S.golems){
+  if(!g.order)continue;
+  for(const item of Object.keys(RECIPES[g.order.recipe].out))products.add(item);
+ }
+ return products;
+}
+const orderSupplyStock=(item,reserve)=>Math.max(0,inv(item)-(reserve[item]||0));
+function orderEssenceSources(r,stock){
+ const missing=Object.entries(r.ess||{}).filter(([a,count])=>(stock[a]||0)<count)
+  .map(([a,count])=>[a,count-(stock[a]||0)]);
+ return {
+  missing,
+  source:parts=>{
+   let useful=0,needed=0;
+   for(const [aspect,count] of missing){
+    const amount=parts[aspect]||0;
+    if(amount){
+     useful+=Math.min(amount,count);
+     needed=Math.max(needed,Math.ceil(count/amount));
+    }
+   }
+   return {useful,needed};
+  }
+ };
+}
+function orderSourceItems(r,reserve,source,products){
+ return IORDER.filter(item=>dissolvable(item)&&!ORDER_SUPPLY_KEEP.has(item)&&!r.inp?.[item]&&!r.out?.[item]
+  &&!products.has(item)&&(orderSupplyStock(item,reserve)>0||hasId(GTASK,item)||orderSources.has(item)))
+  .map(item=>({item,parts:IT[item].a,...source(IT[item].a)}))
+  .filter(entry=>entry.useful>0);
+}
+const orderMadeSourceRank=item=>orderRank(orderSources.get(item)?.[0])||Infinity;
+function orderEssenceWait(depth,missing,full){
+ const name=missing.map(([a])=>A[a].f).join('、');
+ return {kind:'wait',depth,reason:full?'工坊精华容量不足，请先腾出空间。':`工坊缺少可用的${name}精华来源。`};
+}
+function orderCrucibleUtility(g,depth,reserve,used,operation,item,reason){
+ const stock=orderSupplyStock(item,reserve)-(used[item]||0);
+ if(stock>0)return {kind:'supply',depth,item,operation,reason,reserve};
+ return orderGatherStep(g,item,depth);
+}
+function orderAlchemyStep(g,r,depth,reserve,path=[]){
+ if(!rvis(r))return {kind:'wait',depth,reason:`需要研究「${RSD[r.req].n}」。`};
+ const workshop=g.workshop;
+ if(!workshop?.crucible)return {kind:'wait',depth,reason:'需要给魔像安装专用坩埚。'};
+ const products=protectedOrderProducts(r,path);
+ const stock={...workshop.ess},used={},batches=[];
+ // Bring every remaining solute into inventory before lighting the crucible.
+ for(;;){
+  const {missing,source}=orderEssenceSources(r,stock);
+  if(!missing.length)break;
+  const candidates=orderSourceItems(r,reserve,source,products).map(entry=>({
+   ...entry,capacity:essenceCapacity(stock,entry.parts),
+   available:orderSupplyStock(entry.item,reserve)-(used[entry.item]||0)
+  })).sort((a,b)=>Number(hasId(GTASK,b.item))-Number(hasId(GTASK,a.item))||b.useful-a.useful);
+  const material=candidates.find(entry=>entry.capacity>0&&entry.available>0);
+  if(!material){
+   let blocked;
+   for(const entry of candidates){
+    if(entry.capacity<1||!hasId(GTASK,entry.item))continue;
+    const step=orderGatherStep(g,entry.item,depth);
+    if(step.kind==='gather')return step;
+    blocked??=step;
+   }
+   const reservedMaterials={...reserve};
+   for(const [item,count] of Object.entries(used))reservedMaterials[item]=(reservedMaterials[item]||0)+count;
+   const craftable=candidates.filter(entry=>entry.capacity>0&&!hasId(GTASK,entry.item)&&orderSources.has(entry.item))
+    .sort((a,b)=>orderMadeSourceRank(a.item)-orderMadeSourceRank(b.item)||b.useful-a.useful);
+   for(const entry of craftable){
+    const step=orderMaterialStep(g,entry.item,depth+1,reservedMaterials,path);
+    if(step&&step.kind!=='wait')return step;
+    blocked??=step;
+   }
+   return blocked||orderEssenceWait(depth,missing,candidates.some(entry=>entry.capacity<1));
+  }
+  const {item,parts,capacity,available,needed}=material;
+  const count=Math.min(capacity,available,needed);
+  used[item]=(used[item]||0)+count;
+  addEssences(stock,parts,count);
+  batches.push({item,count});
+ }
+ if(workshop.water<Math.min(16,batches.length+1)){
+  return orderCrucibleUtility(g,depth,reserve,used,'water','water','给专用坩埚加水');
+ }
+ if(workshop.heat<=orderDuration(g)+batches.length){
+  const coal=orderCrucibleUtility(g,depth,reserve,used,'heat','coal','给专用坩埚添煤加热');
+  if(coal.kind==='wait'&&!products.has('nitor')&&orderSupplyStock('nitor',reserve)>(used.nitor||0)){
+   return {kind:'supply',depth,item:'nitor',operation:'heat',reason:'用永燃之光给专用坩埚加热',reserve};
+  }
+  return coal;
+ }
+ if(batches.length){
+  const {item,count}=batches[0];
+  return {kind:'supply',depth,item,count,operation:'dissolve',reason:`溶解 ${IT[item].n} ×${count}`,reserve};
+ }
+ return null;
+}
+
 function transcribe(id,distilled,all,e){
  const stock=distilled?S.distilled:S.ess;
  const available=stock[id]||0;
@@ -1338,6 +1506,8 @@ function transcribe(id,distilled,all,e){
  render();
 }
 const distillParts=(from,id)=>from==='ess'?{[id]:1}:IT[id].a;
+const distillationDuration=(count,condenser,fuel)=>
+ Math.max(2,3+Math.ceil(count/2)-(condenser?2:0)-(fuel==='alumentum'?1:0));
 const distillSourceName=(from,id)=>from==='ess'?A[id].f+'精华':IT[id].n;
 function validDistillation(state){
  const job=state.distill;
@@ -1355,8 +1525,7 @@ function distillOffer(from,id){
  const fuel=inv('alumentum')>0&&id!=='alumentum'?'alumentum':'coal';
  const reserved=id===fuel?1:id==='jar'?jars.length:0;
  const available=from==='ess'?(S.ess[id]||0):Math.max(0,inv(id)-reserved);
- const max=parts.reduce((limit,[a,n])=>Math.min(limit,Math.floor((ESSENTIA_LIMIT-(S.distilled[a]||0))/n)),
-  Math.min(available,S.has.condenser?16:8));
+ const max=essenceCapacity(S.distilled,distillParts(from,id),Math.min(available,S.has.condenser?16:8));
  const why=[];
  if(S.distill)why.push('蒸馏炉正在处理上一批');
  if(!available)why.push('材料不足');
@@ -1375,7 +1544,7 @@ function startDistill(from,id,all){
  take(offer.fuel,1);
  if(offer.jars.length)take('jar',offer.jars.length);
  for(const a of offer.jars)S.jars[a]=1;
- const duration=Math.max(2,3+Math.ceil(count/2)-(S.has.condenser?2:0)-(offer.fuel==='alumentum'?1:0));
+ const duration=distillationDuration(count,S.has.condenser,offer.fuel);
  S.distill={from,id,count,left:duration,duration};
  U.distillResult=null;
  save();
@@ -1383,10 +1552,9 @@ function startDistill(from,id,all){
 }
 function finishDistill(){
  const {from,id,count}=S.distill;
- for(const [a,n] of Object.entries(distillParts(from,id))){
-  S.distilled[a]=(S.distilled[a]||0)+n*count;
-  S.known[a]=1;
- }
+ const parts=distillParts(from,id);
+ addEssences(S.distilled,parts,count);
+ for(const a of Object.keys(parts))S.known[a]=1;
  S.distill=null;
  U.distillResult={from,id,count,until:S.tk+3};
  S.has.distilledBatch=1;
@@ -1394,19 +1562,369 @@ function finishDistill(){
  save();
 }
 
+
+function orderInfusionStep(g,r,depth,reserve,path=[]){
+ if(!rvis(r))return {kind:'wait',depth,reason:`需要研究「${RSD[r.req].n}」。`};
+ const workshop=g.workshop;
+ if(!workshop?.altar)return {kind:'wait',depth,reason:'需要给魔像搭建专用注魔祭坛。'};
+ const {missing,source}=orderEssenceSources(r,workshop.distilled);
+ if(!missing.length)return null;
+ if(!workshop.distiller)return {kind:'wait',depth,reason:'需要给魔像安装专用蒸馏器。'};
+ const products=protectedOrderProducts(r,path);
+ const candidates=[
+  ...missing.filter(([a])=>workshop.ess[a]>0)
+   .map(([item,needed])=>({from:'ess',item,parts:distillParts('ess',item),useful:1,needed})),
+  ...orderSourceItems(r,reserve,source,products).map(entry=>({from:'item',...entry}))
+ ].map(entry=>{
+  const {from,item,parts}=entry;
+  const jars=Object.keys(parts).filter(a=>!workshop.jars[a]);
+  const fuel=item!=='alumentum'&&!products.has('alumentum')&&orderSupplyStock('alumentum',reserve)>0?'alumentum':'coal';
+  const available=from==='ess'?workshop.ess[item]:orderSupplyStock(item,reserve)-(item===fuel?1:0);
+  const ready=available>0&&orderSupplyStock(fuel,reserve)>0&&orderSupplyStock('jar',reserve)>=jars.length;
+  return {...entry,jars,fuel,available,ready,capacity:essenceCapacity(workshop.distilled,parts,8)};
+ }).sort((a,b)=>Number(b.ready)-Number(a.ready)||Number(b.available>0)-Number(a.available>0)
+  ||(a.available<1&&b.available<1
+   ?Number(hasId(GTASK,b.item))-Number(hasId(GTASK,a.item))||orderMadeSourceRank(a.item)-orderMadeSourceRank(b.item):0)
+  ||a.jars.length-b.jars.length||Number(b.from==='ess')-Number(a.from==='ess')
+  ||Number(hasId(GTASK,b.item))-Number(hasId(GTASK,a.item))||b.useful-a.useful);
+ let blocked;
+ for(const {from,item,jars,fuel,available,capacity,needed} of candidates){
+  if(capacity<1)continue;
+  let step;
+  if(available<1){
+   if(hasId(GTASK,item))step=orderGatherStep(g,item,depth);
+   else if(orderSources.has(item))step=orderMaterialStep(g,item,depth+1,reserve,path);
+   else continue;
+  }else if(orderSupplyStock(fuel,reserve)<1){
+   step=orderGatherStep(g,fuel,depth);
+  }else if(orderSupplyStock('jar',reserve)<jars.length){
+   step=orderMaterialStep(g,'jar',depth+1,reserve,path);
+  }else{
+   const count=Math.min(capacity,needed,available);
+   const duration=distillationDuration(count,false,fuel);
+   const reason=`蒸馏 ${distillSourceName(from,item)} ×${count}${jars.length?`，安装空罐 ×${jars.length}`:''}`;
+   return {kind:'supply',operation:'distill',depth,from,item,fuel,jars,count,duration,reason,reserve};
+  }
+  if(step&&step.kind!=='wait')return step;
+  blocked??=step;
+ }
+ return blocked||orderEssenceWait(depth,missing,candidates.some(entry=>entry.capacity<1));
+}
+function performOrderDistillation(workshop,step){
+ const {from,item,fuel,count,reserve}=step;
+ if(!workshop?.distiller||!['ess','item'].includes(from)||!isCount(count)||count<1)return false;
+ if(from==='ess'?!hasId(A,item):!dissolvable(item)||ORDER_SUPPLY_KEEP.has(item))return false;
+ if(!['coal','alumentum'].includes(fuel)||fuel==='alumentum'&&item===fuel)return false;
+ const parts=distillParts(from,item);
+ const jars=Object.keys(parts).filter(a=>!workshop.jars[a]);
+ if(count>essenceCapacity(workshop.distilled,parts,8)||orderSupplyStock('jar',reserve)<jars.length)return false;
+ if(orderSupplyStock(fuel,reserve)<1)return false;
+ if(from==='ess'){
+  if((workshop.ess[item]||0)<count)return false;
+  takeEssence(workshop.ess,item,count);
+ }else{
+  if(orderSupplyStock(item,reserve)<count+(item===fuel?1:0))return false;
+  take(item,count);
+ }
+ take(fuel,1);
+ if(jars.length)take('jar',jars.length);
+ for(const aspect of jars)workshop.jars[aspect]=1;
+ addEssences(workshop.distilled,parts,count);
+ S.has.distilledBatch=1;
+ return true;
+}
+function performOrderSupply(g,step){
+ const workshop=g.workshop,{operation,item,reserve}=step;
+ if(operation==='distill')return performOrderDistillation(workshop,step);
+ if(!workshop?.crucible||orderSupplyStock(item,reserve)<1)return false;
+ if(operation==='water'&&item==='water'&&workshop.water<16){
+  take(item,1);
+  workshop.water=Math.min(16,workshop.water+8);
+ }else if(operation==='heat'&&(item==='coal'||item==='nitor')&&workshop.heat<240){
+  take(item,1);
+  workshop.heat=Math.min(240,workshop.heat+(item==='coal'?90:180));
+ }else if(operation==='dissolve'&&dissolvable(item)&&!ORDER_SUPPLY_KEEP.has(item)&&workshop.heat>0&&workshop.water>0){
+  const {count}=step,parts=IT[item].a;
+  if(!isCount(count)||count<1||count>essenceCapacity(workshop.ess,parts,orderSupplyStock(item,reserve)))return false;
+  take(item,count);
+  workshop.water--;
+  addEssences(workshop.ess,parts,count);
+ }else return false;
+ return true;
+}
+
 /* ---------- 魔像 ---------- */
+function orderYield(r){
+ const outputs=Object.entries(r?.out||{});
+ if(outputs.length!==1)return 0;
+ const [id,count]=outputs[0];
+ return hasId(IT,id)&&!hasId(EQ,id)&&isCount(count)&&count>0?count:0;
+}
+// Used only to recognise orders issued before recipe-depth limits were introduced.
+function legacyOrderRank(r){
+ if(!r||r.once||r.need||r.fx||r.tool||r.eq||!orderYield(r))return 0;
+ if(r.st==='arcane')return 3;
+ if(r.st!=='craft'||r.g==='smelt')return 0;
+ const ingredients=Object.values(r.inp||{});
+ if(ingredients.length<=1)return 1;
+ const count=ingredients.reduce((sum,n)=>sum+n,0);
+ if(count>4)return 2;
+ const shape=RECIPE_LAYOUTS[r.id];
+ if(!shape||shape.length!==count)return 1;
+ const columns=shape.map(cell=>cell%3),rows=shape.map(cell=>Math.floor(cell/3));
+ return Math.max(...columns)-Math.min(...columns)<=1&&Math.max(...rows)-Math.min(...rows)<=1?1:2;
+}
+const orderDuration=g=>Math.max(2,Math.ceil(6/GT[g.t].m));
+const ORDER_STATIONS={
+ crucible:{name:'魔像坩埚',recipe:'a_golem_crucible',item:'golem_crucible'},
+ distiller:{name:'蒸馏器',recipe:'a_alembic',item:'alembic'},
+ altar:{name:'魔像注魔祭坛',recipe:'a_golem_altar',item:'golem_altar'}
+};
+const workshopRecipes=R.filter(r=>['craft','arcane','cru','inf'].includes(r.st)
+ &&!r.once&&!r.need&&!r.fx&&!r.tool&&!r.eq&&orderYield(r));
+const orderSources=new Map();
+for(const r of workshopRecipes){
+ const [item]=Object.keys(r.out);
+ if(!orderSources.has(item))orderSources.set(item,[]);
+ orderSources.get(item).push(r);
+}
+// Relax from raw inputs so reversible packing recipes cannot assign each other a low depth.
+const materialDepth=new Map(IORDER.map(id=>[id,hasId(GTASK,id)||!orderSources.has(id)?0:Infinity]));
+const recipeDepth=r=>1+Math.max(0,...Object.keys(r.inp||{}).map(id=>materialDepth.get(id)));
+for(let changed=true;changed;){
+ changed=false;
+ for(const [item,recipes] of orderSources){
+  const best=Math.min(...recipes.map(recipeDepth));
+  if(best<materialDepth.get(item)){
+   materialDepth.set(item,best);
+   changed=true;
+  }
+ }
+}
+const orderRanks=new Map(workshopRecipes.map(r=>[r.id,recipeDepth(r)]));
+for(const recipes of orderSources.values())recipes.sort((a,b)=>orderRank(a)-orderRank(b));
+function orderRank(r){return orderRanks.get(r?.id)||0}
+function golemCanOrder(g,r,res=S.res){
+ if(!g||!res.GOLEMANCY)return false;
+ const rank=orderRank(r);
+ return !!(rank&&GT[g.t].rank>=rank&&(!r.req||res[r.req])&&(r.st!=='arcane'||res.ARCANE));
+}
+function validOrderQuantity(quantity,batch){
+ return batch>0&&isCount(quantity)&&quantity>=batch&&quantity<=MAX_ORDER_QUANTITY&&quantity%batch===0;
+}
+function validGolemOrder(g,res){
+ const order=g.order;
+ if(!isRecord(order)||!hasId(RECIPES,order.recipe))return false;
+ const recipe=RECIPES[order.recipe],batch=orderYield(recipe);
+ if(!validOrderQuantity(order.total,batch)||!isCount(order.delivered)||order.delivered>=order.total||order.delivered%batch
+  ||!isCount(order.progress)||order.progress>=(recipe.st==='inf'?infusionDuration(recipe):orderDuration(g)))return false;
+ if(order.version===undefined){
+  const oldRank=legacyOrderRank(recipe);
+  if(Object.keys(order).length!==4||!oldRank||GT[g.t].rank<oldRank||!res.GOLEMANCY||
+   recipe.req&&!res[recipe.req]||recipe.st==='arcane'&&!res.ARCANE)return false;
+  return true;
+ }
+ if(order.version!==2||!golemCanOrder(g,recipe,res))return false;
+ const job=order.work;
+ return Object.keys(order).every(k=>['version','recipe','total','delivered','progress','work'].includes(k))
+  &&(job===undefined||isRecord(job)&&Object.keys(job).length===2&&typeof job.key==='string'&&job.key.length<=160
+   &&isCount(job.elapsed)&&job.elapsed<100);
+}
+function freshWorkshop(){
+ return {crucible:0,distiller:0,altar:0,water:0,heat:0,ess:{},distilled:{},jars:{}};
+}
+function validWorkshop(w){
+ if(w===undefined)return true;
+ const validEss=n=>isCount(n)&&n<=ESSENTIA_LIMIT;
+ return isRecord(w)&&Object.keys(w).length===8&&Object.keys(ORDER_STATIONS).every(k=>isFlag(w[k]))
+  &&isCount(w.water)&&w.water<=16&&isCount(w.heat)&&w.heat<=240
+  &&validMap(w.ess,validEss,A)&&validMap(w.distilled,validEss,A)&&validMap(w.jars,v=>v===1,A)
+  &&Object.keys(w.distilled).every(a=>w.jars[a])
+  &&(w.crucible||!w.water&&!w.heat&&!Object.keys(w.ess).length)
+  &&(w.distiller||!Object.keys(w.jars).length);
+}
+function installOrderStation(i,id){
+ const g=S.golems[i],device=hasId(ORDER_STATIONS,id)&&ORDER_STATIONS[id];
+ if(!g||!device||g.workshop?.[id]||inv(device.item)<1)return false;
+ g.workshop??=freshWorkshop();
+ take(device.item,1);
+ g.workshop[id]=1;
+ save();
+ render();
+ return true;
+}
+function transcribeOrderEssence(i,stock,id){
+ const w=S.golems[i]?.workshop;
+ if(!w||!['ess','distilled'].includes(stock)||!hasId(A,id))return;
+ const count=w[stock][id]||0;
+ if(!count)return;
+ takeEssence(w[stock],id,count);
+ S.pool[id]=(S.pool[id]||0)+count;
+ S.known[id]=1;
+ save();
+ render();
+}
+function orderGatherStep(g,item,depth){
+ const task=GTASK[item];
+ if(!task)return {kind:'wait',depth,reason:`需要从其他来源取得${IT[item].n}。`};
+ const site=SITES[task.site];
+ const why=golemLock(g.t,item)||(site.pick>S.tools.pick?`需要${PICK_NAMES[site.pick]}`:'')
+  ||(S.taint.includes(site.id)?'地点已污染，请先净化':'');
+ return why?{kind:'wait',depth,reason:`${IT[item].n}（${site.n}）：${why}`}:{kind:'gather',item,depth};
+}
+function orderMaterialStep(g,item,depth,reserved={},path=[]){
+ let blocked;
+ if(hasId(GTASK,item)){
+  const step=orderGatherStep(g,item,depth);
+  if(step.kind!=='wait')return step;
+  blocked=step;
+ }
+ if(depth<=GT[g.t].rank){
+  for(const recipe of orderSources.get(item)||[]){
+   if(path.includes(item)||Object.keys(recipe.inp).some(id=>path.includes(id))){
+    blocked??={kind:'wait',depth,reason:`需要现成的${IT[item].n}，反向配方会耗用本单成品。`};
+    continue;
+   }
+   if(depth+orderRank(recipe)-1>GT[g.t].rank)continue;
+   const step=planOrderRecipe(g,recipe,depth,reserved,[...path,item]);
+   if(step.kind!=='wait')return step;
+   blocked??=step;
+  }
+ }
+ return blocked||{kind:'wait',depth,reason:`缺少${IT[item].n}。${orderSources.has(item)?'当前魔像无法在层数内继续制作。':'请从其他来源取得。'}`};
+}
+function planOrderRecipe(g,r,depth,reserved,path){
+ const wait=reason=>({kind:'wait',depth,reason});
+ if(!rvis(r))return wait(`需要研究「${RSD[r.req].n}」。`);
+ if(r.st==='arcane'&&!S.res.ARCANE)return wait('需要研究「奥术工作台」。');
+ if(r.st==='cru'&&!g.workshop?.crucible)return wait('需要给魔像安装专用坩埚。');
+ if(r.st==='inf'&&!g.workshop?.altar)return wait('需要给魔像安装专用注魔祭坛。');
+ const needs={...reserved};
+ for(const [id,count] of Object.entries(r.inp))needs[id]=(needs[id]||0)+count;
+ let blocked;
+ for(const id of Object.keys(r.inp)){
+  if(inv(id)>=needs[id])continue;
+  const step=orderMaterialStep(g,id,depth+1,needs,path);
+  if(step.kind!=='wait')return step;
+  blocked??=step;
+ }
+ if(blocked)return blocked;
+ if(r.st==='cru'||r.st==='inf'){
+  const step=r.st==='cru'?orderAlchemyStep(g,r,depth,needs,path):orderInfusionStep(g,r,depth,needs,path);
+  if(step)return step;
+ }
+ if(r.vis){
+  if(!hasWand())return wait('需要魔杖。');
+  const missing=Object.entries(r.vis).filter(([id,n])=>S.vis[id]<vcost(n))
+   .map(([id,n])=>`${A[id].f}魔力 ×${vcost(n)-Math.floor(S.vis[id])}`);
+  if(missing.length)return wait(`还缺${missing.join('、')}。`);
+ }
+ return {kind:'craft',recipe:r,depth};
+}
+function orderStep(g,r){
+ if(!golemCanOrder(g,r))return {kind:'wait',depth:1,reason:'魔像等级或研究不足。'};
+ return planOrderRecipe(g,r,1,{},Object.keys(r.out));
+}
+function orderStepKey(s){
+ return JSON.stringify([s.kind,s.recipe?.id,s.operation,s.from,s.item,s.count,s.fuel]);
+}
+function orderActionProgress(g,step){
+ if(step.kind==='wait')return [0,1];
+ let seconds=orderDuration(g);
+ if(step.kind==='gather')seconds=Math.ceil(1/golemRate(g.t,step.item));
+ if(step.kind==='supply')seconds=step.duration||1;
+ if(step.kind==='craft'&&step.recipe.st==='inf')seconds=infusionDuration(step.recipe);
+ const order=g.order;
+ const elapsed=step.kind==='craft'&&step.depth===1?order?.progress:
+  order?.work?.key===orderStepKey(step)?order.work.elapsed:0;
+ return [Math.min(elapsed||0,seconds-1),seconds];
+}
+function orderShortages(r){
+ if(!orderRank(r))return [];
+ const {why}=canRecipe(r);
+ for(const [id,count] of Object.entries(r.inp||{})){
+  const missing=count-inv(id);
+  if(missing>0)why.push(`还缺 ${IT[id].n} ×${missing}`);
+ }
+ if(hasWand()){
+  for(const [id,count] of Object.entries(r.vis||{})){
+   const missing=vcost(count)-Math.floor(S.vis[id]);
+   if(missing>0)why.push(`还缺 ${A[id].f}魔力 ×${missing}`);
+  }
+ }
+ return why;
+}
+function createGolemOrder(i,recipeId,quantity){
+ const g=Number.isInteger(i)?S.golems[i]:null;
+ const r=hasId(RECIPES,recipeId)?RECIPES[recipeId]:null;
+ if(!g||g.order||!golemCanOrder(g,r)||!validOrderQuantity(quantity,orderYield(r)))return false;
+ g.order={version:2,recipe:recipeId,total:quantity,delivered:0,progress:0};
+ save();
+ render();
+ return true;
+}
+function cancelGolemOrder(i){
+ const g=Number.isInteger(i)?S.golems[i]:null;
+ if(!g?.order)return false;
+ const {recipe,delivered,total}=g.order;
+ g.order=null;
+ msg(`${GT[g.t].n}取消了「${RECIPES[recipe].n}」委托，已交付 ${delivered}/${total} 件。`);
+ save();
+ render();
+ return true;
+}
+function workGolemOrder(g,recipe){
+ const step=orderStep(g,recipe);
+ if(step.kind==='wait')return false;
+ const order=g.order;
+ const final=step.kind==='craft'&&step.depth===1;
+ const [elapsed,duration]=orderActionProgress(g,step);
+ if(elapsed+1<duration){
+  if(final)order.progress=elapsed+1;
+  else order.work={key:orderStepKey(step),elapsed:elapsed+1};
+  return false;
+ }
+ if(step.kind==='gather')give(step.item,1);
+ else if(step.kind==='supply'){
+  if(!performOrderSupply(g,step))return false;
+ }else{
+  const r=step.recipe;
+  if(r.st==='cru'||r.st==='inf'){
+   const w=g.workshop,stock=r.st==='cru'?w.ess:w.distilled;
+   for(const [id,n] of Object.entries(r.inp))take(id,n);
+   for(const [id,n] of Object.entries(r.ess||{}))takeEssence(stock,id,n);
+   if(r.st==='cru')w.water--;
+   completeRecipe(r);
+  }else if(!doRecipe(r.id))return false;
+ }
+ delete order.work;
+ if(final){
+  order.delivered+=orderYield(recipe);
+  order.progress=0;
+  if(order.delivered===order.total){
+   g.order=null;
+   msg(`${GT[g.t].n}完成了「${recipe.n}」委托，已交付 ${order.total} 件。`,'good');
+  }
+ }
+ save();
+ return true;
+}
 function golemLock(t,id){
  if(id===null)return '待命';
  const task=GTASK[id],site=SITES[task.site];
  if(GT[t].rank<task.rank)return `需要 ${task.rank} 级魔像`;
  if(site.res&&!S.res[site.res])return `需要研究「${RSD[site.res].n}」`;
+ if(task.outerDepth){
+  if(!S.res.OUTER)return '需要研究「异域」';
+  if(S.outer.best<task.outerDepth)return `需要先探索异域第 ${task.outerDepth} 层`;
+ }
  return '';
 }
 const golemBoost=()=>inv('transvector')>0?1.5:1;
 const golemRate=(t,id)=>GTASK[id].rate*GT[t].m*golemBoost();
 function assignGolem(i,id){
  const g=S.golems[i];
- if(!g||g.task===id||(id!==null&&(!hasId(GTASK,id)||golemLock(g.t,id))))return;
+ if(!g||g.order||g.task===id||(id!==null&&(!hasId(GTASK,id)||golemLock(g.t,id))))return;
  g.task=id;
  g.acc=0;
  renderMain();
@@ -1617,11 +2135,13 @@ const ACT={
  notesView:d=>{U.notesView=d.id;renderMain()},
  researchPick:(d,e)=>{
   if(!hasId(RSD,d.id))return;
+  const fromEntry=e?.target.closest('#notebook-entry');
   const entry=RSD[d.id];
   U.cat=entry.cat;
   U.research=entry.id;
   renderMain();
-  if(e?.detail)$('#notebook-entry')?.scrollIntoView({block:'nearest'});
+  if(fromEntry)$('#notebook-entry-title')?.focus();
+  else if(e?.detail)$('#notebook-entry')?.scrollIntoView({block:'nearest'});
  },
  catalogStation:d=>{U.catalogStation=d.id;renderMain()},
  openRecipe:d=>openRecipe(d.id),
@@ -1671,7 +2191,29 @@ const ACT={
  dis:(d,e)=>dissolve(d.id,d.all==='1',e),
  find:()=>{if(S.search>0||S.node)return;S.search=inv('resonance_compass')>0?3:8;renderMain()},
  golem:d=>buildGolem(d.t),
- gdel:d=>{if(S.golems[+d.i]){S.golems.splice(+d.i,1);render()}},
+ installOrderStation:d=>installOrderStation(Number(d.i),d.id),
+ transcribeOrderEssence:d=>transcribeOrderEssence(Number(d.i),d.stock,d.id),
+ cancelGolemOrder:d=>cancelGolemOrder(Number(d.i)),
+ gdel:d=>{
+  const i=Number(d.i),g=S.golems[i];
+  if(!g||g.order)return;
+  if(g.workshop){
+   for(const [id,device] of Object.entries(ORDER_STATIONS)){
+    if(g.workshop[id])S.inv[device.item]=inv(device.item)+1;
+   }
+   const jars=Object.keys(g.workshop.jars).length;
+   if(jars)S.inv.jar=inv('jar')+jars;
+   for(const stock of [g.workshop.ess,g.workshop.distilled]){
+    for(const [id,n] of Object.entries(stock)){
+     S.known[id]=1;
+     S.pool[id]=(S.pool[id]||0)+n;
+    }
+   }
+  }
+  S.golems.splice(i,1);
+  save();
+  render();
+ },
  save:()=>{
   if(save()){saveStatus('');msg('已保存。','good')}
   else saveStatus('保存失败。请导出 JSON 备份进度。','bad');
@@ -1807,17 +2349,30 @@ function renderMain(){
  updateMainMeters();
 }
 function renderLab(main,station,banner){
- const {heading,scene,controls,content}=LAB_VIEWS[station]();
+ const canPlaceOrders=station==='cru'||station==='inf';
+ const personal=station==='cru'?S.has.crucible:station==='inf'?S.has.altar:true;
+ const {heading,scene,controls,recipes,content}=personal?LAB_VIEWS[station]():{};
  // Inventory refreshes can update the controls without restarting apparatus animations.
  setHtml(main,`<div id="lab-banner"></div><section class="sec" data-station="${station}">
-  <h3 id="lab-heading"></h3><div class="card"><div id="lab-art"></div>
-  <p id="lab-status" class="lab-status" role="status"></p><div id="lab-controls"></div></div>
-  </section><div id="lab-content"></div>`);
+  <h3 id="lab-heading"></h3>${personal?`<div class="card"><div id="lab-art"></div>
+  <p id="lab-status" class="lab-status" role="status"></p><div id="lab-controls"></div></div>`:
+  `<p class="muted">建造个人${STATIONS[station]}可手动操作。魔像执行委托时使用自己的设备。</p>`}
+  </section>${canPlaceOrders?`<section class="sec"><div id="lab-recipes"></div>${workbenchOrderPanel(true,!personal)}</section>`:''}<div id="lab-content"></div>`);
  setHtml($('#lab-banner'),banner);
- setHtml($('#lab-heading'),heading);
+ setHtml($('#lab-heading'),heading||STATIONS[station]);
  setHtml($('#lab-art'),scene);
  setHtml($('#lab-controls'),controls);
- setHtml($('#lab-content'),content);
+ setHtml($('#lab-content'),content||'');
+ if(canPlaceOrders){
+  setHtml($('#lab-recipes'),recipes||'');
+  const picker=$('#lab-order-recipe');
+  if(document.activeElement!==picker){
+   const selected=picker.value;
+   setHtml(picker,R.filter(r=>r.st===station&&rvis(r)&&orderRank(r)).map(r=>`<option value="${r.id}">${r.n}</option>`).join(''));
+   if([...picker.options].some(option=>option.value===selected))picker.value=selected;
+  }
+  updateWorkbenchOrders();
+ }
 }
 const winBanner=()=>`<div class="card win"><div class="win-head"><h2>毕业试炼完成</h2><button class="btn sm" data-act="dismissWin" aria-label="关闭毕业试炼提示">关闭</button></div><p>虚空杖帽、守护护符、三个魔像。你已经走完了奥术学徒的整条路。世界仍在运转，继续摆弄你的魔像工厂和节点吧。</p></div>`;
 
@@ -1916,7 +2471,7 @@ function updateWarpPanel(){
  const notes=$('#warp-soap-notes');
  notes.hidden=!S.has.tm||!recipe||!warpNoteVisible(recipe.req);
  updateText(notes,recipe&&rvis(recipe)?'在笔记中查看肥皂配方':'在笔记中查看肥皂研究');
- const hint=!S.has.tm?'激活书架可解锁神秘学笔记。':notes.hidden?'永久与普通扭曲合计超过 10 点时，低语可能揭示净化研究线索。':'';
+ const hint=!S.has.tm?'激活书架可解锁神秘学笔记。':!knowsBathSaltsClue()?bathSaltsHint():'';
  updateText($('#warp-recipe-hint'),hint);
 }
 function setWarpAction(button,available){
@@ -1957,7 +2512,7 @@ function stationItem(id,count,x,y,material=false,missing=false){
 function craftingSlots(inputs,r,[x,y,step]){
  const total=inputs.reduce((sum,[,count])=>sum+count,0);
  const stacks=total<=9?inputs.flatMap(([id,count])=>Array.from({length:count},()=>[id,1])):inputs;
- const shape=RECIPE_LAYOUTS[r.id]||TOOL_LAYOUTS[r.tool?.[0]]||(r.eq?.[0]==='cap'?CAP_LAYOUT:null);
+ const shape=RECIPE_LAYOUTS[r.layout||r.id]||TOOL_LAYOUTS[r.tool?.[0]]||(r.eq?.[0]==='cap'?CAP_LAYOUT:null);
  const positions=shape?.length===stacks.length?shape:[4,1,7,3,5,0,2,6,8];
  const placed={};
  return stacks.slice(0,9).map(([id,count],index)=>{
@@ -2007,9 +2562,31 @@ function vWorkbench(station){
   <button class="station-position station-slot station-result" id="workbench-output" data-act="craft" data-id="" aria-label="成品槽" disabled></button>
  </div>
  <div id="workbench-preview"></div>
- <div class="workbench-action"><button class="btn primary" id="workbench-action" data-act="craft" data-id="" disabled>合成</button></div></section>
+ <div class="workbench-action"><button class="btn primary" id="workbench-action" data-act="craft" data-id="" disabled>合成</button></div>
+ ${workbenchOrderPanel()}</section>
  <section class="card workbench-picker"><h3>选择配方</h3>${groups}<div class="recipe-options" id="workbench-recipes"></div></section>
  </div>`;
+}
+function workbenchOrderPanel(lab=false,opened=false){
+ return `<details class="workbench-orders" id="workbench-orders"${opened?' open':''} hidden>
+  <summary>委托制作 <small id="workbench-order-summary"></small></summary>
+  <div class="workbench-order-body">
+   ${lab?'<label class="lab-order-recipe">委托配方<select id="lab-order-recipe" aria-describedby="workbench-order-requirement"></select></label>':''}
+   <p class="muted" id="workbench-order-requirement"></p>
+   <form class="workbench-order-form" id="workbench-order-form" hidden>
+    <div class="workbench-order-fields">
+     <label>负责魔像<select id="workbench-order-worker" required aria-describedby="workbench-order-worker-hint workbench-order-resources"></select></label>
+     <label>成品数量<input type="number" inputmode="numeric" id="workbench-order-quantity" required aria-describedby="workbench-order-batch"></label>
+    </div>
+    <p class="muted" id="workbench-order-batch"></p>
+    <p class="muted" id="workbench-order-worker-hint"></p>
+    <p id="workbench-order-resources"></p>
+    <div class="workbench-order-actions"><button type="submit" class="btn primary sm" id="workbench-order-submit" disabled>安排委托</button></div>
+   </form>
+   <ul class="workbench-order-status" id="workbench-order-status" aria-label="当前配方的委托" hidden></ul>
+   <div class="workbench-order-footer"><button type="button" class="btn sm" data-act="tab" data-id="golem">前往魔像页</button></div>
+  </div>
+ </details>`;
 }
 function showCompactPreview(selector){
  if(COMPACT_LAYOUT.matches)$(selector)?.focus();
@@ -2065,7 +2642,101 @@ function renderWorkbench(station){
   if(button.disabled!==disabled)button.disabled=disabled;
  }
  if(action.textContent!==verb)action.textContent=verb;
+ updateWorkbenchOrders();
 }
+function workbenchOrderRecipe(){
+ const r=RECIPES[$('#lab-order-recipe')?.value||U.recipe[U.tab]];
+ return r?.st===U.tab&&rvis(r)&&(U.tab!=='craft'||r.g===U.craftGroup)?r:null;
+}
+function updateWorkbenchOrders(){
+ const pane=$('#workbench-orders');
+ if(!pane)return;
+ const recipe=workbenchOrderRecipe();
+ const rank=recipe?orderRank(recipe):0;
+ const hidden=!rank||!S.res.GOLEMANCY;
+ if(pane.hidden!==hidden)pane.hidden=hidden;
+ const recipeId=hidden?'':recipe.id;
+ const changed=pane.dataset.recipe!==recipeId;
+ if(changed){pane.dataset.recipe=recipeId;if(!$('#lab-order-recipe'))pane.open=false}
+ if(hidden)return;
+
+ const qualified=S.golems.map((g,i)=>({g,i})).filter(({g})=>golemCanOrder(g,recipe));
+ const available=qualified.filter(({g})=>!g.order).sort((a,b)=>
+  Number(Boolean(a.g.task))-Number(Boolean(b.g.task))||GT[a.g.t].rank-GT[b.g.t].rank||a.i-b.i);
+ const orders=qualified.filter(({g})=>g.order?.recipe===recipe.id);
+ const types=Object.values(GT);
+ const type=types.find(type=>type.rank>=rank);
+ updateText($('#workbench-order-summary'),orders.length?`${orders.length} 单进行中`:'');
+ const requirement=Number.isFinite(rank)?`配方需要 ${rank} 层制作。`:'这份配方缺少可自动采购的材料来源。';
+ const availability=type?`需要${type.n}或更高阶魔像。`+(qualified.length
+  ?(available.length?'':'符合要求的魔像都已有委托。')
+  :S.res[type.res]?`请在魔像页制作${type.n}。`:`请先研究「${RSD[type.res].n}」。`)
+  :Number.isFinite(rank)?`最高阶魔像可处理 ${Math.max(...types.map(type=>type.rank))} 层。`:'无法安排委托。';
+ updateText($('#workbench-order-requirement'),requirement+availability);
+
+ const form=$('#workbench-order-form');
+ const worker=$('#workbench-order-worker');
+ const quantity=$('#workbench-order-quantity');
+ const submit=$('#workbench-order-submit');
+ const batch=orderYield(recipe);
+ const maximum=MAX_ORDER_QUANTITY-MAX_ORDER_QUANTITY%batch;
+ if(changed){
+  quantity.min=quantity.step=batch;
+  quantity.max=maximum;
+  quantity.value=batch;
+ }
+ if(changed||document.activeElement!==worker){
+  const previous=worker.value;
+  const selected=changed?available.find(({g})=>!g.task)?.i:available.find(({i})=>String(i)===previous)?.i;
+  setHtml(worker,'<option value="">请选择魔像</option>'+available.map(({g,i})=>{
+   const type=GT[g.t];
+   const label=g.task?`正在采集${IT[g.task].n}`:'待命';
+   return `<option value="${i}">${type.n} #${i+1} · ${type.rank} 层 · ${label}</option>`;
+  }).join(''));
+  if(worker.value!==String(selected??''))worker.value=String(selected??'');
+ }
+ const noWorkers=available.length===0;
+ if(form.hidden!==noWorkers)form.hidden=noWorkers;
+ const chosen=available.find(({i})=>String(i)===worker.value)?.g;
+ submit.disabled=!chosen;
+ const batchHint=$('#workbench-order-batch');
+ if(quantity.validity.valid){
+  const batches=quantity.valueAsNumber/batch;
+  const materials=Object.entries(recipe.inp||{}).map(([id,n])=>`${IT[id].n} ×${batches*n}`);
+  updateText(batchHint,`每批 ${batch} 个 · 共 ${batches} 批。${materials.length?`成品配方用料 ${materials.join('、')}。`:''}`);
+ }else{
+  updateText(batchHint,`每批 ${batch} 个，数量须为 ${batch} 的整数倍（${batch}–${maximum} 个）。`);
+ }
+ updateText($('#workbench-order-worker-hint'),chosen?.task?`委托结束后继续采集${IT[chosen.task].n}。`:'');
+ const resources=$('#workbench-order-resources');
+ const next=chosen?orderStep(chosen,recipe):null;
+ const resourceClass=next?.kind==='wait'?'why':'muted';
+ if(resources.className!==resourceClass)resources.className=resourceClass;
+ updateText(resources,next?`接单后 · ${workshopOrderStatus(chosen,next)}`:'');
+
+ const status=$('#workbench-order-status');
+ if(status.hidden!==(orders.length===0))status.hidden=orders.length===0;
+ setHtml(status,orders.map(({g,i})=>{
+  const step=orderStep(g,recipe);
+  return `<li><b>${GT[g.t].n} #${i+1} · 已交付 ${g.order.delivered}/${g.order.total} 个</b>
+   <span class="${step.kind==='wait'?'why':'muted'}">${escapeHtml(workshopOrderStatus(g,step))}</span></li>`;
+ }).join(''));
+}
+document.addEventListener('input',e=>{
+ if(e.target.closest('#workbench-order-form'))updateWorkbenchOrders();
+});
+document.addEventListener('change',e=>{
+ if(e.target.id==='lab-order-recipe')updateWorkbenchOrders();
+});
+document.addEventListener('submit',e=>{
+ if(e.target.id!=='workbench-order-form')return;
+ e.preventDefault();
+ const recipe=workbenchOrderRecipe();
+ const worker=$('#workbench-order-worker').value;
+ if(!recipe||worker===''||!e.target.checkValidity())return;
+ const quantity=$('#workbench-order-quantity').valueAsNumber;
+ if(createGolemOrder(Number(worker),recipe.id,quantity))$('#workbench-orders summary')?.focus({preventScroll:true});
+});
 function infusionScene(job,result){
  const recipe=RECIPES[job?.id||result?.id];
  const ingredients=job?Object.entries(recipe.inp):[];
@@ -2096,7 +2767,7 @@ function vInf(){
   scene:infusionScene(S.infusion,U.infusionResult),
   controls:`${S.infusion?labMeter('infusion'):''}
    <div class="row lab-links"><small>注魔消耗材料与罐装精华。稳定符文可以降低材料转化时的污染。</small><button class="btn sm" data-act="tab" data-id="distill">精华蒸馏</button></div>`,
-  content:`<div class="sec"><h3>注魔配方</h3><div class="recs">${list.length?list.map(recRow).join(''):'<p class="muted">研究神器类条目后，这里会出现配方。</p>'}</div></div>`
+  recipes:`<h3>注魔配方</h3><div class="recs">${list.length?list.map(recRow).join(''):'<p class="muted">研究神器类条目后，这里会出现配方。</p>'}</div>`
  };
 }
 
@@ -2208,20 +2879,26 @@ function researchTree(records,selected){
  }).join('');
  return `<div class="notebook-tree" style="--rows:${rows.length}"><div aria-hidden="true">${edges}</div>${nodes}</div>`;
 }
+function notebookResearchLink(id){
+ return `<button type="button" class="notebook-prerequisite ${S.res[id]?'done':''}" data-act="researchPick" data-id="${id}"
+  aria-label="${RSD[id].n}，${NOTES_RESEARCH_STATES[notebookState(RSD[id])]}">${RSD[id].n}</button>`;
+}
 function researchEntry(d){
  const state=notebookState(d);
  const unlocks=[...TILES.filter(t=>t.res===d.id).map(t=>t.n),...R.filter(r=>r.req===d.id).map(r=>r.n),
   ...Object.values(GT).filter(g=>g.res===d.id).map(g=>g.n)];
  const otherUnlocks=unlocks.filter(name=>!d.u.includes(name));
- const prerequisites=d.req.map(id=>`<button type="button" class="notebook-prerequisite ${S.res[id]?'done':''}"
-  data-act="researchPick" data-id="${id}" aria-label="${RSD[id].n}，${S.res[id]?'已完成':'待完成'}">${RSD[id].n}</button>`).join('');
+ const prerequisites=d.req.map(notebookResearchLink).join('');
+ const soapLink=(d.id==='TALLOW'||d.id==='BATHSALTS')&&warpNoteVisible('SANESOAP');
  return `<article class="notebook-entry" id="notebook-entry" aria-labelledby="notebook-entry-title"><div class="notebook-entry-page">
-  <header><h3 id="notebook-entry-title">${d.n}</h3><span class="notebook-state ${state}">${NOTES_RESEARCH_STATES[state]}</span></header>
+  <header><h3 id="notebook-entry-title" tabindex="-1">${d.n}</h3><span class="notebook-state ${state}">${NOTES_RESEARCH_STATES[state]}</span></header>
   <p>${d.d}</p>
+  ${isPurificationResearch(d.id)&&!knowsBathSaltsClue()?`<p>${bathSaltsHint()}</p>`:''}
   ${state==='ok'?`<button type="button" class="btn sm notebook-start" data-act="startRes" data-id="${d.id}" ${S.rs?'disabled':''}>开始研究</button>
    ${S.rs?`<small>请先完成或放弃「${RSD[S.rs.id].n}」。</small>`:''}`:''}
   </div><div class="notebook-entry-page">
   ${prerequisites?`<div><h4>前置研究</h4><div class="notebook-prerequisites">${prerequisites}</div></div>`:''}
+  ${soapLink?`<div><h4>${d.id==='TALLOW'?'油脂方块的用途':'后续研究'}</h4><div class="notebook-prerequisites">${notebookResearchLink('SANESOAP')}</div></div>`:''}
   <div><h4>解锁内容</h4><p>${d.u}</p>${otherUnlocks.length?`<small>${otherUnlocks.join(' · ')}</small>`:''}</div>
   </div></article>`;
 }
@@ -2236,7 +2913,15 @@ function openRecipe(id){
  if(Object.hasOwn(U.recipe,tab))U.recipe[tab]=id;
  render();
  if(Object.hasOwn(U.recipe,tab))showCompactPreview('#workbench-title');
- else $(`[data-recipe="${id}"]`)?.scrollIntoView({block:'nearest'});
+ else{
+  const picker=$('#lab-order-recipe');
+  if(picker&&[...picker.options].some(option=>option.value===id)){
+   picker.value=id;
+   updateWorkbenchOrders();
+  }
+  const target=$(`[data-recipe="${id}"]`)||picker;
+  target?.scrollIntoView({block:'nearest'});
+ }
 }
 function openSoapNotes(){
  const recipe=R.find(r=>r.out?.soap);
@@ -2254,7 +2939,7 @@ function openSoapNotes(){
  render();
  const entry=unlocked?$(`[data-catalog-recipe="${recipe.id}"]`):null;
  if(entry)entry.open=true;
- const target=entry?.querySelector('summary')||$(`[data-act="researchPick"][data-id="${recipe.req}"]`);
+ const target=entry?.querySelector('summary')||$('#notebook-entry-title');
  target?.focus({preventScroll:true});
  target?.scrollIntoView({block:'nearest'});
 }
@@ -2426,8 +3111,8 @@ function vCru(){
   <div class="meter"><span>水位 <b id="cwt"></b>/16</span><div class="bar"><i id="cwb" style="--c:#3fc4f2"></i></div><button class="btn sm" data-act="water">倒入水桶（+8）</button>${inv('bucket')>0?'<button class="btn sm" data-act="bucket">永满水桶（−2 水魔力，+4）</button>':''}</div>
   <div class="meter"><span>热量 <b id="cht"></b> 秒</span><div class="bar"><i id="chb" style="--c:#ff6a35"></i></div><button class="btn sm" data-act="coal">投入煤炭（+90 秒）</button>${inv('nitor')>0?`<button class="btn sm" data-act="nitor" ${S.cru.heat>=240?'disabled':''}>永燃之光（+180 秒）</button>`:''}${inv('striker')>0?'<button class="btn sm" data-act="strike">熔火打火石（−3 火魔力，+60秒）</button>':''}</div>
   </div>`,
-  content:`<div class="sec"><h3>炼金配方</h3><div class="recs">${R.filter(r=>r.st==='cru'&&rvis(r)).map(recRow).join('')||'<p class="muted">研究炼金类条目后，这里会出现配方。</p>'}</div></div>
- <div class="sec"><h3>溶解物质 <small>单次溶解耗 1 水位，批量按剩余精华容量投料</small></h3>
+  recipes:`<h3>炼金配方</h3><div class="recs">${R.filter(r=>r.st==='cru'&&rvis(r)).map(recRow).join('')||'<p class="muted">研究炼金类条目后，这里会出现配方。</p>'}</div>`,
+  content:`<div class="sec"><h3>溶解物质 <small>单次溶解耗 1 水位，批量按剩余精华容量投料</small></h3>
  <div class="card">${items.length?items.map(k=>`<div class="dis">${itemIcon(k)}<div><b>${IT[k].n}</b> <small>×${inv(k)}</small><div class="chips" style="margin-top:4px">${S.scanned[k]?Object.keys(IT[k].a).map(a=>`<span class="chip">${aspIcon(a)}<b>${IT[k].a[a]}</b></span>`).join(''):'<small>元素未知，先用探知仪扫描</small>'}</div></div><div class="row"><button class="btn sm" data-act="dis" data-id="${k}" data-all="0">×1</button><button class="btn sm" data-act="dis" data-id="${k}" data-all="1">全部</button></div></div>`).join(''):'<p class="muted">背包是空的。</p>'}</div></div>
  <div class="sec"><h3>坩埚精华 <small>用于炼金，蒸馏入罐后可供注魔</small></h3><div class="card">${ess.length?ess.map(a=>essenceRow(a,S.ess[a])).join(''):'<p class="muted">还没有精华。把物品溶解进坩埚。</p>'}
  ${S.has.distiller?'<div class="row lab-links"><button class="btn sm" data-act="tab" data-id="distill">前往精华蒸馏</button></div>':''}</div></div>
@@ -2618,8 +3303,77 @@ function vOuter(){
 }
 const golemIcon=id=>objectIcon(GT[id].sprite,GT[id].c,GT[id].n[0]);
 function vGolem(){
- return `<section class="sec"><h3>制造魔像</h3><p class="lead">核心在坩埚中激活。高级躯体可以负责低阶任务。</p><div class="golem-builds" id="golem-builds"></div></section>
- <section class="sec"><h3>工作安排</h3><div class="card" id="golem-jobs"></div></section>`;
+ const builds='<section class="sec"><h3>制造魔像</h3><p class="lead">核心在坩埚中激活。魔像等级决定可委托的制作层数上限。</p><div class="golem-builds" id="golem-builds"></div></section>';
+ const jobs=`<section class="sec"><h3>工作安排</h3>
+ ${S.golems.length?`<div class="row workshop-links"><small>在制作页面选配方下单。魔像会按需采集和加工缺少的材料。</small>
+ ${TABS.filter(tab=>['craft','arcane','cru','inf'].includes(tab.id)&&tab.ok()).map(tab=>
+  `<button class="btn sm" data-act="tab" data-id="${tab.id}">${tab.n}</button>`).join('')}</div>`:''}
+ <div class="card" id="golem-jobs"></div></section>`;
+ return S.golems.length?jobs+builds:builds+jobs;
+}
+function workshopOrderStatus(g,step){
+ if(step.kind==='wait')return `等待 · ${step.reason||'缺少材料'}`;
+ const [current,total]=orderActionProgress(g,step);
+ const progress=current>0&&total>0?` · ${Math.floor(current/total*100)}%`:'';
+ if(step.kind==='supply')return step.reason+progress;
+ if(step.kind==='gather'){
+  const site=SITES[GTASK[step.item]?.site];
+  return `采集${IT[step.item].n}${site?` · ${site.n}`:''}${progress}`;
+ }
+ if(step.depth===1)return `制作成品 · ${step.recipe.n}${progress}`;
+ const station=step.recipe.g==='smelt'?STATIONS.furnace:STATIONS[step.recipe.st];
+ return `补料 · ${station} · ${step.recipe.n}${progress}`;
+}
+function updateWorkerOrders(){
+ for(const el of document.querySelectorAll('#golem-jobs [data-worker-order]')){
+  const g=S.golems[Number(el.dataset.workerOrder)];
+  if(!g?.order)continue;
+  const order=g.order,r=RECIPES[order.recipe],step=orderStep(g,r);
+  const [current,total]=step.kind==='craft'&&step.depth===1?orderActionProgress(g,step):[0,1];
+  const meter=el.querySelector('progress');
+  meter.value=order.delivered+(total>0?orderYield(r)*current/total:0);
+  updateText(el.querySelector('small'),`已交付 ${order.delivered}/${order.total}`);
+  const status=el.querySelector('p');
+  status.className=step.kind==='wait'?'why':'muted';
+  updateText(status,workshopOrderStatus(g,step));
+ }
+}
+function updateOrderViews(){
+ if(U.tab==='golem')updateWorkerOrders();
+ else if($('#workbench-orders'))updateWorkbenchOrders();
+}
+function renderGolemWorkshops(){
+ for(const panel of document.querySelectorAll('#golem-jobs [data-golem-workshop]')){
+  const i=Number(panel.dataset.golemWorkshop);
+  const g=S.golems[i];
+  const devices=Object.entries(ORDER_STATIONS);
+  const installed=devices.filter(([id])=>g.workshop?.[id]).map(([,device])=>device.name);
+  updateText(panel.querySelector('summary small'),installed.length?installed.join('、'):'待安装');
+  const contents=panel.querySelector('.golem-workshop-devices');
+  const focused=contents.contains(document.activeElement)?document.activeElement:null;
+  const stocks=[['ess','坩埚精华'],['distilled','罐装精华']].map(([stock,label])=>{
+   const buttons=Object.entries(g.workshop?.[stock]||{}).filter(([,count])=>count>0).map(([id,count])=>
+    `<button class="btn sm" data-act="transcribeOrderEssence" data-i="${i}" data-stock="${stock}" data-id="${id}"
+     aria-label="将 ${count} 份${A[id].f}${label}转为研究灵感">${aspIcon(id)}${A[id].f} ×${count}</button>`).join('');
+   return buttons?`<div class="golem-workshop-essence"><small>${label}转为研究灵感</small>${buttons}</div>`:'';
+  }).join('');
+  setHtml(contents,devices.map(([id,device])=>{
+   const mounted=g.workshop?.[id],count=inv(device.item);
+   const recipe=RECIPES[device.recipe];
+   const tab=recipe&&TABS.find(entry=>entry.id===recipeTab(recipe));
+   const source=recipe?`${STATIONS[recipeCatalogStation(recipe)]}制作`:'';
+   const requirement=recipe?.req&&!S.res[recipe.req]?` · 需研究「${RSD[recipe.req].n}」`:'';
+   const info=mounted?'已安装':`背包 ${count} 台${count?'':` · ${source}${requirement}`}`;
+   return `<div class="golem-workshop-device">${itemIcon(device.item,'s')}<b>${device.name}</b><small>${info}</small>
+    ${mounted?'':count?`<button class="btn sm" data-act="installOrderStation" data-i="${i}" data-id="${id}" aria-label="为${GT[g.t].n} ${i+1} 安装${device.name}">安装</button>`:
+     recipe&&rvis(recipe)&&tab?.ok()?`<button class="btn sm" data-act="openRecipe" data-id="${recipe.id}" aria-label="查看${recipe.n}配方">查看配方</button>`:''}</div>`;
+  }).join('')+stocks);
+  if(focused&&!focused.isConnected){
+   const replacement=[...contents.querySelectorAll('button')].find(button=>
+    button.dataset.act===focused.dataset.act&&button.dataset.id===focused.dataset.id&&button.dataset.stock===focused.dataset.stock);
+   (replacement||panel.querySelector('summary')).focus({preventScroll:true});
+  }
+ }
 }
 function renderGolems(){
  setHtml($('#golem-builds'),Object.entries(GT).map(([id,g])=>{
@@ -2627,7 +3381,7 @@ function renderGolems(){
   const enough=Object.entries(g.cost).every(([item,n])=>inv(item)>=n);
   const ok=unlocked&&enough&&S.golems.length<GOLEM_LIMIT;
   const jobs=Object.entries(GTASK).filter(([,job])=>job.rank===g.rank).map(([item])=>IT[item].n);
-  return `<div class="rec">${golemIcon(id)}<div><b class="nm">${g.n}</b><p>${g.rank} 级 · 速度 ×${g.m}</p>
+  return `<div class="rec">${golemIcon(id)}<div><b class="nm">${g.n}</b><p>${g.rank} 级 · 委托上限 ${g.rank} 层 · 速度 ×${g.m}</p>
    <p>可新增采集 ${jobs.join('、')}</p>
    ${unlocked?`<div class="need">${Object.entries(g.cost).map(([item,n])=>needI(item,n)).join('')}</div>`:
     `<p class="why">需要研究「${RSD[g.res].n}」</p>`}</div>
@@ -2635,18 +3389,26 @@ function renderGolems(){
  }).join(''));
  setHtml($('#golem-jobs'),S.golems.map((g,i)=>{
   const type=GT[g.t],job=g.task;
+  const order=g.order,recipe=order&&RECIPES[order.recipe];
   const locked=golemLock(g.t,job);
   const tainted=job!==null&&S.taint.includes(GTASK[job].site);
-  const status=locked||(tainted?'地点已污染，暂停采集':`${golemRate(g.t,job).toFixed(2)} 个/秒 · ${SITES[GTASK[job].site].n}`);
+  const status=order?'正在执行制作委托':locked||(tainted?'地点已污染，暂停采集':`${golemRate(g.t,job).toFixed(2)} 个/秒 · ${SITES[GTASK[job].site].n}`);
   const opts=Object.keys(GTASK).filter(id=>id===job||GTASK[id].rank<=type.rank).map(id=>{
    const lock=golemLock(g.t,id);
    return `<option value="${id}" ${id===job?'selected':''} ${lock?'disabled':''}>${IT[id].n}${lock?' · '+lock:''}</option>`;
   }).join('');
   return `<div class="golem-job">${golemIcon(g.t)}
-   <div><b>${type.n}</b><p class="${tainted||locked&&job?'why':'muted'}">${status}</p></div>
-   <label>任务 <select data-golem-job="${i}" aria-label="${type.n} ${i+1} 的采集任务"><option value="" ${job===null?'selected':''}>待命</option>${opts}</select></label>
-   <button class="btn sm" data-act="gdel" data-i="${i}">解散</button></div>`;
+   <div><b>${type.n} ${i+1}</b><p class="muted">${type.rank} 级 · 委托上限 ${type.rank} 层</p>
+   <p class="${!order&&(tainted||locked&&job)?'why':'muted'}">${status}</p></div>
+   <label>${order?'委托结束后':'采集任务'} <select data-golem-job="${i}" aria-label="${type.n} ${i+1} 的采集任务" ${order?'disabled':''}><option value="" ${job===null?'selected':''}>待命</option>${opts}</select></label>
+   ${order?`<button class="btn sm" data-act="cancelGolemOrder" data-i="${i}">取消委托</button>
+   <div class="worker-order" data-worker-order="${i}">${recipeIcon(recipe)}<b>${recipe.n} · ${orderRank(recipe)} 层</b><small></small>
+   <progress max="${order.total}" value="${order.delivered}" aria-label="${recipe.n}制作进度"></progress><p></p></div>`
+   :`<button class="btn sm" data-act="gdel" data-i="${i}">解散</button>`}
+   <details class="golem-workshop" data-golem-workshop="${i}"><summary>工坊设备 <small></small></summary><div class="golem-workshop-devices"></div></details></div>`;
  }).join('')||'<p class="muted">先制造一只魔像，再为它分配采集任务。</p>');
+ renderGolemWorkshops();
+ updateWorkerOrders();
 }
 
 /* ---------- 渲染：侧栏 ---------- */
@@ -2860,6 +3622,15 @@ function tick(){
  }
  /* 魔像 */
  for(const g of S.golems){
+  if(g.workshop?.heat>0)g.workshop.heat--;
+  if(g.order){
+   const recipe=RECIPES[g.order.recipe];
+   if(workGolemOrder(g,recipe)){
+    inventoryDirty=true;
+    wandDirty=true;
+   }
+   continue;
+  }
   if(golemLock(g.t,g.task)||S.taint.includes(GTASK[g.task].site))continue;
   g.acc+=golemRate(g.t,g.task);
   if(g.acc<1)continue;
@@ -2888,6 +3659,7 @@ function tick(){
  else if(visChanged)updateWand();
  if(mainDirty)renderMain();
  else updateMainMeters();
+ updateOrderViews();
  renderHud();
  if(S.tk%10===0)save();
 }
@@ -2898,7 +3670,9 @@ if(!S.log.length)msg('欢迎，学徒。先去「世界」砍几棵树。','gold
 render();
 setInterval(tick,1000);
 window.addEventListener('pagehide',()=>save());
-globalThis.__arc={get S(){return S},ACT,render,tick,R,RS,TILES,Q,A,IT,NB,GT,GTASK,RODS,canRecipe,canCombine,EQ,disc,has,isEq,equipItem,eqVal,ichorSet};
+globalThis.__arc={get S(){return S},ACT,render,tick,R,RS,TILES,Q,A,IT,NB,GT,GTASK,RODS,canRecipe,canCombine,EQ,disc,has,isEq,equipItem,eqVal,ichorSet,
+ orderRank,orderYield,orderDuration,orderShortages,golemCanOrder,orderStep,orderActionProgress,ORDER_STATIONS,
+ createGolemOrder,cancelGolemOrder,decodeSave,MAX_ORDER_QUANTITY};
 })();
 </script>
 
